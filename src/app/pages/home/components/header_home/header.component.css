@@ -1,8 +1,9 @@
 .container_header {
     display: flex;
     justify-content: space-around;
+    margin: auto;
     height: 80px;
-    padding: 45px 0;
+    padding: 40px 20px;
 }
 
 .container_logo {
@@ -12,12 +13,8 @@
 }
 
 .container_logo img {
-    width: 10%;
+    width: 40%;
     border-radius: 10px;
-}
-
-.container_logo h1 {
-    font-size: calc(var(--font_size_padrao) + 0.3rem);
 }
 
 .container_nav {
@@ -36,14 +33,17 @@
 .links {
     text-decoration: none;
     color: var(--cor_preto);
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .button_login {
-    padding: 12px 16px;
+    padding: 8px 16px;
     border-radius: 7px;
     border: none;
     background-color: var(--cor_padrao);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: calc(var(--font_size_padrao) - 0.29rem);
     color: var(--cor_branco);
+    font-weight: 500;
 }
