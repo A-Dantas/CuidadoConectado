@@ -1,19 +1,28 @@
+header {
+    width: 100%;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    z-index: 99;
+}
+
 .container_header {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: auto;
-    height: 80px;
-    padding: 40px 20px;
 }
 
 .container_logo {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .container_logo img {
-    width: 40%;
+    width: 25%;
     border-radius: 10px;
 }
 
@@ -32,13 +41,14 @@
 
 .links {
     text-decoration: none;
-    color: var(--cor_preto);
+    color: var(--cor_branco);
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
 }
 
 .button_login {
-    padding: 8px 16px;
+    padding: 8px 12px;
     border-radius: 7px;
     border: none;
     background-color: var(--cor_padrao);
@@ -46,4 +56,5 @@
     font-size: calc(var(--font_size_padrao) - 0.29rem);
     color: var(--cor_branco);
     font-weight: 500;
+    letter-spacing: 0.04rem;
 }
