@@ -1,38 +1,26 @@
 main {
     width: 100vw;
     height: 100vh;
-    
 }
 
 .home {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    margin: auto;
-    padding-top: 150px;
+    padding-top: 155px;
     padding-left: 32px;
     padding-right: 32px;
-    gap: 80px;
     background: linear-gradient(
         to bottom,
         var(--cor_gradient_1),
         var(--cor_gradient_2),
-        var(--cor_gradient_3),
-        var(--cor_gradient_4),
-        var(--cor_gradient_5),
-        var(--cor_gradient_6),
-        var(--cor_gradient_7));
+        var(--cor_gradient_4), transparent);
 }
 
-.section_content {
-    width: 1200px;
-    width: 100;
+.section_content_home {
+    width: 1400px;
     display: flex;
     justify-content: space-between;
     margin: auto;
     align-items: center;
-    gap: 100px;
-    padding-bottom: 6.3rem;
+    padding-bottom: 10.3rem;
 }
 
 .container_texto {
@@ -57,7 +45,6 @@ main {
 }
 
 span {
-    color: cyan;
     font-weight: 600;
 }
 

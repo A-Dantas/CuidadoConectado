@@ -8,7 +8,7 @@ header {
 
 .container_header {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     display: flex;
     justify-content: space-between;
     margin: auto;
@@ -22,7 +22,7 @@ header {
 }
 
 .container_logo img {
-    width: 25%;
+    width: 20%;
     border-radius: 10px;
 }
 
@@ -42,18 +42,18 @@ header {
 .links {
     text-decoration: none;
     color: var(--cor_branco);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 400;
     letter-spacing: 0.04rem;
 }
 
 .button_login {
-    padding: 8px 12px;
-    border-radius: 7px;
-    border: none;
+    padding: 0.58rem 0.8rem;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.481);
+    font-size: calc(var(--font_size_padrao) - 0.05rem);
     background-color: var(--cor_padrao);
     cursor: pointer;
-    font-size: calc(var(--font_size_padrao) - 0.29rem);
     color: var(--cor_branco);
     font-weight: 500;
     letter-spacing: 0.04rem;
