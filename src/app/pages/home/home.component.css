@@ -1,10 +1,11 @@
 main {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .home {
-    padding-top: 155px;
+    padding-top: 120px;
     padding-left: 32px;
     padding-right: 32px;
     background: linear-gradient(
@@ -15,12 +16,14 @@ main {
 }
 
 .section_content_home {
-    width: 1400px;
+    width: 100;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     margin: auto;
     align-items: center;
     padding-bottom: 10.3rem;
+    gap: 40px;
 }
 
 .container_texto {
@@ -29,12 +32,11 @@ main {
     display: flex;
     flex-direction: column;
     color: var(--cor_branco);
-    padding-left: 0.3rem;
 }
 
 .container_texto h1 {
     margin-bottom: 4rem;
-    font-size: calc(var(--font_size_padrao) + 3.5rem);
+    font-size: clamp(2.5rem, 5vw, calc(var(--font_size_padrao) + 3.5rem));
 }
 
 .container_texto p {
@@ -51,9 +53,174 @@ span {
 .container_img {
     width: 40%;
     display: flex;
+    justify-content: center;
 }
 
 .container_img img {
     width: 100%;
+    height: auto;
     border-radius: 1rem;
+    object-fit: cover;
+}
+
+/* Benefícios */
+
+.beneficios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    color: black;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding: 0 20px;
+    gap: 60px;
+}
+
+.titulo_beneficios {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    line-height: 2.8rem;
+    text-align: center;
+}
+
+
+.titulo_beneficios h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+}
+
+.titulo_beneficios p {
+    font-size: 1.5rem;
+    max-width: 48rem;
+    width: 100%;
+}
+
+.container_cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(246, 241, 241, 0.083);
+    color: black;
+    padding: 20px 25px;
+    box-shadow: 0px 2px 8px rgba(146, 130, 147, 0.815);
+    border-radius: 1rem;
+    gap: 30px;
+    min-height: 320px;
+}
+
+.card:hover {
+    outline: 2px solid rgb(44, 196, 107);
+    box-shadow: none;
+}
+
+.icon {
+    width: 62px;
+    height: 64px;
+}
+
+#heart {
+    width: 100%;
+    margin: auto;
+    background-image: linear-gradient(to bottom, #FF6B8B, #FF3B5F);
+    border-radius: 0.6rem;
+}
+
+#user {
+    width: 100%;
+    margin: auto;
+    background: linear-gradient(305deg, #0763ecc8, #0033CC);
+    border-radius: 0.6rem;
+}
+
+#protect {
+    width: 100%;
+    margin: auto;
+    background-image: linear-gradient(305deg, #2ca07f, #2ECC71);
+    border-radius: 0.6rem;
+}
+
+.card_texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card_texto h3 {
+    font-size: 1.5rem;
+    /* height: 55%; */
+}
+
+.card_texto p {
+    display: flex;
+    align-items: center;
+    height: 65%;
+    text-align: justify;
+}
+
+
+@media (max-width: 1300px) {
+    .container_cards {
+        /* Assim que a tela for menor que 1100px, vira 1 coluna */
+        grid-template-columns: 1fr; 
+    }
+}
+
+@media (max-width: 900px) {
+    /* Ajusta layout da Home para Coluna (imagem abaixo do texto) */
+    .section_content_home {
+        flex-direction: column;
+        padding-bottom: 5rem;
+        text-align: center; /* Centraliza texto no mobile */
+    }
+
+    .container_texto {
+        align-items: center; /* Centraliza itens flex */
+        max-width: 100%;
+    }
+
+    .container_texto p {
+        text-align: center; /* Opcional: leitura melhor em mobile */
+    }
+
+    .container_img {
+        width: 80%; /* Imagem maior no mobile */
+        margin-top: 40px;
+    }
+    
+    .home {
+        padding-top: 100px; /* Menos espaço no topo */
+    }
+}
+
+@media (max-width: 600px) {
+    /* Ajustes finos para celulares pequenos */
+    .titulo_beneficios h2 {
+        line-height: 1.2;
+    }
+    
+    .titulo_beneficios p {
+        font-size: 1.1rem;
+    }
+
+    .container_cards {
+        /* No celular, 1 coluna por vez */
+        grid-template-columns: 1fr; 
+    }
+    
+    .card_texto h3 {
+        font-size: 1.3rem;
+    }
 }

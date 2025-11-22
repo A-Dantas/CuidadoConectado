@@ -8,10 +8,10 @@
     --cor_gradient_1: #0c938e;
     --cor_gradient_2: #0b9298;
     --cor_gradient_3: #1e9bace5;
-    --cor_gradient_7: rgb(27, 119, 210);
-    --cor_gradient_4: #209fbfc8;
-    --cor_gradient_6: #71bdf0;
+    --cor_gradient_4: #209fbf98;
     --cor_gradient_5: #1ca8e8;
+    --cor_gradient_6: #71bdf08a;
+    --cor_gradient_7: rgba(27, 119, 210, 0);
 }
 
 * {
