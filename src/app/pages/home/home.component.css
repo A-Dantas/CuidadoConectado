@@ -2,12 +2,13 @@ main {
     width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
 }
 
 .home {
-    padding-top: 120px;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-top: 9rem;
     background: linear-gradient(
         to bottom,
         var(--cor_gradient_1),
@@ -16,14 +17,14 @@ main {
 }
 
 .section_content_home {
-    width: 100;
+    width: 100%;
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
     margin: auto;
     align-items: center;
     padding-bottom: 10.3rem;
-    gap: 40px;
+    gap: 2.5rem;
 }
 
 .container_texto {
@@ -73,10 +74,9 @@ span {
     max-width: 1200px;
     margin: auto;
     color: black;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    padding: 0 20px;
     gap: 60px;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
 }
 
 .titulo_beneficios {
@@ -96,7 +96,7 @@ span {
 }
 
 .titulo_beneficios p {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 1vw, 2.5rem);
     max-width: 48rem;
     width: 100%;
 }
@@ -160,14 +160,126 @@ span {
 
 .card_texto h3 {
     font-size: 1.5rem;
-    /* height: 55%; */
 }
 
 .card_texto p {
     display: flex;
     align-items: center;
     height: 65%;
-    text-align: justify;
+}
+
+/* Serviços */
+
+.servicos {
+    max-width: 100%;
+    background-image:
+    linear-gradient(to top, rgba(112, 181, 176, 0), rgba(112, 181, 176, 0.0) 0%, rgba(155, 223, 219, 0.607) 50%, rgba(255, 254, 254, 0.117) 100%),
+    url('/mnt/data/55246.png');
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 10rem;
+}
+
+.container_content_servicos {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 6rem;
+    gap: 60px;
+}
+
+.servicos_titulo {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.servicos_titulo h2 {
+    font-size: clamp(2.8rem, 4vw, 3rem);
+    line-height: 1.7;
+    font-weight: 700;
+    color: var(--cor_gradient_3);
+}
+
+.servicos_titulo p {
+    font-size: clamp(1.4rem, 1vw, 2rem);
+    width: 60%;
+    text-align: center;
+    color: rgb(76, 145, 148);
+}
+
+.container_cards_servicos {
+    display: grid;
+    grid-template-columns: repeat(3, 405px);
+    gap: 2rem;
+    justify-content: center;
+}
+
+.servicos_card {
+    width: 100%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background: #fff;
+}
+
+.container_servico_img {
+    width: 100%;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.servicos_texto {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.servicos_texto h3 {
+    font-size: clamp(1.25rem, 1vw, 2rem);
+    font-weight: 700;
+    line-height: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.servicos_texto p {
+    font-size: clamp(1.2rem, 1vw, 2rem);
+    color: rgb(75 85 99);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+#card_1 {
+    background-image: url("/img/servicos/servico_img_1.jpg");
+}
+
+#card_2 {
+    background-image: url("/img/servicos/servico_img_2.jpg");
+}
+
+#card_3 {
+    background-image: url("/img/servicos/servico_img_3.jpg");
+}
+
+#card_4 {
+    background-image: url("/img/servicos/servico_img_4.jpg");
+}
+
+#card_5 {
+    background-image: url("/img/servicos/servico_img_5.jpg");
+}
+
+#card_6 {
+    background-image: url("/img/servicos/servico_img_6.jpg");
+}
+
+
+.rodape {
+    margin: 10rem;
 }
 
 

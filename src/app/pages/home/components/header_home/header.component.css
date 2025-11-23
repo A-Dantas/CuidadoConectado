@@ -5,6 +5,7 @@ header {
     top: 0;
     z-index: 99;
     overflow-x: hidden;
+    background-color: black;
 }
 
 .container_header {
