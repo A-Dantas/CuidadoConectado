@@ -45,6 +45,7 @@ main {
     margin-top: 10px;
     line-height: 1.8rem;
     font-size: calc(var(--font_size_padrao) + 0.2rem);
+    padding: 0 13px;
 }
 
 span {
@@ -212,7 +213,7 @@ span {
 
 .container_cards_servicos {
     display: grid;
-    grid-template-columns: repeat(3, 405px);
+    grid-template-columns: repeat(3, 400px);
     gap: 2rem;
     justify-content: center;
 }
@@ -223,20 +224,24 @@ span {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     background: #fff;
+    max-height: 390px;
 }
 
 .container_servico_img {
     width: 100%;
-    height: 230px;
+    height: 200px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .servicos_texto {
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    line-height: 1.5rem;
+    padding: 6%;
+    min-height: 180px;
 }
 
 .servicos_texto h3 {
@@ -244,6 +249,12 @@ span {
     font-weight: 700;
     line-height: 1.75rem;
     margin-bottom: 0.5rem;
+    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-content: center;
+    width: 80%;
 }
 
 .servicos_texto p {
@@ -277,48 +288,117 @@ span {
     background-image: url("/img/servicos/servico_img_6.jpg");
 }
 
+/* Contato */
+.container_contato {
+    width: 100%;
+}
 
-.rodape {
-    margin: 10rem;
+.contato_content {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.contato_texto {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.contato_texto h2 {
+    font-size: clamp(2.1rem, 2.8vw, 3rem);
+}
+
+.contato_texto p {
+    font-size: clamp(1.26rem, 1vw, 3rem);
+    line-height: 2rem;
+}
+
+.contato_texto span {
+    font-weight: 600;
+
+}
+
+button {
+  position: relative;
+  display: inline-block;
+  margin: 15px;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--cor_preto);
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid var(--cor_gradient_4);
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 0 var(--cor_gradient_4);
+}
+
+button:hover {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 var(--cor_gradient_3);
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+/* Rodapé */
+.container_rodape {
+    width: 100%;
+
+    background: linear-gradient(to top, var(--cor_gradient_1),   var(--cor_gradient_2), var(--cor_gradient_4), transparent);
+    margin-top: 10rem;
+}
+
+.rodape_content {
+    width: 100%;
 }
 
 
 @media (max-width: 1300px) {
     .container_cards {
-        /* Assim que a tela for menor que 1100px, vira 1 coluna */
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 900px) {
-    /* Ajusta layout da Home para Coluna (imagem abaixo do texto) */
     .section_content_home {
         flex-direction: column;
         padding-bottom: 5rem;
-        text-align: center; /* Centraliza texto no mobile */
+        text-align: center;
     }
 
     .container_texto {
-        align-items: center; /* Centraliza itens flex */
+        align-items: center;
         max-width: 100%;
     }
 
     .container_texto p {
-        text-align: center; /* Opcional: leitura melhor em mobile */
+        text-align: center;
     }
 
     .container_img {
-        width: 80%; /* Imagem maior no mobile */
+        width: 80%;
         margin-top: 40px;
     }
     
     .home {
-        padding-top: 100px; /* Menos espaço no topo */
+        padding-top: 100px;
     }
 }
 
 @media (max-width: 600px) {
-    /* Ajustes finos para celulares pequenos */
     .titulo_beneficios h2 {
         line-height: 1.2;
     }
@@ -328,11 +408,21 @@ span {
     }
 
     .container_cards {
-        /* No celular, 1 coluna por vez */
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
+        width: 80%;
+    }
+    
+    .container_cards_servicos {
+        grid-template-columns: 1fr;
+        width: 80%;
+    }
+
+    .container_content_servicos {
+        align-items: center;
     }
     
     .card_texto h3 {
         font-size: 1.3rem;
     }
+
 }
