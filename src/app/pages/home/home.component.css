@@ -37,14 +37,15 @@ main {
 
 .container_texto h1 {
     margin-bottom: 4rem;
-    font-size: clamp(2.5rem, 5vw, calc(var(--font_size_padrao) + 3.5rem));
+    font-size: clamp(5.4rem, 1vw, 6rem);
+    line-height: 6rem;
 }
 
 .container_texto p {
+    font-size: clamp(1rem, 1.2vw, 2rem);
     text-align: justify;
     margin-top: 10px;
-    line-height: 1.8rem;
-    font-size: calc(var(--font_size_padrao) + 0.2rem);
+    line-height: 2rem;
     padding: 0 13px;
 }
 
@@ -76,8 +77,7 @@ span {
     margin: auto;
     color: black;
     gap: 60px;
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    padding-top: 12rem;
 }
 
 .titulo_beneficios {
@@ -97,7 +97,7 @@ span {
 }
 
 .titulo_beneficios p {
-    font-size: clamp(1.3rem, 1vw, 2.5rem);
+    font-size: clamp(1.5rem, 1vw, 2.5rem);
     max-width: 48rem;
     width: 100%;
 }
@@ -156,17 +156,17 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    gap: 40px;
 }
 
 .card_texto h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 1vw, 1.5rem);
 }
 
 .card_texto p {
+    font-size: clamp(1rem, 1vw, 1.5rem);
     display: flex;
     align-items: center;
-    height: 65%;
 }
 
 /* Serviços */
@@ -178,7 +178,7 @@ span {
     url('/mnt/data/55246.png');
     background-size: cover;
     background-position: center;
-    padding-bottom: 10rem;
+    padding-top: 10rem;
 }
 
 .container_content_servicos {
@@ -216,6 +216,7 @@ span {
     grid-template-columns: repeat(3, 400px);
     gap: 2rem;
     justify-content: center;
+    margin: auto;
 }
 
 .servicos_card {
@@ -240,7 +241,7 @@ span {
     flex-direction: column;
     justify-content: space-evenly;
     line-height: 1.5rem;
-    padding: 6%;
+    padding: 5%;
     min-height: 180px;
 }
 
@@ -258,10 +259,9 @@ span {
 }
 
 .servicos_texto p {
-    font-size: clamp(1.2rem, 1vw, 2rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     color: rgb(75 85 99);
     font-weight: 400;
-    font-size: 1rem;
 }
 
 #card_1 {
@@ -291,6 +291,7 @@ span {
 /* Contato */
 .container_contato {
     width: 100%;
+    padding-top: 10rem;
 }
 
 .contato_content {
@@ -356,7 +357,6 @@ button:active {
 /* Rodapé */
 .container_rodape {
     width: 100%;
-
     background: linear-gradient(to top, var(--cor_gradient_1),   var(--cor_gradient_2), var(--cor_gradient_4), transparent);
     margin-top: 10rem;
 }
@@ -365,10 +365,28 @@ button:active {
     width: 100%;
 }
 
-
 @media (max-width: 1300px) {
     .container_cards {
         grid-template-columns: 1fr;
+        width: 60%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .container_cards_servicos {
+        grid-template-columns: 1fr;
+        width: 60%;
+        margin: auto;
+    }
+
+    .container_servico_img {
+        
+    }
+
+    .servicos_card {
+        height: 100%;
     }
 }
 
