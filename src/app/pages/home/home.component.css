@@ -288,11 +288,6 @@ span {
 /* Contato */
 .container_contato {
     width: 100%;
-<<<<<<< HEAD
-    padding-top: 10rem;
-=======
-    padding-bottom: 10rem;
->>>>>>> 68eaedebd6f3176f9e0e7ab4e6c1fc85a167d6d4
 }
 
 .contato_content {
@@ -356,143 +351,37 @@ button:active {
 }
 
 /* Rodapé */
-.container_rodape {
+.container_footer {
     width: 100%;
-    background: linear-gradient(to top, var(--cor_gradient_1),   var(--cor_gradient_2), var(--cor_gradient_4), transparent);
-    display: flex;
-    flex-direction: column;
-    padding-top: 5rem;
+    background-color: #0033CC;
 }
 
-.rodape_content {
+.footer_conteudo {
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    /* background-color: #0033CC; */
-    gap: 40px;
-    position: relative;
-    padding-bottom: 2rem;
-}
-
-<<<<<<< HEAD
-=======
-.rodape_content::after {
-    content: "";
-    display: block;
-    height: 1px;
-    width: 80%;
-    background-color: rgb(255, 255, 255);
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.rodape_content_1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.rodape_logo {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-}
-
-.rodape_logo img {
-    width: 100%;
-}
-
-.container_rodape_icones {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.rodape_icones_img {
-    width: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    border-radius: 10px;
-
-}
-
-.rodape_icones_img img {
-    width: 100%;
-}
-
-.rodape_contato {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--cor_branco);
-}
-
-.rodape_contato h4 {
-    font-size: 1rem;
-}
-
-.rodape_contato p {
-    font-size: 0.88rem;
-    font-weight: 700;
-}
-
-.icons_content_1 {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.container_back_icons {
-    background-color: #ffffff;
-    border-radius: 50%;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container_back_icons img {
-    width: 100%;
-}
-
-.rodape_content_2 {
-    width: 100%;
+    max-width: 1300px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    background-color: papayawhip;
 }
 
-.content_lista_rodape {
-    display: flex;
-    align-items: center;
+.footer_contato {
+    
 }
 
-.content_lista_rodape ul {
+.footer_ico_telefone {
+    width: 10%;
+}
+
+.footer_ico_telefone img {
     width: 100%;
 }
 
-.container_copy {
-    display: flex;
-    justify-content: center;
-    padding: 0.5%;
-    color: white;
-    font-size: 0.8rem;
+.footer_copy {
+    grid-column: 1 / -1;
 }
 
 
 
-
-
-
->>>>>>> 68eaedebd6f3176f9e0e7ab4e6c1fc85a167d6d4
 @media (max-width: 1300px) {
     .container_cards {
         grid-template-columns: 1fr;
