@@ -37,7 +37,7 @@ main {
 
 .container_texto h1 {
     margin-bottom: 4rem;
-    font-size: clamp(5.4rem, 1vw, 6rem);
+    font-size: clamp(3.5rem, 1vw, 4rem);
     line-height: 6rem;
 }
 
