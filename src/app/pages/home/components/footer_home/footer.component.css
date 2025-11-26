@@ -1,0 +1,139 @@
+/* Rodapé */
+footer {
+    padding-top: 10rem;
+}
+
+.container_footer {
+    width: 100%;
+    padding-top: 4rem;
+    background: linear-gradient(
+        to top,
+        #0c938e 0%,
+        #0b9298 25%,
+        #1e9bace5 50%,
+        #209fbf98 75%,
+        rgba(255, 255, 255, 0.4) 85%,
+        rgba(255, 255, 255, 0.1) 95%,
+        transparent 100%);
+}
+
+.footer_conteudo {
+    width: 100%;
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: auto;
+    padding: 1.5rem 0;
+    justify-items: center;
+}
+
+.footer_container_contato {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer_contato {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer_logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.footer_logo img {
+    width: 100%;
+}
+
+.footer_telefone {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.footer_telefone_ico {
+    width: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 0.1rem;
+}
+
+.footer_telefone_ico img {
+    width: 100%;
+}
+
+.footer_telefone_texto {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.footer_telefone_texto h4 {
+    font-size: 0.9rem;
+    color: white;
+}
+
+.footer_telefone_texto p {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.footer_redesocial {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    gap: 2rem;
+}
+
+.footer_redesocial_icon {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.footer_redesocial_icon img {
+    width: 100%;
+}
+
+.footer_links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.8rem;
+}
+
+.footer_links a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer_copy {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-column: 1 / -1;
+    border-top: 1px solid white;
+    padding-top: 10px;
+    padding-bottom: 0.rem;
+    width: 70%;
+    height: 100%;
+    margin-top: 1rem;
+    color: white;
+}
