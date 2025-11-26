@@ -231,6 +231,7 @@ span {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    object-fit: fill;
 }
 
 .servicos_texto {
@@ -243,7 +244,7 @@ span {
 }
 
 .servicos_texto h3 {
-    font-size: clamp(1.25rem, 1vw, 2rem);
+    font-size: clamp(1.35rem, 1vw, 2rem);
     font-weight: 700;
     line-height: 1.75rem;
     margin-bottom: 0.5rem;
@@ -256,33 +257,9 @@ span {
 }
 
 .servicos_texto p {
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(1.09rem, 1vw, 1.2rem);
     color: rgb(75 85 99);
     font-weight: 400;
-}
-
-#card_1 {
-    background-image: url("/img/servicos/servico_img_1.jpg");
-}
-
-#card_2 {
-    background-image: url("/img/servicos/servico_img_2.jpg");
-}
-
-#card_3 {
-    background-image: url("/img/servicos/servico_img_3.jpg");
-}
-
-#card_4 {
-    background-image: url("/img/servicos/servico_img_4.jpg");
-}
-
-#card_5 {
-    background-image: url("/img/servicos/servico_img_5.jpg");
-}
-
-#card_6 {
-    background-image: url("/img/servicos/servico_img_6.jpg");
 }
 
 /* Contato */
