@@ -1,11 +1,7 @@
 /* Rodapé */
-footer {
-    padding-top: 2rem;
-}
-
 .container_footer {
     width: 100%;
-    padding-top: 12rem;
+    padding-top: 15rem;
     padding-bottom: 0.7rem;
     background: linear-gradient(
         to top,
@@ -102,7 +98,7 @@ footer {
     gap: 1rem;
 }
 
-.footer_redesocial_icon {
+.footer_redesocial_icon a {
     width: 25px;
     height: 25px;
     display: flex;
@@ -259,11 +255,8 @@ footer {
         grid-template-columns: 1fr;
         padding: 1rem 0.5rem; 
     }
-
-    .footer_logo {
-        width: 10%; 
-    }
-    
+  
+       
     .footer_links {
         font-size: 0.7rem; 
         gap: 10px;
