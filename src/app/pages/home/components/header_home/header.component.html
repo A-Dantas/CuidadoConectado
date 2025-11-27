@@ -1,7 +1,8 @@
-<header>
+<header [class.menu-white]="menuBranco">
     <div class="container_header">
         <div class="container_logo">
-            <img src="img/logo/logo_branco_2.png" alt="" />
+            <img 
+                [src]="menuBranco ? 'img/logo/logo_verde.png' : 'img/logo/logo_branco_2.png'" alt="Logo">
         </div>
         <div class="container_nav">
             <nav class="nav">

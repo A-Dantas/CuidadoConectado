@@ -1,13 +1,54 @@
 header {
-    width: 100%;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    z-index: 99;
-    overflow-x: hidden;
-    background-color: transparent;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  overflow-x: hidden;
+  background-color: transparent;
 }
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image: linear-gradient(
+    to right,
+    #ffffff,
+    #fff,
+    #fff,
+    transparent
+  );
+
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+}
+
+header.menu-white::before {
+  opacity: 1;
+}
+
+header.menu-white {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.7s ease-in-out;
+
+}
+
+
+header.menu-white .links,
+header.menu-white .button_login {
+  color: black;
+  font-weight: 500;
+  transition: color 0.4s ease;
+}
+
+header.menu-white .container_logo {
+  width: 25%;
+  transition: width 0.6s ease;
+}
+
 
 .container_header {
     width: 100%;

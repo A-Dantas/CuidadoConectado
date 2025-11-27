@@ -39,6 +39,7 @@ main {
     margin-bottom: 4rem;
     font-size: clamp(3.5rem, 1vw, 4rem);
     line-height: 6rem;
+    text-shadow: 1px 1px 1px black;
 }
 
 .container_texto p {
