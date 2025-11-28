@@ -1,11 +1,3 @@
-.fundo_gradiente {
-    background: linear-gradient(
-        to bottom,
-        var(--cor_gradient_2),
-        var(--cor_gradient_4), transparent);
-    padding-bottom: 10rem;
-}
-
 .container_content {
     width: 100%;
 }

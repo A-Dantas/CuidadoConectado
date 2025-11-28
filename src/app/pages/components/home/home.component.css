@@ -4,7 +4,6 @@ main {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    background-color: var(--cor_fundo_home); 
 }
 
 .home {

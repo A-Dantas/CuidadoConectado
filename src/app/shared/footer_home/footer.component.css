@@ -46,48 +46,11 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    width: 60%;
+    width: 70%;
 }
 
 .footer_logo img {
     width: 100%;
-}
-
-.footer_telefone {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.footer_telefone_ico {
-    width: 9%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 0.1rem;
-}
-
-.footer_telefone_ico img {
-    width: 100%;
-}
-
-.footer_telefone_texto {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 0.3rem;
-}
-
-.footer_telefone_texto h4 {
-    font-size: 1rem;
-    color: white;
-    text-shadow: 1px 1px 1px black;
-    letter-spacing: 0.05rem;
-}
-
-.footer_telefone_texto p {
-    font-size: 0.9rem;
-    font-weight: 600;
 }
 
 .footer_redesocial {
@@ -99,8 +62,8 @@
 }
 
 .footer_redesocial_icon a {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,13 +90,14 @@
 .footer_links strong {
     color: aliceblue;
     text-shadow: 1px 1px 1px black;
-    font-size: 0.94rem;
+    font-size: 1rem;
     letter-spacing: 0.05rem;
 }
 
 .footer_links a {
     text-decoration: none;
     color: white;
+    font-size: 0.92rem;
 }
 
 .footer_copy {
@@ -150,6 +114,7 @@
     margin-left: auto;
     margin-right: auto;
     color: white;
+    font-size: 0.92rem;
 }
 
 @media (max-width: 1024px) {
