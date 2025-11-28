@@ -9,7 +9,6 @@
 .container_content {
     width: 100%;
     padding-top: 5rem;
-
 }
 
 .container_about {
@@ -55,11 +54,20 @@
 }
 
 .topicos h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-indent: 10px;
 }
 
 .topicos p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     padding-left: 10px;
+}
+
+#historia {
+  /* Seu padding original que desloca o conteúdo para baixo */
+  padding-top: 6rem;
+  
+  /* ESTA É A CORREÇÃO: Define a margem que o navegador deve manter acima do elemento 
+     ao rolar para ele. Isso faz com que o conteúdo real comece no topo da tela. */
+  scroll-margin-top: 10rem; 
 }

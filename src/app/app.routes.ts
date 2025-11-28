@@ -15,15 +15,15 @@ export const routes: Routes = [
         component: AboutComponent
     },
 
-    // Rota Padrão
+    // O padrão é que a rota seja "/home", caso aconteça do usuário apagar o '/home' será redirecionado para a /home
     {
         path: '', redirectTo: 'home', pathMatch: 'full'
     },
 
-    // 404
+    // Essa rota vai direcionar para a página home em caso de erro 404
     {
         path: '**',
         component: HomeComponent
-    }
+    },
 
 ];
