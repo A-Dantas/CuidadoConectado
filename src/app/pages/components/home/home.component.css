@@ -78,6 +78,7 @@ span {
     color: black;
     gap: 60px;
     padding-top: 12rem;
+    padding-bottom: 2rem;
 }
 
 .titulo_beneficios {
@@ -335,7 +336,13 @@ button:active {
     scroll-margin-top: 10rem;
 }
 
-.servicos {
-    padding-top: 10rem;
+.beneficios {
+    padding-bottom: 8rem;
+    scroll-margin-top: 10rem;
+}
+
+.servicos,
+.contato_content {
+    padding-top: 8rem;
     scroll-margin-top: 10rem;
 }

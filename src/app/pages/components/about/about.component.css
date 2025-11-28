@@ -23,8 +23,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 0 10px;
+    gap: 3rem;
+    padding: 7rem 10px 4rem 10px;
 }
 
 .titulo {
@@ -50,7 +50,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .topicos h3 {
@@ -63,9 +63,15 @@
     padding-left: 10px;
 }
 
-#historia,
-#solucoes,
+#historia {
+    /* margin-bottom: 5rem; */
+    scroll-margin-top: 10rem; 
+}
+
+#solucoes {
+    scroll-margin-top: 10rem; 
+}
+
 #lgpd {
-  padding-top: 7.2rem;
-  scroll-margin-top: 10rem; 
+    scroll-margin-top: 10rem; 
 }
