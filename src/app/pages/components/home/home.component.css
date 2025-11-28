@@ -184,7 +184,7 @@ span {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding-top: 6rem;
+    padding-bottom: 6rem;
     gap: 60px;
 }
 
@@ -266,7 +266,8 @@ span {
 /* Contato */
 .container_contato {
     width: 100%;
-    padding-top: 14rem;
+    padding-top: 16rem;
+    padding-bottom: 7rem; 
 }
 
 .contato_content {
@@ -327,4 +328,14 @@ button:hover {
 
 button:active {
   transform: scale(0.9);
+}
+
+.container_contato {
+    padding-top: 12rem;
+    scroll-margin-top: 10rem;
+}
+
+.servicos {
+    padding-top: 10rem;
+    scroll-margin-top: 10rem;
 }
