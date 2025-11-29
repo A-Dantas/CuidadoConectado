@@ -1,36 +1,27 @@
 import { Component, HostListener } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { RouterOutlet } from '@angular/router';
-import { RouterLink } from '@angular/router';
-
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, RouterLink],
+  imports: [RouterModule, RouterLink, NgIf],
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  // menuOpen = false;
-  // scrolled = false;
   menuBranco = false;
+  isHome = false;
 
-  // toggleMenu() {
-  //   this.menuOpen = !this.menuOpen;
-  // }
-
-  // closeMenu() {
-  //   this.menuOpen = false;
-  // }
+  constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      this.isHome = this.router.url.startsWith('/home') || this.router.url === '/';
+    });
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-  
-    if (window.scrollY > 80) {
-      this.menuBranco = true;
-    } else {
-      this.menuBranco = false;
-    }
+    this.menuBranco = window.scrollY > 80;
   }
 }
