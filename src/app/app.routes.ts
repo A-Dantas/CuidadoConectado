@@ -4,6 +4,10 @@ import { HomeComponent } from './pages/components/home/home.component';
 import { Component } from '@angular/core';
 import { FormsComponent } from './pages/components/forms/forms.component';
 import { LoginComponent } from './pages/components/login/login.component';
+import { GestorComponent } from './pages/components/system/gestor/gestor.component';
+import { CuidadorComponent } from './pages/components/system/cuidador/cuidador.component';
+import { MedicoComponent } from './pages/components/system/medico/medico.component';
+import { FamiliarComponent } from './pages/components/system/familiar/familiar.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +30,26 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+
+    {
+        path: 'gestor',
+        component: GestorComponent
+    },
+
+    {
+        path: 'cuidador',
+        component: CuidadorComponent
+    },
+
+    {
+        path: 'medico' ,
+        component: MedicoComponent
+    },
+
+    {
+        path: 'familiar',
+        component: FamiliarComponent
     },
 
     // O padrão é que a rota seja "/home", caso aconteça do usuário apagar o '/home' será redirecionado para a /home
