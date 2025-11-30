@@ -3,6 +3,7 @@ import { AboutComponent } from './pages/components/about/about.component';
 import { HomeComponent } from './pages/components/home/home.component';
 import { Component } from '@angular/core';
 import { FormsComponent } from './pages/components/forms/forms.component';
+import { LoginComponent } from './pages/components/login/login.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,11 @@ export const routes: Routes = [
     {
         path: 'forms',
         component: FormsComponent
+    },
+
+    {
+        path: 'login',
+        component: LoginComponent
     },
 
     // O padrão é que a rota seja "/home", caso aconteça do usuário apagar o '/home' será redirecionado para a /home

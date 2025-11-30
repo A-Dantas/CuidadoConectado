@@ -13,6 +13,13 @@
     --cor_gradient_6: #71bdf08a;
     --cor_gradient_7: rgba(27, 119, 210, 0);
     --cor_fundo_home: #ffff;
+
+    .fundo_gradiente_geral {
+    background: linear-gradient(
+      to bottom,
+      var(--cor_gradient_2),
+      var(--cor_gradient_4), transparent);
+}
 }
 
 * {

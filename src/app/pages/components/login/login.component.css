@@ -3,20 +3,20 @@ main {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    margin: 3rem 0 1.5rem 0;
 }
 
 .container_forms {
-    width: 50%;
+    width: 30%;
     max-width: 650px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 50px 50px 10px 50px;
+    padding: 50px 30px;
     border: 2px solid var(--cor_gradient_1);
     border-radius: 6px;
     scroll-padding-top: 200px;
-    margin: 6rem 0;
+    margin: auto;
+    background-color: rgba(245, 245, 245, 0.756);
 }
 
 .forms {
@@ -47,6 +47,12 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.campos_login {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .options {

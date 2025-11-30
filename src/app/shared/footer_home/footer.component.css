@@ -74,7 +74,7 @@
 }
 
 .footer_redesocial_icon img {
-    width: 80%;
+    width: 65%;
     height: auto;
 }
 
@@ -83,8 +83,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    font-size: 0.8rem;
-    text-align: left;
 }
 
 .footer_links strong {
@@ -97,7 +95,7 @@
 .footer_links a {
     text-decoration: none;
     color: white;
-    font-size: 0.92rem;
+    font-size: 0.8rem;
 }
 
 .footer_copy {
@@ -114,7 +112,7 @@
     margin-left: auto;
     margin-right: auto;
     color: white;
-    font-size: 0.92rem;
+    font-size: 0.82rem;
 }
 
 @media (max-width: 1024px) {

@@ -85,20 +85,20 @@ header.menu-white .container_logo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 50px;
+    gap: 40px;
 }
 
 .nav {
     display: flex;
     justify-content: space-between;
-    gap: 50px;
+    gap: 30px;
 }
 
 .nav a {
   text-decoration: none;
   color: white;
-  font-size: 1rem;
-  letter-spacing: 0.1rem;  
+  font-size: 0.81rem;
+  letter-spacing: 0.1rem;
 }
 
 .links {
