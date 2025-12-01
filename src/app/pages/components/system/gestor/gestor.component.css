@@ -1,0 +1,214 @@
+/* main {
+    height: 100vh;
+}
+
+.container_principal {
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+
+.container_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+
+.container_informacoes {
+    height: 120px;
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 1rem 0 1 rem;
+}
+
+.container_atividades {
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    background-color: aquamarine;
+}
+
+.indicadores {
+    width: 23%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    padding: 24px;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.container_texto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container_icon {
+    width: 50px;
+    height: 50px;
+    background-color: aqua;
+    border-radius: 6px;
+}
+
+.total_de_pacientes {
+   
+}
+
+.usuarios_ativos {
+    
+}
+
+.programacao {
+
+}
+
+.mensagens {
+
+} */
+
+
+.container_principal {
+    display: flex;
+}
+
+.header_menu_lateral {
+    width: 250px;
+}
+
+.container_content {
+    min-width: 1300px;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px
+}
+
+.container_informacoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.indicadores {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.indicadores h5 {
+    font-size: 16px;
+    color: #6c757d;
+    margin: 0 0 5px 0;
+}
+
+.indicadores p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #343a40;
+    margin: 0;
+}
+
+.container_texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+}
+
+.container_icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.container_atividades {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.section_card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    min-height: 250px; 
+}
+
+.section_card h3 {
+    font-size: 18px;
+    color: #343a40;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.ativar_item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ativar_item .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e6f7f6;
+    color: #40c4b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.container_txt_msg {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.4;
+}
+
+.card_acoes_rapidas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.butao {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: #37b7a6; 
+    border: 1px solid #37b7a6; 
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.butao:hover {
+    background-color: #f1fafa; 
+}
