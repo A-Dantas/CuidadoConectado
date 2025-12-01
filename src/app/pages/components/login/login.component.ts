@@ -5,7 +5,7 @@ import { FooterComponent } from '../../../shared/footer_home/footer.component';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, HeaderComponent, FooterComponent],
+  imports: [RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

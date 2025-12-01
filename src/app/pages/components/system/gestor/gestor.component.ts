@@ -5,7 +5,7 @@ import { HeaderComponent } from "../../../../shared/header/header.component";
 
 @Component({
   selector: 'app-gestor',
-  imports: [HeaderSystemComponent, MenuLateralSystemComponent, HeaderComponent],
+  imports: [HeaderSystemComponent, MenuLateralSystemComponent],
   templateUrl: './gestor.component.html',
   styleUrl: './gestor.component.css'
 })

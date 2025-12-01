@@ -4,7 +4,7 @@ import { MenuLateralSystemComponent } from "../menu-lateral-system/menu-lateral-
 
 @Component({
   selector: 'app-header-system',
-  imports: [RouterModule, MenuLateralSystemComponent],
+  imports: [RouterModule],
   templateUrl: './header-system.component.html',
   styleUrl: './header-system.component.css'
 })
