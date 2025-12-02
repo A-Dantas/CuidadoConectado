@@ -20,8 +20,6 @@ export class HomeComponent {
   pictures: string[] = [
     'img/carrosel/carrosel_5.jpg',
     'img/carrosel/carrosel_6.jpg',
-    'img/carrosel/carrosel_gif.gif'
-
   ];
 
   position: number = 0;

@@ -7,7 +7,7 @@ main {
 }
 
 .home {
-    padding-top: 9rem;
+    padding-top: 10rem;
     background: linear-gradient(
         to bottom,
         var(--cor_gradient_1),
@@ -39,7 +39,7 @@ main {
 
 .container_texto h1 {
     margin-bottom: 4rem;
-    font-size: clamp(3.5rem, 1vw, 4rem);
+    font-size: clamp(4rem, 2vw, 4rem);
     line-height: 6rem;
     text-shadow: 1px 1px 1px black;
 }
@@ -72,15 +72,15 @@ span {
 /* carrosel */
 .container_carrosel {
     position: relative;
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     max-width: 800px;
     margin: auto;
 }
   
 #carrosel {
     width: 60%;
-    height: 500px;
+    height: 10%;
     object-fit: cover;
     display: block;
     border-radius: 12px;
@@ -107,11 +107,11 @@ span {
 }
 
 .nav_btn.left {
-    left: 140px;
+    left: 110px;
 }
 
 .nav_btn.right {
-    right: 140px;
+    right: 110px;
 }
   
 /* Benefícios */
@@ -315,7 +315,7 @@ span {
 .container_contato {
     width: 100%;
     padding-top: 16rem;
-    padding-bottom: 3rem; 
+    padding-bottom: 5rem; 
 }
 
 .contato_content {
@@ -369,7 +369,6 @@ button {
   background: transparent;
   cursor: pointer;
   transition: ease-out 0.5s;
-
   box-shadow: inset 0 0 0 0 var(--cor_gradient_4);
 }
 

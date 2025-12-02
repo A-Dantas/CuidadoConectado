@@ -1,17 +1,16 @@
 .container_principal {
     display: flex;
     width: 100%;
+    max-width: 1650px;
     margin: auto;
     margin-top: 1.2rem;
 }
 
 .container_content_geral {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    margin: 1rem 0;
     gap: 30px
 }
 
