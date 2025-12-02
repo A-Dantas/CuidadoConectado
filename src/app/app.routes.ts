@@ -1,22 +1,21 @@
 import { Routes } from '@angular/router';
-import { AboutComponent } from './pages/components/about/about.component';
-import { HomeComponent } from './pages/components/home/home.component';
-import { Component } from '@angular/core';
-import { FormsComponent } from './pages/components/forms/forms.component';
-import { LoginComponent } from './pages/components/login/login.component';
-import { GestorComponent } from './pages/components/system/gestor/gestor.component';
-import { CuidadorComponent } from './pages/components/system/cuidador/cuidador.component';
-import { MedicoComponent } from './pages/components/system/medico/medico.component';
-import { FamiliarComponent } from './pages/components/system/familiar/familiar.component';
+import { AboutComponent } from './features/about/about.component';
+import { HomeComponent } from './features/home/home.component';
+import { FormsComponent } from './features/forms/forms.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { GestorComponent } from './features/system/gestor/gestor.component';
+import { CuidadorComponent } from './features/system/cuidador/cuidador.component';
+import { MedicoComponent } from './features/system/medico/medico.component';
+import { FamiliarComponent } from './features/system/familiar/familiar.component';
 
 export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () =>
-            import('./pages/components/home/home.component')
-            .then(m => m.HomeComponent)
+            import('./features/home/home.component')
+                .then(m => m.HomeComponent)
     },
-    
+
     {
         path: 'about',
         component: AboutComponent
@@ -43,7 +42,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'medico' ,
+        path: 'medico',
         component: MedicoComponent
     },
 

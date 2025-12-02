@@ -1,0 +1,70 @@
+<app-header></app-header>
+<main id="inicio_forms">
+    <div class="container_forms">
+        <form class="forms">
+            <header class="forms_header">
+                <h2>
+                    Cuidado Conectado
+                </h2>
+                <p>
+                    Temos a solução ideal de cuidado. <span>Preencha e conecte-se!</span>
+                </p>
+            </header>
+
+            <div class="options_container">
+                <div  class="options">
+                    <label for="">Nome da Instituição</label>
+                    <input placeholder="Digite seu nome" type="text" name="nome_empresa" required>
+                </div>
+
+                <div  class="options">
+                    <label for="">CNPJ</label>
+                    <input placeholder="Digite seu nome" type="number" name="cnpj_empresa" required>
+                </div>
+
+                <div  class="options">
+                    <label for="">Nome do Responsável</label>
+                    <input placeholder="Digite seu nome" type="text" name="nome_responsavel" required>
+                </div>
+
+                <div class="options">
+                    <label for="">Email</label>
+                    <input placeholder="Digite seu email" type="email" name="email_cliente" required>
+                </div>
+
+                <div class="options">
+                    <label for="">Telefone</label>
+                    <input placeholder="Digite seu telefone" type="tel" name="telefone_cliente" required>
+                </div>
+
+                <div class="options">
+                    <label for="">Como nos conheceu?</label>
+                    <select type="text">
+                        <option selected disabled hidden required value=""> Selecione uma opção</option>
+                        <option value="">Google</option>
+                        <option value="">Redes Sociais</option>
+                        <option value="">Anúncios</option>
+                        <option value="">Amigos e familiares</option>
+                    </select>
+                </div>
+
+                <div class="options" id="mais_informacoes">
+                    <label for="">Mensagem/Detalhes Adicionais</label>
+                    <textarea placeholder="Digite aqui sua Mensagem" type="text"></textarea>
+                </div>
+                <div class="options" id="botao_enviar">
+                    <button type="submit">
+                        Enviar
+                    </button>
+                    <div class="container_texto_botao">
+                        <p>
+                            Ao enviar, você concorda com nossa
+                            <a [routerLink]="['/about']" fragment="lgpd" target="_blank">política de privacidade</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<app-footer></app-footer>

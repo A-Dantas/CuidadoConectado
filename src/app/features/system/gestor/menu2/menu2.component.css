@@ -1,0 +1,111 @@
+.gerenciamento_pacientes {
+    width: 100%;
+    max-width: 1150px;
+    display: none;
+    flex-direction: column;
+    margin: 1rem 0;
+    gap: 30px;
+}
+
+.cabecalho_controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 1rem;
+
+}
+
+.lista_pacientes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    margin: 0 1rem;
+    gap: 40px;
+
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    border-right: 2px solid var(--cor_gradient_1);
+    border-bottom: 2px solid var(--cor_gradient_1);
+    border-radius: 10px;
+}
+
+.detalhes_paciente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.info_pessoal {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info_pessoal h4 {
+
+}
+
+.info_pessoal p {
+    font-size: 14px;
+    font-weight: 450;
+}
+
+.icone_paciente {
+    background-color: rgba(255, 145, 0, 0.63);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.info_contato {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info_contato p {
+    font-size: 14px;
+}
+
+.condicoes_paciente {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
+    gap: 8px;
+}
+
+.tag {
+    font-size: 14px;
+    background-color: rgba(255, 158, 158, 0.79);
+    border-radius: 3px;
+    padding-left: 6px;
+    font-weight: 450;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+
+.botao {
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: #37b7a6;
+    border: 1px solid #37b7a6;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
