@@ -2,11 +2,12 @@ import { Routes } from '@angular/router';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { FormsComponent } from './features/forms/forms.component';
-import { LoginComponent } from './features/auth/login/login.component';
+import { LoginComponent } from './features/login/login.component';
 import { GestorComponent } from './features/system/gestor/gestor.component';
 import { CuidadorComponent } from './features/system/cuidador/cuidador.component';
 import { MedicoComponent } from './features/system/medico/medico.component';
 import { FamiliarComponent } from './features/system/familiar/familiar.component';
+import { gestorGuard } from './core/auth/gestor.guard';
 
 export const routes: Routes = [
     {
@@ -33,7 +34,8 @@ export const routes: Routes = [
 
     {
         path: 'gestor',
-        component: GestorComponent
+        component: GestorComponent,
+        canActivate: [gestorGuard]  
     },
 
     {

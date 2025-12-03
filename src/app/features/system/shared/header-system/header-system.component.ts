@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuLateralSystemComponent } from "../menu-lateral-system/menu-lateral-system.component";
+import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-header-system',
@@ -9,5 +9,9 @@ import { MenuLateralSystemComponent } from "../menu-lateral-system/menu-lateral-
   styleUrl: './header-system.component.css'
 })
 export class HeaderSystemComponent {
+  private authService = inject(AuthService);
 
+  logout(): void {
+    this.authService.sair();
+  }
 }

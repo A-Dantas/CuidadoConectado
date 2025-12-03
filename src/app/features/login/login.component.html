@@ -1,6 +1,6 @@
 <main class="fundo_gradiente_geral">
     <div class="container_forms" id="login_inicio">
-        <form class="forms">
+        <form class="forms" #loginForm="ngForm" (ngSubmit)="onSubmit()">
             <header class="forms_header">
                 <h2>
                     Cuidado Conectado
@@ -14,16 +14,16 @@
                 <div class="campos_login">
                     <div  class="options">
                         <label for="login_usuario">Login</label>
-                        <input placeholder="Digite seu nome" type="text" name="login_usuario" required>
+                        <input placeholder="Digite seu nome" type="text" name="login_usuario" [(ngModel)]="username" required>
                     </div>
                     <div  class="options">
                         <label for="senha_usuario">Senha</label>
-                        <input placeholder="Digite seu nome" type="password" name="senha_usuario" required>
+                        <input placeholder="Digite seu nome" type="password" name="senha_usuario" [(ngModel)]="password" required>
                     </div>
                 </div>
 
                 <div class="options" id="botao_enviar">
-                    <button type="submit">
+                    <button type="submit" [disabled]="!loginForm.valid">
                         Enviar
                     </button>
                     <div class="container_texto_botao">
