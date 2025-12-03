@@ -18,8 +18,11 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent {
 
   pictures: string[] = [
-    'img/carrosel/carrosel_5.jpg',
-    'img/carrosel/carrosel_6.jpg',
+    'img/carrosel/foto_carrosel_4.jpg',
+    'img/carrosel/foto_carrosel_3.jpg',
+    'img/carrosel/foto_carrosel_1.jpg',
+    'img/carrosel/foto_carrosel_5.jpg',
+    'img/carrosel/foto_carrosel_2.jpg',
   ];
 
   position: number = 0;
