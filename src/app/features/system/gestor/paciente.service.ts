@@ -4,7 +4,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export interface Paciente {
     nomePaciente: string;
     idade: number | null;
-    endereco: string;
+    rua: string;
+    numero: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+    endereco: string; // Mantido para compatibilidade, será gerado automaticamente
     comorbidades: string;
     cuidadorAtribuido: string;
     medicoAtribuido: string;
@@ -15,10 +20,31 @@ export interface Paciente {
     providedIn: 'root'
 })
 export class PacienteService {
-    private pacientesSubject = new BehaviorSubject<Paciente[]>([]);
+    private readonly STORAGE_KEY = 'pacientes_data';
+    private pacientesSubject = new BehaviorSubject<Paciente[]>(this.carregarPacientes());
     public pacientes$: Observable<Paciente[]> = this.pacientesSubject.asObservable();
 
     constructor() { }
+
+    private carregarPacientes(): Paciente[] {
+        try {
+            const data = sessionStorage.getItem(this.STORAGE_KEY);
+            if (data) {
+                return JSON.parse(data);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar pacientes do sessionStorage:', error);
+        }
+        return [];
+    }
+
+    private salvarPacientes(pacientes: Paciente[]): void {
+        try {
+            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(pacientes));
+        } catch (error) {
+            console.error('Erro ao salvar pacientes no sessionStorage:', error);
+        }
+    }
 
     getPacientes(): Observable<Paciente[]> {
         return this.pacientes$;
@@ -26,14 +52,18 @@ export class PacienteService {
 
     adicionarPaciente(paciente: Paciente): void {
         const pacientesAtuais = this.pacientesSubject.value;
-        this.pacientesSubject.next([...pacientesAtuais, paciente]);
+        const novosPacientes = [...pacientesAtuais, paciente];
+        this.pacientesSubject.next(novosPacientes);
+        this.salvarPacientes(novosPacientes);
     }
 
     editarPaciente(index: number, paciente: Paciente): void {
         const pacientesAtuais = this.pacientesSubject.value;
         if (index >= 0 && index < pacientesAtuais.length) {
             pacientesAtuais[index] = { ...paciente };
-            this.pacientesSubject.next([...pacientesAtuais]);
+            const novosPacientes = [...pacientesAtuais];
+            this.pacientesSubject.next(novosPacientes);
+            this.salvarPacientes(novosPacientes);
         }
     }
 
@@ -41,7 +71,9 @@ export class PacienteService {
         const pacientesAtuais = this.pacientesSubject.value;
         if (index >= 0 && index < pacientesAtuais.length) {
             pacientesAtuais.splice(index, 1);
-            this.pacientesSubject.next([...pacientesAtuais]);
+            const novosPacientes = [...pacientesAtuais];
+            this.pacientesSubject.next(novosPacientes);
+            this.salvarPacientes(novosPacientes);
         }
     }
 
@@ -55,5 +87,10 @@ export class PacienteService {
 
     getQuantidadePacientes(): number {
         return this.pacientesSubject.value.length;
+    }
+
+    limparDados(): void {
+        sessionStorage.removeItem(this.STORAGE_KEY);
+        this.pacientesSubject.next([]);
     }
 }

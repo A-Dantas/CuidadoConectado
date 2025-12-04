@@ -19,7 +19,7 @@
             <div class="usuarios_ativos indicadores">
                 <div class="container_texto">
                     <h5>Usuários Ativos</h5>
-                    <p>4</p>
+                    <p>{{quantidadeUsuarios}}</p>
                 </div>
                 <div class="container_icon">
                     <img class="icon_usuario">
@@ -87,7 +87,7 @@
                 <button class="botao" (click)="abrirModal()">
                     <img class="icon_add_paciente"> Adicionar Novo Paciente
                 </button>
-                <button class="botao">
+                <button class="botao" (click)="abrirModalUsuario()">
                     <img class="icon_add_user"> Adicionar Novo Usuário
                 </button>
                 <button class="botao">
@@ -111,24 +111,54 @@
                 <label>Patient Name</label>
                 <input type="text" class="form-input" placeholder="Enter patient name"
                     [(ngModel)]="novoPaciente.nomePaciente">
-            </div>
-
-            <div class="form-group">
+            </div>            <div class="form-group">
                 <label>Age</label>
                 <input type="number" class="form-input" placeholder="Enter age" [(ngModel)]="novoPaciente.idade">
             </div>
 
             <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-input" placeholder="Enter full address"
-                    [(ngModel)]="novoPaciente.endereco">
+                <label>Street</label>
+                <input type="text" class="form-input" placeholder="Enter street name" [(ngModel)]="novoPaciente.rua">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-small">
+                    <label>Number</label>
+                    <input type="text" class="form-input" placeholder="No." [(ngModel)]="novoPaciente.numero">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Neighborhood</label>
+                    <input type="text" class="form-input" placeholder="Enter neighborhood" [(ngModel)]="novoPaciente.bairro">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>City</label>
+                    <input type="text" class="form-input" placeholder="Enter city" [(ngModel)]="novoPaciente.cidade">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>State</label>
+                    <input type="text" class="form-input" placeholder="State" [(ngModel)]="novoPaciente.estado">
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Comorbidities</label>
-                <input type="text" class="form-input" placeholder="Enter conditions separated by commas"
-                    [(ngModel)]="novoPaciente.comorbidades">
+                @for (comorbidade of comorbidadesList; track $index; let i = $index) {
+                    <div class="comorbidade-row">
+                        <input type="text" class="form-input" placeholder="Enter condition" [(ngModel)]="comorbidadesList[i]">
+                        @if (comorbidadesList.length > 1) {
+                            <button type="button" class="btn-remove-comorbidade" (click)="removerComorbidade(i)">�</button>
+                        }
+                    </div>
+                }
+                <button type="button" class="btn-add-comorbidade" (click)="adicionarComorbidade()">
+                    <span class="plus-icon">+</span>
+                    Add Comorbidity
+                </button>
             </div>
+
 
             <div class="form-group">
                 <label>Assigned Caregiver</label>
@@ -186,4 +216,61 @@
         </div>
     </div>
 </div>
+}
+@if (modalUsuarioAberto) {
+    <div class="modal-overlay" (click)="fecharModalUsuario()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Add New User</h2>
+                <button class="close-btn" (click)="fecharModalUsuario()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input type="text" class="form-input" placeholder="Enter user name" [(ngModel)]="novoUsuario.userName">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-input" placeholder="Enter email address" [(ngModel)]="novoUsuario.email">
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-select" [(ngModel)]="novoUsuario.role">
+                        <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-add" (click)="adicionarUsuario()">Add User</button>
+                <button class="btn-cancel" (click)="fecharModalUsuario()">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (modalSucessoUsuarioAberto) {
+    <div class="modal-overlay" (click)="fecharModalSucessoUsuario()">
+        <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Sucesso!</h2>
+            </div>
+            
+            <div class="modal-body">
+                <div class="sucesso-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
+                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path>
+                    </svg>
+                </div>
+                <p class="sucesso-mensagem">Usuário cadastrado com sucesso!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-ok" (click)="fecharModalSucessoUsuario()">OK</button>
+            </div>
+        </div>
+    </div>
 }

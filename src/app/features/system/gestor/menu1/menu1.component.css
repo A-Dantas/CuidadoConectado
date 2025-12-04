@@ -356,3 +356,86 @@
 .btn-ok:hover {
     background-color: #0d9488;
 }
+/* Form Row for side-by-side fields */
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-small {
+    flex: 0 0 30%;
+}
+
+.form-group-large {
+    flex: 1;
+}
+
+/* Comorbidade Row */
+.comorbidade-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.comorbidade-row .form-input {
+    flex: 1;
+}
+
+.btn-remove-comorbidade {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    border: 1px solid #ef4444;
+    background-color: white;
+    color: #ef4444;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-remove-comorbidade:hover {
+    background-color: #fef2f2;
+}
+
+.btn-add-comorbidade {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed #14b8a6;
+    background-color: #f0fdfa;
+    color: #14b8a6;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-add-comorbidade:hover {
+    background-color: #ccfbf1;
+    border-color: #0d9488;
+    color: #0d9488;
+}
+
+.plus-icon {
+    font-size: 18px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}

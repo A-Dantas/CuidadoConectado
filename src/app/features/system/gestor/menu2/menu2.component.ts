@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PacienteService, Paciente } from '../paciente.service';
+import { UsuarioService, Usuario } from '../usuario.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,9 +17,17 @@ export class Menu2Component implements OnInit, OnDestroy {
 
   modalEdicaoAberto: boolean = false;
   modalSucessoEdicaoAberto: boolean = false;
+  modalConfirmacaoExclusaoAberto: boolean = false;
+  modalSucessoExclusaoAberto: boolean = false;
+
   pacienteEditando: Paciente = {
     nomePaciente: '',
     idade: null,
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
     endereco: '',
     comorbidades: '',
     cuidadorAtribuido: '',
@@ -26,12 +35,17 @@ export class Menu2Component implements OnInit, OnDestroy {
     contatoFamiliar: ''
   };
   indiceEditando: number = -1;
+  indiceExcluindo: number = -1;
+  comorbidadesListEdicao: string[] = [''];
 
-  cuidadores: string[] = ['Caregiver 1', 'Caregiver 2', 'Caregiver 3'];
-  medicos: string[] = ['Dr. Silva', 'Dr. Santos', 'Dr. Oliveira'];
-  familiares: string[] = ['Family Member 1', 'Family Member 2', 'Family Member 3'];
+  cuidadores: string[] = [];
+  medicos: string[] = [];
+  familiares: string[] = [];
 
-  constructor(private pacienteService: PacienteService) { }
+  constructor(
+    private pacienteService: PacienteService,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
     this.subscription.add(
@@ -39,10 +53,30 @@ export class Menu2Component implements OnInit, OnDestroy {
         this.pacientes = pacientes;
       })
     );
+
+    this.subscription.add(
+      this.usuarioService.getUsuarios().subscribe(usuarios => {
+        this.atualizarListasUsuarios(usuarios);
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  atualizarListasUsuarios(usuarios: Usuario[]): void {
+    this.cuidadores = usuarios
+      .filter(u => u.role === 'Caregiver')
+      .map(u => u.userName);
+
+    this.medicos = usuarios
+      .filter(u => u.role === 'Doctor')
+      .map(u => u.userName);
+
+    this.familiares = usuarios
+      .filter(u => u.role === 'Family Member')
+      .map(u => u.userName);
   }
 
   getComorbidadesArray(comorbidades: string): string[] {
@@ -55,6 +89,11 @@ export class Menu2Component implements OnInit, OnDestroy {
   abrirModalEdicao(paciente: Paciente, index: number): void {
     this.pacienteEditando = { ...paciente };
     this.indiceEditando = index;
+
+    // Carregar comorbidades em array
+    const comorbidades = this.getComorbidadesArray(paciente.comorbidades);
+    this.comorbidadesListEdicao = comorbidades.length > 0 ? comorbidades : [''];
+
     this.modalEdicaoAberto = true;
   }
 
@@ -67,6 +106,11 @@ export class Menu2Component implements OnInit, OnDestroy {
     this.pacienteEditando = {
       nomePaciente: '',
       idade: null,
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
       endereco: '',
       comorbidades: '',
       cuidadorAtribuido: '',
@@ -74,20 +118,64 @@ export class Menu2Component implements OnInit, OnDestroy {
       contatoFamiliar: ''
     };
     this.indiceEditando = -1;
+    this.comorbidadesListEdicao = [''];
+  }
+
+  adicionarComorbidadeEdicao(): void {
+    this.comorbidadesListEdicao.push('');
+  }
+
+  removerComorbidadeEdicao(index: number): void {
+    if (this.comorbidadesListEdicao.length > 1) {
+      this.comorbidadesListEdicao.splice(index, 1);
+    }
   }
 
   salvarEdicao(): void {
     if (this.pacienteEditando.nomePaciente.trim() && this.indiceEditando >= 0) {
+      // Gerar endereço completo
+      const enderecoCompleto = [
+        this.pacienteEditando.rua,
+        this.pacienteEditando.numero,
+        this.pacienteEditando.bairro,
+        this.pacienteEditando.cidade,
+        this.pacienteEditando.estado
+      ].filter(part => part && part.trim()).join(', ');
+
+      this.pacienteEditando.endereco = enderecoCompleto;
+
+      // Gerar string de comorbidades
+      const comorbidadesValidas = this.comorbidadesListEdicao
+        .map(c => c.trim())
+        .filter(c => c.length > 0);
+      this.pacienteEditando.comorbidades = comorbidadesValidas.join(', ');
+
       this.pacienteService.editarPaciente(this.indiceEditando, { ...this.pacienteEditando });
       this.fecharModalEdicao();
       this.modalSucessoEdicaoAberto = true;
     }
   }
 
-  excluirPaciente(index: number): void {
-    if (confirm('Tem certeza que deseja excluir este paciente?')) {
-      this.pacienteService.excluirPaciente(index);
+  abrirModalConfirmacaoExclusao(index: number): void {
+    this.indiceExcluindo = index;
+    this.modalConfirmacaoExclusaoAberto = true;
+  }
+
+  fecharModalConfirmacaoExclusao(): void {
+    this.modalConfirmacaoExclusaoAberto = false;
+    this.indiceExcluindo = -1;
+  }
+
+  confirmarExclusao(): void {
+    if (this.indiceExcluindo >= 0) {
+      this.pacienteService.excluirPaciente(this.indiceExcluindo);
+      this.fecharModalConfirmacaoExclusao();
+      this.modalSucessoExclusaoAberto = true;
     }
+  }
+
+  fecharModalSucessoExclusao(): void {
+    this.modalSucessoExclusaoAberto = false;
   }
 
   fecharModalSucessoEdicao(): void {
