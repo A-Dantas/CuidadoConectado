@@ -2,12 +2,22 @@
 <main>
     <section class="container_principal">
         <div class="header_menu_lateral">
-            <app-menu-lateral-system>
+            <app-menu-lateral-system (menuSelecionadoChange)="onMenuChange($event)">
             </app-menu-lateral-system>
         </div>
         <div>
+            @if (menuAtivo === 1) {
             <app-menu1></app-menu1>
+            }
+            @if (menuAtivo === 2) {
             <app-menu2></app-menu2>
+            }
+            @if (menuAtivo === 3) {
+            <app-menu3></app-menu3>
+            }
+            @if (menuAtivo === 4) {
+            <app-menu4></app-menu4>
+            }
         </div>
 
     </section>

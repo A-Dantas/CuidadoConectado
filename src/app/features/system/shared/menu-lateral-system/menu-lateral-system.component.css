@@ -38,3 +38,16 @@ main {
 .opcoes_menu h1 {
     color: #484d52;
 }
+
+.opcoes_menu.selecionado {
+    background-color: #3e9972;
+    transition: background-color 0.3s ease;
+}
+
+.opcoes_menu.selecionado h1 {
+    color: white;
+}
+
+.opcoes_menu.selecionado svg {
+    fill: white;
+}
