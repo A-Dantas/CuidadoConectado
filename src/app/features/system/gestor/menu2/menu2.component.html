@@ -1,9 +1,6 @@
 <main class="gerenciamento_pacientes">
     <header class="cabecalho_controles">
         <h1 class="titulo_pagina">Gestão de Pacientes</h1>
-        <button class="botao btn_adicionar_paciente">
-            Adicionar Paciente
-        </button>
     </header>
 
     <section class="lista_pacientes">
@@ -13,8 +10,29 @@
         </div>
         }
 
-        @for (paciente of pacientes; track paciente.nomePaciente) {
+        @for (paciente of pacientes; track paciente.nomePaciente; let i = $index) {
         <div class="card card_paciente">
+            <div class="card-header-actions">
+                <div class="card-actions">
+                    <button class="action-icon edit-icon" (click)="abrirModalEdicao(paciente, i)" title="Editar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+                            fill="currentColor">
+                            <path
+                                d="M16.757 3L6 13.757 6 18 10.243 18 21 7.243 21 3 16.757 3zM18.5 5.5L18.5 6.757 17.243 8.015 16.985 7.757 16.985 5.5 18.5 5.5zM4 20L4 22 20 22 20 20 4 20z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="action-icon delete-icon" (click)="excluirPaciente(i)" title="Excluir">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+                            fill="currentColor">
+                            <path
+                                d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
             <div class="detalhes_paciente">
                 <div class="info_pessoal">
                     <h4 class="nome_paciente">{{paciente.nomePaciente}}</h4>
@@ -59,3 +77,93 @@
     </section>
 
 </main>
+
+@if (modalEdicaoAberto) {
+<div class="modal-overlay" (click)="fecharModalEdicao()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Editar Paciente</h2>
+            <button class="close-btn" (click)="fecharModalEdicao()">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Patient Name</label>
+                <input type="text" class="form-input" placeholder="Enter patient name"
+                    [(ngModel)]="pacienteEditando.nomePaciente">
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" class="form-input" placeholder="Enter age" [(ngModel)]="pacienteEditando.idade">
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-input" placeholder="Enter full address"
+                    [(ngModel)]="pacienteEditando.endereco">
+            </div>
+
+            <div class="form-group">
+                <label>Comorbidities</label>
+                <input type="text" class="form-input" placeholder="Enter conditions separated by commas"
+                    [(ngModel)]="pacienteEditando.comorbidades">
+            </div>
+
+            <div class="form-group">
+                <label>Assigned Caregiver</label>
+                <select class="form-select" [(ngModel)]="pacienteEditando.cuidadorAtribuido">
+                    <option value="" disabled>Select Caregiver</option>
+                    <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Assigned Doctor</label>
+                <select class="form-select" [(ngModel)]="pacienteEditando.medicoAtribuido">
+                    <option value="" disabled>Select Doctor</option>
+                    <option *ngFor="let medico of medicos" [value]="medico">{{medico}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Family Contact</label>
+                <select class="form-select" [(ngModel)]="pacienteEditando.contatoFamiliar">
+                    <option value="" disabled>Select Family Member</option>
+                    <option *ngFor="let familiar of familiares" [value]="familiar">{{familiar}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-add" (click)="salvarEdicao()">Salvar</button>
+            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancel</button>
+        </div>
+    </div>
+</div>
+}
+
+@if (modalSucessoEdicaoAberto) {
+<div class="modal-overlay" (click)="fecharModalSucessoEdicao()">
+    <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Sucesso!</h2>
+        </div>
+
+        <div class="modal-body">
+            <div class="sucesso-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
+                    <path
+                        d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z">
+                    </path>
+                </svg>
+            </div>
+            <p class="sucesso-mensagem">Alterações feitas com sucesso!</p>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-ok" (click)="fecharModalSucessoEdicao()">OK</button>
+        </div>
+    </div>
+</div>
+}

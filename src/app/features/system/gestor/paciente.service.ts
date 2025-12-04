@@ -29,6 +29,30 @@ export class PacienteService {
         this.pacientesSubject.next([...pacientesAtuais, paciente]);
     }
 
+    editarPaciente(index: number, paciente: Paciente): void {
+        const pacientesAtuais = this.pacientesSubject.value;
+        if (index >= 0 && index < pacientesAtuais.length) {
+            pacientesAtuais[index] = { ...paciente };
+            this.pacientesSubject.next([...pacientesAtuais]);
+        }
+    }
+
+    excluirPaciente(index: number): void {
+        const pacientesAtuais = this.pacientesSubject.value;
+        if (index >= 0 && index < pacientesAtuais.length) {
+            pacientesAtuais.splice(index, 1);
+            this.pacientesSubject.next([...pacientesAtuais]);
+        }
+    }
+
+    getPacienteByIndex(index: number): Paciente | null {
+        const pacientesAtuais = this.pacientesSubject.value;
+        if (index >= 0 && index < pacientesAtuais.length) {
+            return { ...pacientesAtuais[index] };
+        }
+        return null;
+    }
+
     getQuantidadePacientes(): number {
         return this.pacientesSubject.value.length;
     }
