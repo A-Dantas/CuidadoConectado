@@ -1,43 +1,39 @@
-<main class="container_principal">
+<div class="container_principal">
     <div class="container_content_geral">
+        <!-- Visão Geral -->
         <div class="container_visao_geral">
-            <div class="total_de_pacientes indicadores">
+            <div class="indicadores">
                 <div class="container_texto">
-                    <h5>Total Pacientes</h5>
-                    <p>{{quantidadePacientes}}</p>
+                    <h5>Total de Pacientes</h5>
+                    <p>{{ quantidadePacientes }}</p>
                 </div>
                 <div class="container_icon">
-                    <img class="icon_paciente">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M17.841 15.659L18.017 15.836L18.1945 15.659C19.0732 14.7803 20.4978 14.7803 21.3765 15.659C22.2552 16.5377 22.2552 17.9623 21.3765 18.841L18.0178 22.1997L14.659 18.841C13.7803 17.9623 13.7803 16.5377 14.659 15.659C15.5377 14.7803 16.9623 14.7803 17.841 15.659ZM12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.6651 7.44784 14.1355 11.7508 14.0038L12 14ZM12 1C15.315 1 18 3.685 18 7C18 10.2397 15.4357 12.8776 12.225 12.9959L12 13C8.685 13 6 10.315 6 7C6 3.76034 8.56434 1.12237 11.775 1.00414L12 1ZM12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3Z">
-                        </path>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </div>
             </div>
 
-            <div class="usuarios_ativos indicadores">
+            <div class="indicadores">
                 <div class="container_texto">
-                    <h5>Usuários Ativos</h5>
-                    <p>{{quantidadeUsuarios}}</p>
+                    <h5>Total de Usuários</h5>
+                    <p>{{ quantidadeUsuarios }}</p>
                 </div>
                 <div class="container_icon">
-                    <img class="icon_usuario">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z">
-                        </path>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 </div>
             </div>
 
-            <div class="programacao indicadores">
+            <div class="indicadores">
                 <div class="container_texto">
                     <h5>Programação do dia</h5>
                     <p>1</p>
                 </div>
                 <div class="container_icon">
-                    <img class="icon_calendario">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z">
@@ -46,13 +42,12 @@
                 </div>
             </div>
 
-            <div class="mensagens indicadores">
+            <div class="indicadores">
                 <div class="container_texto">
                     <h5>Mensagens</h5>
                     <p>1</p>
                 </div>
                 <div class="container_icon">
-                    <img class="icon_mensagem">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M2 8.99374C2 5.68349 4.67654 3 8.00066 3H15.9993C19.3134 3 22 5.69478 22 8.99374V21H8.00066C4.68659 21 2 18.3052 2 15.0063V8.99374ZM20 19V8.99374C20 6.79539 18.2049 5 15.9993 5H8.00066C5.78458 5 4 6.78458 4 8.99374V15.0063C4 17.2046 5.79512 19 8.00066 19H20ZM14 11H16V13H14V11ZM8 11H10V13H8V11Z">
@@ -62,15 +57,12 @@
             </div>
         </div>
 
+        <!-- Ações Rápidas e Atividades -->
         <div class="container_atividades">
-
-            <div class="card_atividades section_card">
+            <div class="section_card">
                 <h3>Mensagens Recentes</h3>
-
                 <div class="ativar_item">
-                    <div class="icon">
-
-                    </div>
+                    <div class="icon"></div>
                     <div class="details">
                         <div class="container_txt_msg">
                             Gestor <br>
@@ -81,279 +73,393 @@
                 </div>
             </div>
 
-            <div class="card_acoes_rapidas section_card">
+            <div class="section_card card_acoes_rapidas">
                 <h3>Ações Rápidas</h3>
-
                 <button class="botao" (click)="abrirModal()">
-                    <img class="icon_add_paciente"> Adicionar Novo Paciente
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Adicionar Novo Paciente
                 </button>
                 <button class="botao" (click)="abrirModalUsuario()">
-                    <img class="icon_add_user"> Adicionar Novo Usuário
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Cadastrar Novo Usuário
                 </button>
                 <button class="botao">
-                    <img class="icon_calendario"> Gerenciar Agenda
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path
+                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                    </svg>
+                    Gerenciar Agenda
                 </button>
             </div>
         </div>
     </div>
-</main>
+</div>
 
+<!-- Modal de Cadastro de Paciente -->
 @if (modalAberto) {
 <div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h2>Add New Patient</h2>
-            <button class="close-btn" (click)="fecharModal()">&times;</button>
+            <h2>Adicionar Novo Paciente</h2>
+            <button class="close-btn" (click)="fecharModal()">×</button>
         </div>
 
         <div class="modal-body">
             <div class="form-group">
-                <label>Patient Name</label>
-                <input type="text" class="form-input" placeholder="Enter patient name"
+                <label>Nome do Paciente</label>
+                <input type="text" class="form-input" placeholder="Digite o nome completo"
                     [(ngModel)]="novoPaciente.nomePaciente">
-            </div>            <div class="form-group">
-                <label>Age</label>
-                <input type="number" class="form-input" placeholder="Enter age" [(ngModel)]="novoPaciente.idade">
-            </div>
-
-            <div class="form-group">
-                <label>Street</label>
-                <input type="text" class="form-input" placeholder="Enter street name" [(ngModel)]="novoPaciente.rua">
-            </div>
-
-            <div class="form-row">
-                <div class="form-group form-group-small">
-                    <label>Number</label>
-                    <input type="text" class="form-input" placeholder="No." [(ngModel)]="novoPaciente.numero">
-                </div>
-                <div class="form-group form-group-large">
-                    <label>Neighborhood</label>
-                    <input type="text" class="form-input" placeholder="Enter neighborhood" [(ngModel)]="novoPaciente.bairro">
-                </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
-                    <label>City</label>
-                    <input type="text" class="form-input" placeholder="Enter city" [(ngModel)]="novoPaciente.cidade">
+                    <label>Data de Nascimento</label>
+                    <input type="date" class="form-input" [(ngModel)]="novoPaciente.dataNascimento">
                 </div>
                 <div class="form-group form-group-small">
-                    <label>State</label>
-                    <input type="text" class="form-input" placeholder="State" [(ngModel)]="novoPaciente.estado">
+                    <label>Idade</label>
+                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoPaciente.idade">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Comorbidities</label>
+                <label>Rua</label>
+                <input type="text" class="form-input" placeholder="Digite o nome da rua" [(ngModel)]="novoPaciente.rua">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-small">
+                    <label>Número</label>
+                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoPaciente.numero">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Bairro</label>
+                    <input type="text" class="form-input" placeholder="Digite o bairro"
+                        [(ngModel)]="novoPaciente.bairro">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Cidade</label>
+                    <input type="text" class="form-input" placeholder="Digite a cidade"
+                        [(ngModel)]="novoPaciente.cidade">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>Estado</label>
+                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoPaciente.estado">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Comorbidades</label>
                 @for (comorbidade of comorbidadesList; track $index; let i = $index) {
-                    <div class="comorbidade-row">
-                        <input type="text" class="form-input" placeholder="Enter condition" [(ngModel)]="comorbidadesList[i]">
-                        @if (comorbidadesList.length > 1) {
-                            <button type="button" class="btn-remove-comorbidade" (click)="removerComorbidade(i)">�</button>
-                        }
-                    </div>
+                <div class="comorbidade-row">
+                    <input type="text" class="form-input" placeholder="Descreva a comorbidade"
+                        [(ngModel)]="comorbidadesList[i]">
+                    @if (comorbidadesList.length > 1) {
+                    <button type="button" class="btn-remove-comorbidade" (click)="removerComorbidade(i)">×</button>
+                    }
+                </div>
                 }
                 <button type="button" class="btn-add-comorbidade" (click)="adicionarComorbidade()">
                     <span class="plus-icon">+</span>
-                    Add Comorbidity
+                    Adicionar Comorbidade
                 </button>
-            </div>            <div class="form-group">
-                <label>Assigned Caregiver</label>
-                <select class="form-select" (change)="selecionarOpcaoCuidador($event)" [value]="novoPaciente.cuidadorAtribuido">
-                    <option value="" disabled selected>Select Caregiver</option>
-                    <option value="CADASTRAR_NOVO">Cadastrar novo cuidador</option>
-                    <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
+            </div>
+
+            <div class="form-group">
+                <label>Cuidador Atribuído</label>
+                <select class="form-select" (change)="selecionarOpcaoCuidador($event)"
+                    [value]="novoPaciente.cuidadorAtribuido">
+                    <option value="" disabled selected>Selecione um cuidador</option>
+                    @for (cuidador of cuidadores; track cuidador) {
+                    <option [value]="cuidador">{{ cuidador }}</option>
+                    }
+                    <option value="CADASTRAR_NOVO">+ Cadastrar Novo Cuidador</option>
                 </select>
             </div>
 
+            <!-- Cadastro Rápido de Cuidador -->
             @if (mostrarCadastroCuidador) {
-                <div class="cadastro-rapido cadastro-cuidador">
-                    <h3>Cadastro R�pido de Cuidador</h3>
-                    
-                    <div class="form-row">
-                        <div class="form-group form-group-large">
-                            <label>Nome</label>
-                            <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoCuidador.userName">
-                        </div>
-                        <div class="form-group form-group-large">
-                            <label>Sobrenome</label>
-                            <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoCuidador.sobrenome">
-                        </div>
+            <div class="cadastro-rapido cadastro-cuidador">
+                <h3>Cadastrar Novo Cuidador</h3>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Nome</label>
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoCuidador.userName">
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group form-group-large">
-                            <label>Data de Nascimento</label>
-                            <input type="date" class="form-input" [(ngModel)]="novoCuidador.dataNascimento">
-                        </div>
-                        <div class="form-group form-group-small">
-                            <label>Idade</label>
-                            <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoCuidador.idade">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group form-group-large">
-                            <label>Telefone</label>
-                            <input type="tel" class="form-input" placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.telefone">
-                        </div>
-                        <div class="form-group form-group-large">
-                            <label>Whatsapp</label>
-                            <input type="tel" class="form-input" placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.whatsapp">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-input" placeholder="email@example.com" [(ngModel)]="novoCuidador.email">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Street</label>
-                        <input type="text" class="form-input" placeholder="Enter street name" [(ngModel)]="novoCuidador.rua">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group form-group-small">
-                            <label>Number</label>
-                            <input type="text" class="form-input" placeholder="No." [(ngModel)]="novoCuidador.numero">
-                        </div>
-                        <div class="form-group form-group-large">
-                            <label>Neighborhood</label>
-                            <input type="text" class="form-input" placeholder="Enter neighborhood" [(ngModel)]="novoCuidador.bairro">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group form-group-large">
-                            <label>City</label>
-                            <input type="text" class="form-input" placeholder="Enter city" [(ngModel)]="novoCuidador.cidade">
-                        </div>
-                        <div class="form-group form-group-small">
-                            <label>State</label>
-                            <input type="text" class="form-input" placeholder="State" [(ngModel)]="novoCuidador.estado">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Chave Pix</label>
-                        <input type="text" class="form-input" placeholder="CPF, Email, Telefone ou Chave Aleat�ria" [(ngModel)]="novoCuidador.chavePix">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tempo de Experi�ncia</label>
-                        <input type="text" class="form-input" placeholder="Ex: 5 anos" [(ngModel)]="novoCuidador.tempoExperiencia">
-                    </div>                    <div class="form-group">
-                        <label>Experi�ncia com quais comorbidades?</label>
-                        @for (comorbidade of experienciaComorbidadesList; track $index; let i = $index) {
-                            <div class="comorbidade-row">
-                                <input type="text" class="form-input" placeholder="Descreva a comorbidade" [(ngModel)]="experienciaComorbidadesList[i]">
-                                @if (experienciaComorbidadesList.length > 1) {
-                                    <button type="button" class="btn-remove-comorbidade" (click)="removerExperienciaComorbidade(i)">�</button>
-                                }
-                            </div>
-                        }
-                        <button type="button" class="btn-add-comorbidade" (click)="adicionarExperienciaComorbidade()">
-                            <span class="plus-icon">+</span>
-                            Adicionar Comorbidade
-                        </button>
-                    </div>
-
-
-                    <div class="cadastro-rapido-actions">
-                        <button type="button" class="btn-save-quick" (click)="salvarNovoCuidador()">Salvar Cuidador</button>
-                        <button type="button" class="btn-cancel-quick" (click)="cancelarCadastroCuidador()">Cancelar</button>
+                    <div class="form-group form-group-large">
+                        <label>Sobrenome</label>
+                        <input type="text" class="form-input" placeholder="Sobrenome"
+                            [(ngModel)]="novoCuidador.sobrenome">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-input" placeholder="email@exemplo.com"
+                        [(ngModel)]="novoCuidador.email">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Telefone</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoCuidador.telefone">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Whatsapp</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoCuidador.whatsapp">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tempo de Experiência</label>
+                    <input type="text" class="form-input" placeholder="Ex: 5 anos"
+                        [(ngModel)]="novoCuidador.tempoExperiencia">
+                </div>
+
+                <div class="form-group">
+                    <label>Experiência com quais comorbidades?</label>
+                    @for (comorbidade of experienciaComorbidadesList; track $index; let i = $index) {
+                    <div class="comorbidade-row">
+                        <input type="text" class="form-input" placeholder="Descreva a comorbidade"
+                            [(ngModel)]="experienciaComorbidadesList[i]">
+                        @if (experienciaComorbidadesList.length > 1) {
+                        <button type="button" class="btn-remove-comorbidade"
+                            (click)="removerExperienciaComorbidade(i)">×</button>
+                        }
+                    </div>
+                    }
+                    <button type="button" class="btn-add-comorbidade" (click)="adicionarExperienciaComorbidade()">
+                        <span class="plus-icon">+</span>
+                        Adicionar Comorbidade
+                    </button>
+                </div>
+
+                <div class="cadastro-rapido-actions">
+                    <button class="btn-cancel-quick" (click)="cancelarCadastroCuidador()">Cancelar</button>
+                    <button class="btn-save-quick" (click)="salvarNovoCuidador()">Salvar Cuidador</button>
+                </div>
+            </div>
             }
 
-
             <div class="form-group">
-                <label>Assigned Doctor</label>
+                <label>Médico Atribuído</label>
                 <select class="form-select" [(ngModel)]="novoPaciente.medicoAtribuido">
-                    <option value="" disabled selected>Select Doctor</option>
-                    <option *ngFor="let medico of medicos" [value]="medico">{{medico}}</option>
+                    <option value="" disabled selected>Selecione um médico</option>
+                    @for (medico of medicos; track medico) {
+                    <option [value]="medico">{{ medico }}</option>
+                    }
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Family Contact</label>
+                <label>Contato Familiar</label>
                 <select class="form-select" [(ngModel)]="novoPaciente.contatoFamiliar">
-                    <option value="" disabled selected>Select Family Member</option>
-                    <option *ngFor="let familiar of familiares" [value]="familiar">{{familiar}}</option>
+                    <option value="" disabled selected>Selecione um familiar</option>
+                    @for (familiar of familiares; track familiar) {
+                    <option [value]="familiar">{{ familiar }}</option>
+                    }
                 </select>
             </div>
         </div>
 
         <div class="modal-footer">
-            <button class="btn-add" (click)="adicionarPaciente()">Add Patient</button>
-            <button class="btn-cancel" (click)="fecharModal()">Cancel</button>
+            <button class="btn-cancel" (click)="fecharModal()">Cancelar</button>
+            <button class="btn-add" (click)="adicionarPaciente()">Adicionar Paciente</button>
         </div>
     </div>
 </div>
 }
 
+<!-- Modal de Sucesso - Paciente -->
 @if (modalSucessoAberto) {
 <div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-            <h2>Sucesso!</h2>
-        </div>
-
         <div class="modal-body">
             <div class="sucesso-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
                     <path
-                        d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z">
-                    </path>
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
             </div>
             <p class="sucesso-mensagem">Paciente adicionado com sucesso!</p>
         </div>
-
         <div class="modal-footer">
             <button class="btn-ok" (click)="fecharModalSucesso()">OK</button>
         </div>
     </div>
 </div>
 }
-@if (modalUsuarioAberto) {
-    <div class="modal-overlay" (click)="handleOverlayClick()">
-        <div class="modal-container" (click)="$event.stopPropagation()">
-            <div class="modal-header">
-                <h2>Add New User</h2>
-                <button class="close-btn" (click)="fecharModalUsuario()">&times;</button>
-            </div>
-            
-            
 
-            <div class="modal-footer">
-                <button class="btn-add" (click)="adicionarUsuario()">Add User</button>
-                <button class="btn-cancel" (click)="fecharModalUsuario()">Cancel</button>
+<!-- Modal de Cadastro de Usuário -->
+@if (modalUsuarioAberto) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Cadastrar Novo Usuário</h2>
+            <button class="close-btn" (click)="fecharModalUsuario()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Tipo de Usuário</label>
+                <select class="form-select" [(ngModel)]="novoUsuario.tipoUsuario">
+                    <option value="" disabled selected>Selecione o Tipo de Usuário</option>
+                    <option value="cuidador">Cuidador</option>
+                    <option value="medico">Médico</option>
+                    <option value="familiar">Familiar</option>
+                </select>
             </div>
+
+            <!-- Só mostra o resto do formulário se um tipo de usuário foi selecionado -->
+            @if (novoUsuario.tipoUsuario) {
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Nome</label>
+                    <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoUsuario.userName">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Sobrenome</label>
+                    <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoUsuario.sobrenome">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Data de Nascimento</label>
+                    <input type="date" class="form-input" [(ngModel)]="novoUsuario.dataNascimento">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>Idade</label>
+                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoUsuario.idade">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Telefone</label>
+                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                        [(ngModel)]="novoUsuario.telefone">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Whatsapp</label>
+                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                        [(ngModel)]="novoUsuario.whatsapp">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-input" placeholder="email@exemplo.com" [(ngModel)]="novoUsuario.email">
+            </div>
+
+            @if (novoUsuario.tipoUsuario !== 'medico') {
+            <div class="form-group">
+                <label>Rua</label>
+                <input type="text" class="form-input" placeholder="Digite o nome da rua" [(ngModel)]="novoUsuario.rua">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-small">
+                    <label>Número</label>
+                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoUsuario.numero">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Bairro</label>
+                    <input type="text" class="form-input" placeholder="Digite o bairro"
+                        [(ngModel)]="novoUsuario.bairro">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Cidade</label>
+                    <input type="text" class="form-input" placeholder="Digite a cidade"
+                        [(ngModel)]="novoUsuario.cidade">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>Estado</label>
+                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoUsuario.estado">
+                </div>
+            </div>
+            }
+
+            @if (novoUsuario.tipoUsuario === 'cuidador') {
+            <div class="form-group">
+                <label>Tempo de Experiência</label>
+                <input type="text" class="form-input" placeholder="Ex: 5 anos"
+                    [(ngModel)]="novoUsuario.tempoExperiencia">
+            </div>
+            }
+
+            @if (novoUsuario.tipoUsuario !== 'familiar' && novoUsuario.tipoUsuario !== 'medico') {
+            <div class="form-group">
+                <label>Chave Pix</label>
+                <input type="text" class="form-input" placeholder="CPF, Email, Telefone ou Chave Aleatória"
+                    [(ngModel)]="novoUsuario.chavePix">
+            </div>
+            }
+
+            @if (novoUsuario.tipoUsuario !== 'familiar' && novoUsuario.tipoUsuario !== 'medico') {
+            <div class="form-group">
+                <label>Experiência com quais comorbidades?</label>
+                @for (comorbidade of novoUsuario.experienciaComorbidadesList; track $index; let i = $index) {
+                <div class="comorbidade-row">
+                    <input type="text" class="form-input" placeholder="Descreva a comorbidade"
+                        [(ngModel)]="novoUsuario.experienciaComorbidadesList![i]">
+                    @if (novoUsuario.experienciaComorbidadesList!.length > 1) {
+                    <button type="button" class="btn-remove-comorbidade"
+                        (click)="removerExperienciaComorbidadeUsuario(i)">×</button>
+                    }
+                </div>
+                }
+                <button type="button" class="btn-add-comorbidade" (click)="adicionarExperienciaComorbidadeUsuario()">
+                    <span class="plus-icon">+</span>
+                    Adicionar Comorbidade
+                </button>
+            </div>
+            }
+            }
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel" (click)="fecharModalUsuario()">Cancelar</button>
+            <button class="btn-add" (click)="adicionarUsuario()">Cadastrar Usuário</button>
         </div>
     </div>
+</div>
 }
 
+<!-- Modal de Sucesso - Usuário -->
 @if (modalSucessoUsuarioAberto) {
-    <div class="modal-overlay" (click)="handleOverlayClick()">
-        <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
-            <div class="modal-header">
-                <h2>Sucesso!</h2>
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
+        <div class="modal-body">
+            <div class="sucesso-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
             </div>
-            
-            <div class="modal-body">
-                <div class="sucesso-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
-                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path>
-                    </svg>
-                </div>
-                <p class="sucesso-mensagem">Usuário cadastrado com sucesso!</p>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn-ok" (click)="fecharModalSucesso()">OK</button>
-            </div>
+            <p class="sucesso-mensagem">Usuário cadastrado com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-ok" (click)="fecharModalSucessoUsuario()">OK</button>
         </div>
     </div>
+</div>
 }

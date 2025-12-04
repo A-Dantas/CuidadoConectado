@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Paciente {
     nomePaciente: string;
+    dataNascimento?: string;
     idade: number | null;
     rua: string;
     numero: string;

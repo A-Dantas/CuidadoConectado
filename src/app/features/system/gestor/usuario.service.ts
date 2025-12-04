@@ -21,6 +21,8 @@ export interface Usuario {
     whatsapp?: string;
     tempoExperiencia?: string;
     experienciaComorbidades?: string;
+    tipoUsuario?: string; // Tipo de usuário: cuidador, medico, familiar
+    experienciaComorbidadesList?: string[]; // Lista de comorbidades
 }
 
 @Injectable({

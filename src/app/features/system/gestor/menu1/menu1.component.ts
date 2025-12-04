@@ -32,6 +32,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   novoPaciente: Paciente = {
     nomePaciente: '',
+    dataNascimento: '',
     idade: null,
     rua: '',
     numero: '',
@@ -64,7 +65,9 @@ export class Menu1Component implements OnInit, OnDestroy {
     chavePix: '',
     whatsapp: '',
     tempoExperiencia: '',
-    experienciaComorbidades: ''
+    experienciaComorbidades: '',
+    tipoUsuario: '',
+    experienciaComorbidadesList: ['']
   };
 
   experienciaComorbidadesUsuarioList: string[] = [''];
@@ -252,6 +255,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   resetarFormulario(): void {
     this.novoPaciente = {
       nomePaciente: '',
+      dataNascimento: '',
       idade: null,
       rua: '',
       numero: '',
@@ -335,7 +339,9 @@ export class Menu1Component implements OnInit, OnDestroy {
       chavePix: '',
       whatsapp: '',
       tempoExperiencia: '',
-      experienciaComorbidades: ''
+      experienciaComorbidades: '',
+      tipoUsuario: '',
+      experienciaComorbidadesList: ['']
     };
     this.experienciaComorbidadesUsuarioList = [''];
   }
@@ -354,11 +360,20 @@ export class Menu1Component implements OnInit, OnDestroy {
       this.novoUsuario.endereco = enderecoCompleto;
 
       // Gerar string de comorbidades de experiência se for cuidador
-      if (this.novoUsuario.role === 'Caregiver') {
-        const comorbidadesValidas = this.experienciaComorbidadesUsuarioList
+      if (this.novoUsuario.tipoUsuario === 'cuidador') {
+        const comorbidadesValidas = (this.novoUsuario.experienciaComorbidadesList || [''])
           .map(c => c.trim())
           .filter(c => c.length > 0);
         this.novoUsuario.experienciaComorbidades = comorbidadesValidas.join(', ');
+      }
+
+      // Mapear tipoUsuario para role
+      if (this.novoUsuario.tipoUsuario === 'cuidador') {
+        this.novoUsuario.role = 'Caregiver';
+      } else if (this.novoUsuario.tipoUsuario === 'medico') {
+        this.novoUsuario.role = 'Doctor';
+      } else if (this.novoUsuario.tipoUsuario === 'familiar') {
+        this.novoUsuario.role = 'Family Member';
       }
 
       this.usuarioService.adicionarUsuario({ ...this.novoUsuario });
