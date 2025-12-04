@@ -116,47 +116,61 @@
         <div class="modal-body">
             <div class="form-group">
                 <label>Nome do Paciente</label>
-                <input type="text" class="form-input" placeholder="Digite o nome completo"
-                    [(ngModel)]="novoPaciente.nomePaciente">
+                <input type="text" class="form-input" [class.input-error]="errosPaciente.nomePaciente"
+                    placeholder="Digite o nome completo" [(ngModel)]="novoPaciente.nomePaciente">
+                @if (errosPaciente.nomePaciente) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Data de Nascimento</label>
-                    <input type="date" class="form-input" [(ngModel)]="novoPaciente.dataNascimento">
+                    <input type="date" class="form-input" [class.input-error]="errosPaciente.dataNascimento"
+                        [(ngModel)]="novoPaciente.dataNascimento" min="1900-01-01" max="9999-12-31"
+                        (change)="atualizarIdadePaciente()">
+                    @if (errosPaciente.dataNascimento) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-small">
                     <label>Idade</label>
-                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoPaciente.idade">
+                    <input type="number" class="form-input" [class.input-error]="errosPaciente.idade"
+                        placeholder="Idade" [(ngModel)]="novoPaciente.idade" readonly>
+                    @if (errosPaciente.idade) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Rua</label>
-                <input type="text" class="form-input" placeholder="Digite o nome da rua" [(ngModel)]="novoPaciente.rua">
+                <input type="text" class="form-input" [class.input-error]="errosPaciente.rua"
+                    placeholder="Digite o nome da rua" [(ngModel)]="novoPaciente.rua">
+                @if (errosPaciente.rua) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-small">
                     <label>Número</label>
-                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoPaciente.numero">
+                    <input type="text" class="form-input" [class.input-error]="errosPaciente.numero" placeholder="Nº"
+                        [(ngModel)]="novoPaciente.numero">
+                    @if (errosPaciente.numero) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-large">
                     <label>Bairro</label>
-                    <input type="text" class="form-input" placeholder="Digite o bairro"
-                        [(ngModel)]="novoPaciente.bairro">
+                    <input type="text" class="form-input" [class.input-error]="errosPaciente.bairro"
+                        placeholder="Digite o bairro" [(ngModel)]="novoPaciente.bairro">
+                    @if (errosPaciente.bairro) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Cidade</label>
-                    <input type="text" class="form-input" placeholder="Digite a cidade"
-                        [(ngModel)]="novoPaciente.cidade">
+                    <input type="text" class="form-input" [class.input-error]="errosPaciente.cidade"
+                        placeholder="Digite a cidade" [(ngModel)]="novoPaciente.cidade">
+                    @if (errosPaciente.cidade) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-small">
                     <label>Estado</label>
-                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoPaciente.estado">
+                    <input type="text" class="form-input" [class.input-error]="errosPaciente.estado" placeholder="UF"
+                        [(ngModel)]="novoPaciente.estado">
+                    @if (errosPaciente.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
@@ -258,23 +272,170 @@
 
             <div class="form-group">
                 <label>Médico Atribuído</label>
-                <select class="form-select" [(ngModel)]="novoPaciente.medicoAtribuido">
+                <select class="form-select" (change)="selecionarOpcaoMedico($event)"
+                    [value]="novoPaciente.medicoAtribuido">
                     <option value="" disabled selected>Selecione um médico</option>
                     @for (medico of medicos; track medico) {
                     <option [value]="medico">{{ medico }}</option>
                     }
+                    <option value="CADASTRAR_NOVO">+ Cadastrar Novo Médico</option>
                 </select>
             </div>
 
+            <!-- Cadastro Rápido de Médico -->
+            @if (mostrarCadastroMedico) {
+            <div class="cadastro-rapido cadastro-medico">
+                <h3>Cadastrar Novo Médico</h3>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Nome</label>
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoMedico.userName">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Sobrenome</label>
+                        <input type="text" class="form-input" placeholder="Sobrenome"
+                            [(ngModel)]="novoMedico.sobrenome">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Data de Nascimento</label>
+                        <input type="date" class="form-input" [(ngModel)]="novoMedico.dataNascimento" min="1900-01-01"
+                            max="9999-12-31" (change)="atualizarIdadeMedico()">
+                    </div>
+                    <div class="form-group form-group-small">
+                        <label>Idade</label>
+                        <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoMedico.idade"
+                            readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Telefone</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoMedico.telefone">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Whatsapp</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoMedico.whatsapp">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-input" placeholder="email@exemplo.com"
+                        [(ngModel)]="novoMedico.email">
+                </div>
+
+                <div class="cadastro-rapido-actions">
+                    <button class="btn-cancel-quick" (click)="cancelarCadastroMedico()">Cancelar</button>
+                    <button class="btn-save-quick" (click)="salvarNovoMedico()">Salvar Médico</button>
+                </div>
+            </div>
+            }
+
             <div class="form-group">
                 <label>Contato Familiar</label>
-                <select class="form-select" [(ngModel)]="novoPaciente.contatoFamiliar">
+                <select class="form-select" [class.input-error]="errosPaciente.contatoFamiliar"
+                    (change)="selecionarOpcaoFamiliar($event)" [value]="novoPaciente.contatoFamiliar">
                     <option value="" disabled selected>Selecione um familiar</option>
                     @for (familiar of familiares; track familiar) {
                     <option [value]="familiar">{{ familiar }}</option>
                     }
+                    <option value="CADASTRAR_NOVO">+ Cadastrar Novo Familiar</option>
                 </select>
+                @if (errosPaciente.contatoFamiliar) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
+
+            <!-- Cadastro Rápido de Familiar -->
+            @if (mostrarCadastroFamiliar) {
+            <div class="cadastro-rapido cadastro-familiar">
+                <h3>Cadastrar Novo Familiar</h3>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Nome</label>
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoFamiliar.userName">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Sobrenome</label>
+                        <input type="text" class="form-input" placeholder="Sobrenome"
+                            [(ngModel)]="novoFamiliar.sobrenome">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Data de Nascimento</label>
+                        <input type="date" class="form-input" [(ngModel)]="novoFamiliar.dataNascimento" min="1900-01-01"
+                            max="9999-12-31" (change)="atualizarIdadeFamiliar()">
+                    </div>
+                    <div class="form-group form-group-small">
+                        <label>Idade</label>
+                        <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoFamiliar.idade"
+                            readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Telefone</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoFamiliar.telefone">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Whatsapp</label>
+                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                            [(ngModel)]="novoFamiliar.whatsapp">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-input" placeholder="email@exemplo.com"
+                        [(ngModel)]="novoFamiliar.email">
+                </div>
+
+                <div class="form-group">
+                    <label>Rua</label>
+                    <input type="text" class="form-input" placeholder="Digite o nome da rua"
+                        [(ngModel)]="novoFamiliar.rua">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-small">
+                        <label>Número</label>
+                        <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoFamiliar.numero">
+                    </div>
+                    <div class="form-group form-group-large">
+                        <label>Bairro</label>
+                        <input type="text" class="form-input" placeholder="Digite o bairro"
+                            [(ngModel)]="novoFamiliar.bairro">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group-large">
+                        <label>Cidade</label>
+                        <input type="text" class="form-input" placeholder="Digite a cidade"
+                            [(ngModel)]="novoFamiliar.cidade">
+                    </div>
+                    <div class="form-group form-group-small">
+                        <label>Estado</label>
+                        <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoFamiliar.estado">
+                    </div>
+                </div>
+
+                <div class="cadastro-rapido-actions">
+                    <button class="btn-cancel-quick" (click)="cancelarCadastroFamiliar()">Cancelar</button>
+                    <button class="btn-save-quick" (click)="salvarNovoFamiliar()">Salvar Familiar</button>
+                </div>
+            </div>
+            }
         </div>
 
         <div class="modal-footer">
@@ -341,11 +502,13 @@
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Data de Nascimento</label>
-                    <input type="date" class="form-input" [(ngModel)]="novoUsuario.dataNascimento">
+                    <input type="date" class="form-input" [(ngModel)]="novoUsuario.dataNascimento" min="1900-01-01"
+                        max="9999-12-31" (change)="atualizarIdadeUsuario()">
                 </div>
                 <div class="form-group form-group-small">
                     <label>Idade</label>
-                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoUsuario.idade">
+                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoUsuario.idade"
+                        readonly>
                 </div>
             </div>
 

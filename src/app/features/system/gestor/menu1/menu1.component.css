@@ -356,6 +356,7 @@
 .btn-ok:hover {
     background-color: #0d9488;
 }
+
 /* Form Row for side-by-side fields */
 .form-row {
     display: flex;
@@ -513,4 +514,21 @@ textarea.form-input {
     resize: vertical;
     min-height: 80px;
     font-family: inherit;
+}
+
+/* Validation Styles */
+.input-error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-msg {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
 }

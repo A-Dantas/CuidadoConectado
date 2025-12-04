@@ -92,6 +92,38 @@ export class Menu1Component implements OnInit, OnDestroy {
     experienciaComorbidades: ''
   };
 
+  novoMedico: Usuario = {
+    userName: '',
+    sobrenome: '',
+    email: '',
+    role: 'Doctor',
+    dataNascimento: '',
+    idade: undefined,
+    telefone: '',
+    whatsapp: ''
+  } as Usuario;
+
+  novoFamiliar: Usuario = {
+    userName: '',
+    sobrenome: '',
+    email: '',
+    role: 'Family Member',
+    dataNascimento: '',
+    idade: undefined,
+    telefone: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    endereco: '',
+    whatsapp: ''
+  } as Usuario;
+
+
+
+  errosPaciente: any = {};
+
   experienciaComorbidadesList: string[] = [''];
 
   cuidadores: string[] = [];
@@ -103,6 +135,42 @@ export class Menu1Component implements OnInit, OnDestroy {
     private pacienteService: PacienteService,
     private usuarioService: UsuarioService
   ) { }
+
+  validarData(data: string | undefined): boolean {
+    if (!data) return false;
+    const partes = data.split('-');
+    if (partes.length !== 3) return false;
+    const ano = parseInt(partes[0]);
+    return ano >= 1900 && ano <= 9999;
+  }
+
+  calcularIdade(dataNascimento: string | undefined): number | undefined {
+    if (!dataNascimento) return undefined;
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade--;
+    }
+    return idade >= 0 ? idade : undefined;
+  }
+
+  atualizarIdadePaciente(): void {
+    this.novoPaciente.idade = this.calcularIdade(this.novoPaciente.dataNascimento) ?? null;
+  }
+
+  atualizarIdadeUsuario(): void {
+    this.novoUsuario.idade = this.calcularIdade(this.novoUsuario.dataNascimento);
+  }
+
+  atualizarIdadeMedico(): void {
+    this.novoMedico.idade = this.calcularIdade(this.novoMedico.dataNascimento);
+  }
+
+  atualizarIdadeFamiliar(): void {
+    this.novoFamiliar.idade = this.calcularIdade(this.novoFamiliar.dataNascimento);
+  }
 
   ngOnInit(): void {
     this.subscription.add(
@@ -165,6 +233,12 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   salvarNovoCuidador(): void {
     if (this.novoCuidador.userName.trim() && this.novoCuidador.email.trim()) {
+      // Validação de data (opcional para cuidador, mas se preenchida deve ser válida)
+      if (this.novoCuidador.dataNascimento && !this.validarData(this.novoCuidador.dataNascimento)) {
+        alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
+        return;
+      }
+
       // Gerar endereço completo
       const enderecoCompleto = [
         this.novoCuidador.rua,
@@ -197,6 +271,107 @@ export class Menu1Component implements OnInit, OnDestroy {
   cancelarCadastroCuidador(): void {
     this.mostrarCadastroCuidador = false;
     this.resetarFormularioCuidador();
+  }
+
+  selecionarOpcaoMedico(event: any): void {
+    const valor = event.target.value;
+    if (valor === 'CADASTRAR_NOVO') {
+      this.mostrarCadastroMedico = true;
+      this.novoPaciente.medicoAtribuido = '';
+    } else {
+      this.mostrarCadastroMedico = false;
+      this.novoPaciente.medicoAtribuido = valor;
+    }
+  }
+
+  salvarNovoMedico(): void {
+    if (this.novoMedico.userName.trim() && this.novoMedico.email.trim()) {
+      if (this.novoMedico.dataNascimento && !this.validarData(this.novoMedico.dataNascimento)) {
+        alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
+        return;
+      }
+      this.usuarioService.adicionarUsuario({ ...this.novoMedico });
+      this.novoPaciente.medicoAtribuido = this.novoMedico.userName;
+      this.mostrarCadastroMedico = false;
+      this.resetarFormularioMedico();
+    }
+  }
+
+  cancelarCadastroMedico(): void {
+    this.mostrarCadastroMedico = false;
+    this.resetarFormularioMedico();
+  }
+
+  resetarFormularioMedico(): void {
+    this.novoMedico = {
+      userName: '',
+      sobrenome: '',
+      email: '',
+      role: 'Doctor',
+      dataNascimento: '',
+      idade: undefined,
+      telefone: '',
+      whatsapp: ''
+    } as Usuario;
+  }
+
+  selecionarOpcaoFamiliar(event: any): void {
+    const valor = event.target.value;
+    if (valor === 'CADASTRAR_NOVO') {
+      this.mostrarCadastroFamiliar = true;
+      this.novoPaciente.contatoFamiliar = '';
+    } else {
+      this.mostrarCadastroFamiliar = false;
+      this.novoPaciente.contatoFamiliar = valor;
+    }
+  }
+
+  salvarNovoFamiliar(): void {
+    if (this.novoFamiliar.userName.trim() && this.novoFamiliar.email.trim()) {
+      if (this.novoFamiliar.dataNascimento && !this.validarData(this.novoFamiliar.dataNascimento)) {
+        alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
+        return;
+      }
+      // Gerar endereço completo
+      const enderecoCompleto = [
+        this.novoFamiliar.rua,
+        this.novoFamiliar.numero,
+        this.novoFamiliar.bairro,
+        this.novoFamiliar.cidade,
+        this.novoFamiliar.estado
+      ].filter(part => part && part.trim()).join(', ');
+
+      this.novoFamiliar.endereco = enderecoCompleto;
+
+      this.usuarioService.adicionarUsuario({ ...this.novoFamiliar });
+      this.novoPaciente.contatoFamiliar = this.novoFamiliar.userName;
+      this.mostrarCadastroFamiliar = false;
+      this.resetarFormularioFamiliar();
+    }
+  }
+
+  cancelarCadastroFamiliar(): void {
+    this.mostrarCadastroFamiliar = false;
+    this.resetarFormularioFamiliar();
+  }
+
+  resetarFormularioFamiliar(): void {
+    this.novoFamiliar = {
+      userName: '',
+      sobrenome: '',
+      email: '',
+      role: 'Family Member',
+      dataNascimento: '',
+      idade: undefined,
+      telefone: '',
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+      endereco: '',
+      whatsapp: ''
+    } as Usuario;
   }
 
   resetarFormularioCuidador(): void {
@@ -253,6 +428,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormulario(): void {
+    this.errosPaciente = {};
     this.novoPaciente = {
       nomePaciente: '',
       dataNascimento: '',
@@ -270,7 +446,11 @@ export class Menu1Component implements OnInit, OnDestroy {
     };
     this.comorbidadesList = [''];
     this.mostrarCadastroCuidador = false;
+    this.mostrarCadastroMedico = false;
+    this.mostrarCadastroFamiliar = false;
     this.resetarFormularioCuidador();
+    this.resetarFormularioMedico();
+    this.resetarFormularioFamiliar();
   }
 
   adicionarComorbidade(): void {
@@ -284,6 +464,25 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   adicionarPaciente(): void {
+    // Resetar erros
+    this.errosPaciente = {};
+
+    // Validação de campos obrigatórios
+    if (!this.novoPaciente.nomePaciente.trim()) this.errosPaciente.nomePaciente = true;
+    if (!this.novoPaciente.dataNascimento || !this.validarData(this.novoPaciente.dataNascimento)) this.errosPaciente.dataNascimento = true;
+    if (this.novoPaciente.idade === undefined || this.novoPaciente.idade === null) this.errosPaciente.idade = true;
+    if (!this.novoPaciente.rua.trim()) this.errosPaciente.rua = true;
+    if (!this.novoPaciente.numero.trim()) this.errosPaciente.numero = true;
+    if (!this.novoPaciente.bairro.trim()) this.errosPaciente.bairro = true;
+    if (!this.novoPaciente.cidade.trim()) this.errosPaciente.cidade = true;
+    if (!this.novoPaciente.estado.trim()) this.errosPaciente.estado = true;
+    if (!this.novoPaciente.contatoFamiliar) this.errosPaciente.contatoFamiliar = true;
+
+    // Se houver erros, interrompe o processo
+    if (Object.keys(this.errosPaciente).length > 0) {
+      return;
+    }
+
     if (this.novoPaciente.nomePaciente.trim()) {
       // Gerar endereço completo
       const enderecoCompleto = [
@@ -313,6 +512,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   abrirModalUsuario(): void {
+    this.novoUsuario.tipoUsuario = 'cuidador';
     this.modalUsuarioAberto = true;
   }
 
@@ -348,6 +548,10 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   adicionarUsuario(): void {
     if (this.novoUsuario.userName.trim() && this.novoUsuario.email.trim()) {
+      if (this.novoUsuario.dataNascimento && !this.validarData(this.novoUsuario.dataNascimento)) {
+        alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
+        return;
+      }
       // Gerar endereço completo
       const enderecoCompleto = [
         this.novoUsuario.rua,
