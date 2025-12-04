@@ -46,10 +46,6 @@
     gap: 5px;
 }
 
-.info_pessoal h4 {
-
-}
-
 .info_pessoal p {
     font-size: 14px;
     font-weight: 450;
@@ -93,8 +89,6 @@
     display: flex;
 }
 
-
-
 .botao {
     padding: 12px 20px;
     background-color: #ffffff;
@@ -108,4 +102,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.mensagem_vazia {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.info_responsaveis {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.info_medico,
+.info_familiar {
+    font-size: 13px;
+    color: #495057;
+    margin: 0;
+}
+
+.info_medico strong,
+.info_familiar strong {
+    color: #343a40;
+    font-weight: 600;
 }
