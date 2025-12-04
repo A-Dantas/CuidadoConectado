@@ -21,6 +21,15 @@ export class Menu1Component implements OnInit, OnDestroy {
   quantidadeUsuarios: number = 0;
   private subscription: Subscription = new Subscription();
 
+  // Double-click tracking
+  private lastClickTime: number = 0;
+  private readonly DOUBLE_CLICK_DELAY = 300; // milliseconds
+
+  // Cadastro rápido
+  mostrarCadastroCuidador: boolean = false;
+  mostrarCadastroMedico: boolean = false;
+  mostrarCadastroFamiliar: boolean = false;
+
   novoPaciente: Paciente = {
     nomePaciente: '',
     idade: null,
@@ -40,9 +49,47 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   novoUsuario: Usuario = {
     userName: '',
+    sobrenome: '',
     email: '',
-    role: 'Caregiver'
+    role: 'Caregiver',
+    dataNascimento: '',
+    idade: undefined,
+    telefone: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    endereco: '',
+    chavePix: '',
+    whatsapp: '',
+    tempoExperiencia: '',
+    experienciaComorbidades: ''
   };
+
+  experienciaComorbidadesUsuarioList: string[] = [''];
+
+  novoCuidador: Usuario = {
+    userName: '',
+    sobrenome: '',
+    email: '',
+    role: 'Caregiver',
+    dataNascimento: '',
+    idade: undefined,
+    telefone: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    endereco: '',
+    chavePix: '',
+    whatsapp: '',
+    tempoExperiencia: '',
+    experienciaComorbidades: ''
+  };
+
+  experienciaComorbidadesList: string[] = [''];
 
   cuidadores: string[] = [];
   medicos: string[] = [];
@@ -87,6 +134,112 @@ export class Menu1Component implements OnInit, OnDestroy {
       .map(u => u.userName);
   }
 
+  handleOverlayClick(): void {
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - this.lastClickTime;
+
+    if (timeDiff < this.DOUBLE_CLICK_DELAY) {
+      // Double-click detected
+      if (this.modalAberto) this.fecharModal();
+      else if (this.modalUsuarioAberto) this.fecharModalUsuario();
+      else if (this.modalSucessoAberto) this.fecharModalSucesso();
+      else if (this.modalSucessoUsuarioAberto) this.fecharModalSucessoUsuario();
+    }
+
+    this.lastClickTime = currentTime;
+  }
+
+  selecionarOpcaoCuidador(event: any): void {
+    const valor = event.target.value;
+    if (valor === 'CADASTRAR_NOVO') {
+      this.mostrarCadastroCuidador = true;
+      this.novoPaciente.cuidadorAtribuido = '';
+    } else {
+      this.mostrarCadastroCuidador = false;
+      this.novoPaciente.cuidadorAtribuido = valor;
+    }
+  }
+
+  salvarNovoCuidador(): void {
+    if (this.novoCuidador.userName.trim() && this.novoCuidador.email.trim()) {
+      // Gerar endereço completo
+      const enderecoCompleto = [
+        this.novoCuidador.rua,
+        this.novoCuidador.numero,
+        this.novoCuidador.bairro,
+        this.novoCuidador.cidade,
+        this.novoCuidador.estado
+      ].filter(part => part && part.trim()).join(', ');
+
+      this.novoCuidador.endereco = enderecoCompleto;
+
+      // Gerar string de comorbidades de experiência
+      const comorbidadesValidas = this.experienciaComorbidadesList
+        .map(c => c.trim())
+        .filter(c => c.length > 0);
+      this.novoCuidador.experienciaComorbidades = comorbidadesValidas.join(', ');
+
+      // Adicionar usuário
+      this.usuarioService.adicionarUsuario({ ...this.novoCuidador });
+
+      // Atribuir ao paciente
+      this.novoPaciente.cuidadorAtribuido = this.novoCuidador.userName;
+
+      // Ocultar seção e resetar
+      this.mostrarCadastroCuidador = false;
+      this.resetarFormularioCuidador();
+    }
+  }
+
+  cancelarCadastroCuidador(): void {
+    this.mostrarCadastroCuidador = false;
+    this.resetarFormularioCuidador();
+  }
+
+  resetarFormularioCuidador(): void {
+    this.novoCuidador = {
+      userName: '',
+      sobrenome: '',
+      email: '',
+      role: 'Caregiver',
+      dataNascimento: '',
+      idade: undefined,
+      telefone: '',
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+      endereco: '',
+      chavePix: '',
+      whatsapp: '',
+      tempoExperiencia: '',
+      experienciaComorbidades: ''
+    };
+    this.experienciaComorbidadesList = [''];
+  }
+
+  adicionarExperienciaComorbidade(): void {
+    this.experienciaComorbidadesList.push('');
+  }
+
+  removerExperienciaComorbidade(index: number): void {
+    if (this.experienciaComorbidadesList.length > 1) {
+      this.experienciaComorbidadesList.splice(index, 1);
+    }
+  }
+
+  // Métodos para comorbidades do modal de usuário principal
+  adicionarExperienciaComorbidadeUsuario(): void {
+    this.experienciaComorbidadesUsuarioList.push('');
+  }
+
+  removerExperienciaComorbidadeUsuario(index: number): void {
+    if (this.experienciaComorbidadesUsuarioList.length > 1) {
+      this.experienciaComorbidadesUsuarioList.splice(index, 1);
+    }
+  }
+
   abrirModal(): void {
     this.modalAberto = true;
   }
@@ -112,6 +265,8 @@ export class Menu1Component implements OnInit, OnDestroy {
       contatoFamiliar: ''
     };
     this.comorbidadesList = [''];
+    this.mostrarCadastroCuidador = false;
+    this.resetarFormularioCuidador();
   }
 
   adicionarComorbidade(): void {
@@ -165,13 +320,47 @@ export class Menu1Component implements OnInit, OnDestroy {
   resetarFormularioUsuario(): void {
     this.novoUsuario = {
       userName: '',
+      sobrenome: '',
       email: '',
-      role: 'Caregiver'
+      role: 'Caregiver',
+      dataNascimento: '',
+      idade: undefined,
+      telefone: '',
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+      endereco: '',
+      chavePix: '',
+      whatsapp: '',
+      tempoExperiencia: '',
+      experienciaComorbidades: ''
     };
+    this.experienciaComorbidadesUsuarioList = [''];
   }
 
   adicionarUsuario(): void {
     if (this.novoUsuario.userName.trim() && this.novoUsuario.email.trim()) {
+      // Gerar endereço completo
+      const enderecoCompleto = [
+        this.novoUsuario.rua,
+        this.novoUsuario.numero,
+        this.novoUsuario.bairro,
+        this.novoUsuario.cidade,
+        this.novoUsuario.estado
+      ].filter(part => part && part.trim()).join(', ');
+
+      this.novoUsuario.endereco = enderecoCompleto;
+
+      // Gerar string de comorbidades de experiência se for cuidador
+      if (this.novoUsuario.role === 'Caregiver') {
+        const comorbidadesValidas = this.experienciaComorbidadesUsuarioList
+          .map(c => c.trim())
+          .filter(c => c.length > 0);
+        this.novoUsuario.experienciaComorbidades = comorbidadesValidas.join(', ');
+      }
+
       this.usuarioService.adicionarUsuario({ ...this.novoUsuario });
       this.fecharModalUsuario();
       this.modalSucessoUsuarioAberto = true;

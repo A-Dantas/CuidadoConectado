@@ -5,6 +5,22 @@ export interface Usuario {
     userName: string;
     email: string;
     role: string;
+    rua: string;
+    numero: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+    endereco: string;
+
+    // Campos específicos de cuidador
+    sobrenome?: string;
+    dataNascimento?: string;
+    idade?: number;
+    telefone?: string;
+    chavePix?: string;
+    whatsapp?: string;
+    tempoExperiencia?: string;
+    experienciaComorbidades?: string;
 }
 
 @Injectable({

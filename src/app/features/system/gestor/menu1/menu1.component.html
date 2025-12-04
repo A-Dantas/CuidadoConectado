@@ -99,7 +99,7 @@
 </main>
 
 @if (modalAberto) {
-<div class="modal-overlay" (click)="fecharModal()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Add New Patient</h2>
@@ -157,16 +157,116 @@
                     <span class="plus-icon">+</span>
                     Add Comorbidity
                 </button>
-            </div>
-
-
-            <div class="form-group">
+            </div>            <div class="form-group">
                 <label>Assigned Caregiver</label>
-                <select class="form-select" [(ngModel)]="novoPaciente.cuidadorAtribuido">
+                <select class="form-select" (change)="selecionarOpcaoCuidador($event)" [value]="novoPaciente.cuidadorAtribuido">
                     <option value="" disabled selected>Select Caregiver</option>
+                    <option value="CADASTRAR_NOVO">Cadastrar novo cuidador</option>
                     <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
                 </select>
             </div>
+
+            @if (mostrarCadastroCuidador) {
+                <div class="cadastro-rapido cadastro-cuidador">
+                    <h3>Cadastro Rápido de Cuidador</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-large">
+                            <label>Nome</label>
+                            <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoCuidador.userName">
+                        </div>
+                        <div class="form-group form-group-large">
+                            <label>Sobrenome</label>
+                            <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoCuidador.sobrenome">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-large">
+                            <label>Data de Nascimento</label>
+                            <input type="date" class="form-input" [(ngModel)]="novoCuidador.dataNascimento">
+                        </div>
+                        <div class="form-group form-group-small">
+                            <label>Idade</label>
+                            <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="novoCuidador.idade">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-large">
+                            <label>Telefone</label>
+                            <input type="tel" class="form-input" placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.telefone">
+                        </div>
+                        <div class="form-group form-group-large">
+                            <label>Whatsapp</label>
+                            <input type="tel" class="form-input" placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.whatsapp">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-input" placeholder="email@example.com" [(ngModel)]="novoCuidador.email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Street</label>
+                        <input type="text" class="form-input" placeholder="Enter street name" [(ngModel)]="novoCuidador.rua">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-small">
+                            <label>Number</label>
+                            <input type="text" class="form-input" placeholder="No." [(ngModel)]="novoCuidador.numero">
+                        </div>
+                        <div class="form-group form-group-large">
+                            <label>Neighborhood</label>
+                            <input type="text" class="form-input" placeholder="Enter neighborhood" [(ngModel)]="novoCuidador.bairro">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-large">
+                            <label>City</label>
+                            <input type="text" class="form-input" placeholder="Enter city" [(ngModel)]="novoCuidador.cidade">
+                        </div>
+                        <div class="form-group form-group-small">
+                            <label>State</label>
+                            <input type="text" class="form-input" placeholder="State" [(ngModel)]="novoCuidador.estado">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chave Pix</label>
+                        <input type="text" class="form-input" placeholder="CPF, Email, Telefone ou Chave Aleatória" [(ngModel)]="novoCuidador.chavePix">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tempo de Experiência</label>
+                        <input type="text" class="form-input" placeholder="Ex: 5 anos" [(ngModel)]="novoCuidador.tempoExperiencia">
+                    </div>                    <div class="form-group">
+                        <label>Experiência com quais comorbidades?</label>
+                        @for (comorbidade of experienciaComorbidadesList; track $index; let i = $index) {
+                            <div class="comorbidade-row">
+                                <input type="text" class="form-input" placeholder="Descreva a comorbidade" [(ngModel)]="experienciaComorbidadesList[i]">
+                                @if (experienciaComorbidadesList.length > 1) {
+                                    <button type="button" class="btn-remove-comorbidade" (click)="removerExperienciaComorbidade(i)">×</button>
+                                }
+                            </div>
+                        }
+                        <button type="button" class="btn-add-comorbidade" (click)="adicionarExperienciaComorbidade()">
+                            <span class="plus-icon">+</span>
+                            Adicionar Comorbidade
+                        </button>
+                    </div>
+
+
+                    <div class="cadastro-rapido-actions">
+                        <button type="button" class="btn-save-quick" (click)="salvarNovoCuidador()">Salvar Cuidador</button>
+                        <button type="button" class="btn-cancel-quick" (click)="cancelarCadastroCuidador()">Cancelar</button>
+                    </div>
+                </div>
+            }
+
 
             <div class="form-group">
                 <label>Assigned Doctor</label>
@@ -194,7 +294,7 @@
 }
 
 @if (modalSucessoAberto) {
-<div class="modal-overlay" (click)="fecharModalSucesso()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Sucesso!</h2>
@@ -218,31 +318,14 @@
 </div>
 }
 @if (modalUsuarioAberto) {
-    <div class="modal-overlay" (click)="fecharModalUsuario()">
+    <div class="modal-overlay" (click)="handleOverlayClick()">
         <div class="modal-container" (click)="$event.stopPropagation()">
             <div class="modal-header">
                 <h2>Add New User</h2>
                 <button class="close-btn" (click)="fecharModalUsuario()">&times;</button>
             </div>
             
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>User Name</label>
-                    <input type="text" class="form-input" placeholder="Enter user name" [(ngModel)]="novoUsuario.userName">
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-input" placeholder="Enter email address" [(ngModel)]="novoUsuario.email">
-                </div>
-
-                <div class="form-group">
-                    <label>Role</label>
-                    <select class="form-select" [(ngModel)]="novoUsuario.role">
-                        <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-                    </select>
-                </div>
-            </div>
+            
 
             <div class="modal-footer">
                 <button class="btn-add" (click)="adicionarUsuario()">Add User</button>
@@ -253,7 +336,7 @@
 }
 
 @if (modalSucessoUsuarioAberto) {
-    <div class="modal-overlay" (click)="fecharModalSucessoUsuario()">
+    <div class="modal-overlay" (click)="handleOverlayClick()">
         <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
             <div class="modal-header">
                 <h2>Sucesso!</h2>
@@ -269,7 +352,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn-ok" (click)="fecharModalSucessoUsuario()">OK</button>
+                <button class="btn-ok" (click)="fecharModalSucesso()">OK</button>
             </div>
         </div>
     </div>

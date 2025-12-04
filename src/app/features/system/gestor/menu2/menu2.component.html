@@ -79,7 +79,7 @@
 </main>
 
 @if (modalEdicaoAberto) {
-<div class="modal-overlay" (click)="fecharModalEdicao()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Editar Paciente</h2>
@@ -174,7 +174,7 @@
 }
 
 @if (modalSucessoEdicaoAberto) {
-<div class="modal-overlay" (click)="fecharModalSucessoEdicao()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Sucesso!</h2>
@@ -199,7 +199,7 @@
 }
 
 @if (modalConfirmacaoExclusaoAberto) {
-<div class="modal-overlay" (click)="fecharModalConfirmacaoExclusao()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container modal-confirmacao" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Confirmar Exclusão</h2>
@@ -218,14 +218,14 @@
 
         <div class="modal-footer">
             <button class="btn-delete" (click)="confirmarExclusao()">Excluir</button>
-            <button class="btn-cancel" (click)="fecharModalConfirmacaoExclusao()">Cancelar</button>
+            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancelar</button>
         </div>
     </div>
 </div>
 }
 
 @if (modalSucessoExclusaoAberto) {
-<div class="modal-overlay" (click)="fecharModalSucessoExclusao()">
+<div class="modal-overlay" (click)="handleOverlayClick()">
     <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>Sucesso!</h2>
@@ -243,7 +243,7 @@
         </div>
 
         <div class="modal-footer">
-            <button class="btn-ok" (click)="fecharModalSucessoExclusao()">OK</button>
+            <button class="btn-ok" (click)="fecharModalSucessoEdicao()">OK</button>
         </div>
     </div>
 </div>

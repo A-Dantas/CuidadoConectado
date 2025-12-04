@@ -20,6 +20,10 @@ export class Menu2Component implements OnInit, OnDestroy {
   modalConfirmacaoExclusaoAberto: boolean = false;
   modalSucessoExclusaoAberto: boolean = false;
 
+  // Double-click tracking
+  private lastClickTime: number = 0;
+  private readonly DOUBLE_CLICK_DELAY = 300; // milliseconds
+
   pacienteEditando: Paciente = {
     nomePaciente: '',
     idade: null,
@@ -77,6 +81,21 @@ export class Menu2Component implements OnInit, OnDestroy {
     this.familiares = usuarios
       .filter(u => u.role === 'Family Member')
       .map(u => u.userName);
+  }
+
+  handleOverlayClick(): void {
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - this.lastClickTime;
+
+    if (timeDiff < this.DOUBLE_CLICK_DELAY) {
+      // Double-click detected
+      if (this.modalEdicaoAberto) this.fecharModalEdicao();
+      else if (this.modalConfirmacaoExclusaoAberto) this.fecharModalConfirmacaoExclusao();
+      else if (this.modalSucessoEdicaoAberto) this.fecharModalSucessoEdicao();
+      else if (this.modalSucessoExclusaoAberto) this.fecharModalSucessoExclusao();
+    }
+
+    this.lastClickTime = currentTime;
   }
 
   getComorbidadesArray(comorbidades: string): string[] {

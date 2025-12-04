@@ -439,3 +439,78 @@
     justify-content: center;
     line-height: 1;
 }
+
+/* Cadastro Rápido */
+.cadastro-rapido {
+    padding: 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border: 2px solid;
+}
+
+.cadastro-rapido h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.cadastro-cuidador {
+    background-color: #e0f2fe;
+    border-color: #0ea5e9;
+}
+
+.cadastro-medico {
+    background-color: #dcfce7;
+    border-color: #22c55e;
+}
+
+.cadastro-familiar {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.cadastro-rapido-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-save-quick {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background-color: #14b8a6;
+    color: white;
+}
+
+.btn-save-quick:hover {
+    background-color: #0d9488;
+}
+
+.btn-cancel-quick {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #d1d5db;
+    background-color: white;
+    color: #6b7280;
+}
+
+.btn-cancel-quick:hover {
+    background-color: #f3f4f6;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
