@@ -6,6 +6,27 @@
     <div class="users-grid">
         @for (usuario of usuarios; track usuario.userName) {
         <div class="user-card">
+            <div class="card-header-actions">
+                <div class="card-actions">
+                    <button class="action-icon edit-icon" (click)="abrirModalEdicao(usuario, $index)" title="Editar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+                            fill="currentColor">
+                            <path
+                                d="M16.757 3L6 13.757 6 18 10.243 18 21 7.243 21 3 16.757 3zM18.5 5.5L18.5 6.757 17.243 8.015 16.985 7.757 16.985 5.5 18.5 5.5zM4 20L4 22 20 22 20 20 4 20z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="action-icon delete-icon" (click)="abrirModalConfirmacaoExclusao($index)"
+                        title="Excluir">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+                            fill="currentColor">
+                            <path
+                                d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
             <div class="user-icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                     <path
@@ -21,3 +42,205 @@
         }
     </div>
 </div>
+
+<!-- Modal de Edição -->
+@if (modalEdicaoAberto) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Editar Usuário</h2>
+            <button class="close-btn" (click)="fecharModalEdicao()">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Função</label>
+                <select class="form-select" [(ngModel)]="usuarioEditando.role">
+                    <option value="Caregiver">Caregiver</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Family Member">Family Member</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Nome</label>
+                    <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="usuarioEditando.userName"
+                        (input)="validarNome($event, 'userName', usuarioEditando)">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Sobrenome</label>
+                    <input type="text" class="form-input" placeholder="Sobrenome"
+                        [(ngModel)]="usuarioEditando.sobrenome"
+                        (input)="validarNome($event, 'sobrenome', usuarioEditando)">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Data de Nascimento</label>
+                    <input type="date" class="form-input" [(ngModel)]="usuarioEditando.dataNascimento" min="1900-01-01"
+                        max="9999-12-31" (change)="atualizarIdadeUsuario()">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>Idade</label>
+                    <input type="number" class="form-input" placeholder="Idade" [(ngModel)]="usuarioEditando.idade"
+                        readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Telefone</label>
+                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                        [(ngModel)]="usuarioEditando.telefone"
+                        (input)="formatarTelefone($event, 'telefone', usuarioEditando)">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Whatsapp</label>
+                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
+                        [(ngModel)]="usuarioEditando.whatsapp"
+                        (input)="formatarTelefone($event, 'whatsapp', usuarioEditando)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-input" placeholder="Email" [(ngModel)]="usuarioEditando.email">
+            </div>
+
+            <!-- Endereço (Não exibe para Médico) -->
+            @if (usuarioEditando.role !== 'Doctor') {
+            <div class="form-group">
+                <label>Rua</label>
+                <input type="text" class="form-input" placeholder="Digite o nome da rua"
+                    [(ngModel)]="usuarioEditando.rua">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-small">
+                    <label>Número</label>
+                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="usuarioEditando.numero">
+                </div>
+                <div class="form-group form-group-large">
+                    <label>Bairro</label>
+                    <input type="text" class="form-input" placeholder="Digite o bairro"
+                        [(ngModel)]="usuarioEditando.bairro">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-large">
+                    <label>Cidade</label>
+                    <input type="text" class="form-input" placeholder="Digite a cidade"
+                        [(ngModel)]="usuarioEditando.cidade">
+                </div>
+                <div class="form-group form-group-small">
+                    <label>Estado</label>
+                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="usuarioEditando.estado">
+                </div>
+            </div>
+            }
+
+            <!-- Campos específicos de Cuidador -->
+            @if (usuarioEditando.role === 'Caregiver') {
+            <div class="form-group">
+                <label>Tempo de Experiência</label>
+                <input type="text" class="form-input" placeholder="Ex: 5 anos"
+                    [(ngModel)]="usuarioEditando.tempoExperiencia">
+            </div>
+
+            <div class="form-group">
+                <label>Chave Pix</label>
+                <input type="text" class="form-input" placeholder="CPF, Email, Telefone ou Chave Aleatória"
+                    [(ngModel)]="usuarioEditando.chavePix">
+            </div>
+
+            <div class="form-group">
+                <label>Experiência com quais comorbidades?</label>
+                @if (usuarioEditando.experienciaComorbidadesList) {
+                @for (comorbidade of usuarioEditando.experienciaComorbidadesList; track $index; let i = $index) {
+                <div class="comorbidade-row">
+                    <input type="text" class="form-input" placeholder="Descreva a comorbidade"
+                        [(ngModel)]="usuarioEditando.experienciaComorbidadesList[i]">
+                    @if (usuarioEditando.experienciaComorbidadesList.length > 1) {
+                    <button type="button" class="btn-remove-comorbidade"
+                        (click)="removerExperienciaComorbidadeUsuario(i)">×</button>
+                    }
+                </div>
+                }
+                }
+                <button type="button" class="btn-add-comorbidade" (click)="adicionarExperienciaComorbidadeUsuario()">
+                    <span class="plus-icon">+</span>
+                    Adicionar Comorbidade
+                </button>
+            </div>
+            }
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancelar</button>
+            <button class="btn-save" (click)="salvarEdicao()">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+}
+
+<!-- Modal de Confirmação de Exclusão -->
+@if (modalConfirmacaoExclusaoAberto) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container modal-confirmacao" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Confirmar Exclusão</h2>
+            <button class="close-btn" (click)="fecharModalConfirmacaoExclusao()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" (click)="fecharModalConfirmacaoExclusao()">Cancelar</button>
+            <button class="btn-delete" (click)="confirmarExclusao()">Excluir</button>
+        </div>
+    </div>
+</div>
+}
+
+<!-- Modal de Sucesso - Edição -->
+@if (modalSucessoEdicaoAberto) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
+        <div class="modal-body">
+            <div class="sucesso-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+            </div>
+            <p class="sucesso-mensagem">Usuário atualizado com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-ok" (click)="fecharModalSucessoEdicao()">OK</button>
+        </div>
+    </div>
+</div>
+}
+
+<!-- Modal de Sucesso - Exclusão -->
+@if (modalSucessoExclusaoAberto) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container modal-sucesso" (click)="$event.stopPropagation()">
+        <div class="modal-body">
+            <div class="sucesso-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+            </div>
+            <p class="sucesso-mensagem">Usuário excluído com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-ok" (click)="fecharModalSucessoExclusao()">OK</button>
+        </div>
+    </div>
+</div>
+}

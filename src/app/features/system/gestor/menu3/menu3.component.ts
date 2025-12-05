@@ -1,18 +1,49 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UsuarioService, Usuario } from '../usuario.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-menu3',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './menu3.component.html',
   styleUrl: './menu3.component.css'
 })
 export class Menu3Component implements OnInit, OnDestroy {
   usuarios: Usuario[] = [];
   private subscription: Subscription = new Subscription();
+
+  // Modal states
+  modalEdicaoAberto: boolean = false;
+  modalConfirmacaoExclusaoAberto: boolean = false;
+  modalSucessoEdicaoAberto: boolean = false;
+  modalSucessoExclusaoAberto: boolean = false;
+
+  // Edit/Delete tracking
+  usuarioEditando: Usuario = {
+    userName: '',
+    sobrenome: '',
+    email: '',
+    role: '',
+    dataNascimento: '',
+    idade: undefined,
+    telefone: '',
+    whatsapp: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    endereco: ''
+  };
+  indiceEditando: number = -1;
+  indiceExcluindo: number = -1;
+
+  // Double-click tracking for overlay
+  private lastClickTime: number = 0;
+  private readonly DOUBLE_CLICK_DELAY = 300;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -26,5 +57,147 @@ export class Menu3Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  // Métodos para Edição
+  abrirModalEdicao(usuario: Usuario, index: number): void {
+    this.usuarioEditando = { ...usuario };
+    this.indiceEditando = index;
+    this.modalEdicaoAberto = true;
+  }
+
+  fecharModalEdicao(): void {
+    this.modalEdicaoAberto = false;
+    this.indiceEditando = -1;
+    this.resetarUsuarioEditando();
+  }
+
+  salvarEdicao(): void {
+    if (this.indiceEditando !== -1) {
+      this.usuarioService.atualizarUsuario(this.indiceEditando, this.usuarioEditando);
+      this.fecharModalEdicao();
+      this.modalSucessoEdicaoAberto = true;
+    }
+  }
+
+  fecharModalSucessoEdicao(): void {
+    this.modalSucessoEdicaoAberto = false;
+  }
+
+  // Métodos para Exclusão
+  abrirModalConfirmacaoExclusao(index: number): void {
+    this.indiceExcluindo = index;
+    this.modalConfirmacaoExclusaoAberto = true;
+  }
+
+  fecharModalConfirmacaoExclusao(): void {
+    this.modalConfirmacaoExclusaoAberto = false;
+    this.indiceExcluindo = -1;
+  }
+
+  confirmarExclusao(): void {
+    if (this.indiceExcluindo !== -1) {
+      this.usuarioService.removerUsuario(this.indiceExcluindo);
+      this.fecharModalConfirmacaoExclusao();
+      this.modalSucessoExclusaoAberto = true;
+    }
+  }
+
+  fecharModalSucessoExclusao(): void {
+    this.modalSucessoExclusaoAberto = false;
+  }
+
+  // Utilitários
+  handleOverlayClick(): void {
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - this.lastClickTime;
+
+    if (timeDiff < this.DOUBLE_CLICK_DELAY) {
+      if (this.modalEdicaoAberto) this.fecharModalEdicao();
+      else if (this.modalConfirmacaoExclusaoAberto) this.fecharModalConfirmacaoExclusao();
+      else if (this.modalSucessoEdicaoAberto) this.fecharModalSucessoEdicao();
+      else if (this.modalSucessoExclusaoAberto) this.fecharModalSucessoExclusao();
+    }
+
+    this.lastClickTime = currentTime;
+  }
+
+  // Validações e Formatações
+  validarNome(event: any, campo: string, objeto: any): void {
+    const valor = event.target.value;
+    const valorSemNumeros = valor.replace(/[0-9]/g, '');
+    objeto[campo] = valorSemNumeros;
+    event.target.value = valorSemNumeros;
+  }
+
+  formatarTelefone(event: any, campo: string, objeto: any): void {
+    let valor = event.target.value.replace(/\D/g, '');
+    if (valor.length > 11) {
+      valor = valor.substring(0, 11);
+    }
+    let valorFormatado = '';
+    if (valor.length > 0) {
+      valorFormatado = '(' + valor.substring(0, 2);
+    }
+    if (valor.length >= 3) {
+      valorFormatado += ') ' + valor.substring(2, 7);
+    }
+    if (valor.length >= 8) {
+      valorFormatado += '-' + valor.substring(7, 11);
+    }
+    objeto[campo] = valorFormatado;
+    event.target.value = valorFormatado;
+  }
+
+  calcularIdade(dataNascimento: string | undefined): number | undefined {
+    if (!dataNascimento) return undefined;
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade--;
+    }
+    return idade >= 0 ? idade : undefined;
+  }
+
+  atualizarIdadeUsuario(): void {
+    this.usuarioEditando.idade = this.calcularIdade(this.usuarioEditando.dataNascimento);
+  }
+
+  // Métodos para comorbidades (Cuidador)
+  adicionarExperienciaComorbidadeUsuario(): void {
+    if (!this.usuarioEditando.experienciaComorbidadesList) {
+      this.usuarioEditando.experienciaComorbidadesList = [];
+    }
+    this.usuarioEditando.experienciaComorbidadesList.push('');
+  }
+
+  removerExperienciaComorbidadeUsuario(index: number): void {
+    if (this.usuarioEditando.experienciaComorbidadesList && this.usuarioEditando.experienciaComorbidadesList.length > 0) {
+      this.usuarioEditando.experienciaComorbidadesList.splice(index, 1);
+    }
+  }
+
+  private resetarUsuarioEditando(): void {
+    this.usuarioEditando = {
+      userName: '',
+      sobrenome: '',
+      email: '',
+      role: '',
+      dataNascimento: '',
+      idade: undefined,
+      telefone: '',
+      whatsapp: '',
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+      endereco: '',
+      chavePix: '',
+      tempoExperiencia: '',
+      experienciaComorbidadesList: ['']
+    };
   }
 }

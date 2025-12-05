@@ -66,6 +66,25 @@ export class UsuarioService {
         this.salvarUsuarios(novosUsuarios);
     }
 
+    atualizarUsuario(index: number, usuarioAtualizado: Usuario): void {
+        const usuariosAtuais = this.usuariosSubject.value;
+        if (index >= 0 && index < usuariosAtuais.length) {
+            const novosUsuarios = [...usuariosAtuais];
+            novosUsuarios[index] = usuarioAtualizado;
+            this.usuariosSubject.next(novosUsuarios);
+            this.salvarUsuarios(novosUsuarios);
+        }
+    }
+
+    removerUsuario(index: number): void {
+        const usuariosAtuais = this.usuariosSubject.value;
+        if (index >= 0 && index < usuariosAtuais.length) {
+            const novosUsuarios = usuariosAtuais.filter((_, i) => i !== index);
+            this.usuariosSubject.next(novosUsuarios);
+            this.salvarUsuarios(novosUsuarios);
+        }
+    }
+
     getQuantidadeUsuarios(): number {
         return this.usuariosSubject.value.length;
     }
