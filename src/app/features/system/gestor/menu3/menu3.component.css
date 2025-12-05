@@ -42,6 +42,14 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    border-color: #0d9488;
+}
+
 /* Ações do Card (Editar/Excluir) */
 .card-header-actions {
     position: absolute;
@@ -411,4 +419,209 @@
     align-items: center;
     justify-content: center;
     line-height: 1;
+}
+
+/* Estilos do Cartão do Cuidador */
+.modal-cartao-cuidador {
+    width: 850px;
+    max-width: 95%;
+    height: 520px;
+    background-color: white;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.cartao-header-strip {
+    height: 24px;
+    background-color: #0d9488;
+    width: 100%;
+    margin-top: 12px;
+    position: relative;
+}
+
+.cartao-header-strip::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: #0d9488;
+}
+
+.cartao-content {
+    padding: 30px 60px;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartao-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.cartao-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    color: #0d9488;
+    width: 48px;
+    height: 48px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.1;
+    font-size: 20px;
+}
+
+.cartao-main-info {
+    text-align: right;
+    margin: 0;
+}
+
+.cartao-nome {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0d9488;
+    margin: 0;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.cartao-cargo {
+    font-size: 22px;
+    color: #0d9488;
+    letter-spacing: 3px;
+    font-weight: 400;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 5px;
+}
+
+.cartao-body-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Alinha verticalmente ao centro */
+    margin-top: 10px;
+    position: relative;
+}
+
+.cartao-info-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 0;
+    max-width: 60%;
+}
+
+.info-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    /* Mais espaço para o label */
+    align-items: baseline;
+    font-size: 15px;
+}
+
+.info-label {
+    color: #0d9488;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    color: #0d9488;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.comorbidades-item {
+    align-items: flex-start;
+}
+
+.comorbidades-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cartao-image-area {
+    width: 280px;
+    height: 280px;
+    position: relative;
+    /* Volta ao fluxo para permitir alinhamento flex */
+    margin-right: -30px;
+    /* Ajuste para posicionar à direita */
+    margin-top: -20px;
+    /* Ajuste leve para cima */
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid #0ea5e9;
+    overflow: hidden;
+    background-color: #e0f2fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.cartao-footer-curve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cartao-footer-curve svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.close-cartao-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    /* Muda para branco pois está sobre a faixa verde */
+    cursor: pointer;
+    z-index: 20;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.close-cartao-btn:hover {
+    opacity: 1;
 }

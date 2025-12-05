@@ -5,10 +5,12 @@
 
     <div class="users-grid">
         @for (usuario of usuarios; track usuario.userName) {
-        <div class="user-card">
+        <div class="user-card" [class.cursor-pointer]="usuario.role === 'Caregiver'"
+            (click)="abrirModalCartao(usuario)">
             <div class="card-header-actions">
                 <div class="card-actions">
-                    <button class="action-icon edit-icon" (click)="abrirModalEdicao(usuario, $index)" title="Editar">
+                    <button class="action-icon edit-icon"
+                        (click)="$event.stopPropagation(); abrirModalEdicao(usuario, $index)" title="Editar">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor">
                             <path
@@ -16,8 +18,8 @@
                             </path>
                         </svg>
                     </button>
-                    <button class="action-icon delete-icon" (click)="abrirModalConfirmacaoExclusao($index)"
-                        title="Excluir">
+                    <button class="action-icon delete-icon"
+                        (click)="$event.stopPropagation(); abrirModalConfirmacaoExclusao($index)" title="Excluir">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor">
                             <path
@@ -241,6 +243,83 @@
         <div class="modal-footer">
             <button class="btn-ok" (click)="fecharModalSucessoExclusao()">OK</button>
         </div>
+    </div>
+</div>
+}
+
+<!-- Modal Cartão do Cuidador -->
+@if (modalCartaoCuidadorAberto && cuidadorSelecionado) {
+<div class="modal-overlay" (click)="handleOverlayClick()">
+    <div class="modal-container modal-cartao-cuidador" (click)="$event.stopPropagation()">
+        <div class="cartao-header-strip"></div>
+        <div class="cartao-content">
+            <div class="cartao-top-row">
+                <div class="cartao-logo">
+                    <div class="logo-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span>Cuidado</span>
+                        <span>Conectado</span>
+                    </div>
+                </div>
+
+                <div class="cartao-main-info">
+                    <h2 class="cartao-nome">{{ cuidadorSelecionado.userName.toUpperCase() }} {{
+                        cuidadorSelecionado.sobrenome?.toUpperCase() }}</h2>
+                    <span class="cartao-cargo">CUIDADOR(A)</span>
+                </div>
+            </div>
+
+            <div class="cartao-body-grid">
+                <div class="cartao-info-list">
+                    <div class="info-item">
+                        <span class="info-label">TELEFONE :</span>
+                        <span class="info-value">{{ cuidadorSelecionado.telefone }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">EXPERIÊNCIA :</span>
+                        <span class="info-value">{{ cuidadorSelecionado.tempoExperiencia }}</span>
+                    </div>
+                    <div class="info-item comorbidades-item">
+                        <span class="info-label">COMORBIDADES :<br>ATENDIDAS</span>
+                        <div class="info-value comorbidades-list">
+                            @if (cuidadorSelecionado.experienciaComorbidadesList &&
+                            cuidadorSelecionado.experienciaComorbidadesList.length > 0) {
+                            @for (comorbidade of cuidadorSelecionado.experienciaComorbidadesList; track $index) {
+                            <span>{{ comorbidade }}</span>
+                            }
+                            } @else {
+                            <span>Nenhuma informada</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cartao-image-area">
+                    <div class="image-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e0f2fe">
+                            <path
+                                d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h12v16H6V4zm2 10l2.5 3.01L14.5 12l4.5 6H5l3-4z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cartao-footer-curve">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#004d40" fill-opacity="1"
+                    d="M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,213.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                </path>
+                <path fill="#0d9488" fill-opacity="1"
+                    d="M0,256L80,245.3C160,235,320,213,480,213.3C640,213,800,235,960,245.3C1120,256,1280,256,1360,256L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+                    style="transform: translateY(20px); opacity: 0.8;"></path>
+            </svg>
+        </div>
+        <button class="close-cartao-btn" (click)="fecharModalCartao()">&times;</button>
     </div>
 </div>
 }

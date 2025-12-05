@@ -20,6 +20,7 @@ export class Menu3Component implements OnInit, OnDestroy {
   modalConfirmacaoExclusaoAberto: boolean = false;
   modalSucessoEdicaoAberto: boolean = false;
   modalSucessoExclusaoAberto: boolean = false;
+  modalCartaoCuidadorAberto: boolean = false;
 
   // Edit/Delete tracking
   usuarioEditando: Usuario = {
@@ -38,6 +39,7 @@ export class Menu3Component implements OnInit, OnDestroy {
     estado: '',
     endereco: ''
   };
+  cuidadorSelecionado: Usuario | null = null;
   indiceEditando: number = -1;
   indiceExcluindo: number = -1;
 
@@ -59,8 +61,23 @@ export class Menu3Component implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  // Método para abrir cartão do cuidador
+  abrirModalCartao(usuario: Usuario): void {
+    if (usuario.role === 'Caregiver') {
+      this.cuidadorSelecionado = usuario;
+      this.modalCartaoCuidadorAberto = true;
+    }
+  }
+
+  fecharModalCartao(): void {
+    this.modalCartaoCuidadorAberto = false;
+    this.cuidadorSelecionado = null;
+  }
+
   // Métodos para Edição
   abrirModalEdicao(usuario: Usuario, index: number): void {
+    // Evita abrir o cartão ao clicar no botão de editar
+    // O evento de clique no card deve ser tratado separadamente dos botões de ação
     this.usuarioEditando = { ...usuario };
     this.indiceEditando = index;
     this.modalEdicaoAberto = true;
@@ -117,6 +134,7 @@ export class Menu3Component implements OnInit, OnDestroy {
       else if (this.modalConfirmacaoExclusaoAberto) this.fecharModalConfirmacaoExclusao();
       else if (this.modalSucessoEdicaoAberto) this.fecharModalSucessoEdicao();
       else if (this.modalSucessoExclusaoAberto) this.fecharModalSucessoExclusao();
+      else if (this.modalCartaoCuidadorAberto) this.fecharModalCartao();
     }
 
     this.lastClickTime = currentTime;
