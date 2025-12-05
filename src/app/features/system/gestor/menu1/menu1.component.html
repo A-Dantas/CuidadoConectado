@@ -1,4 +1,4 @@
-<div class="container_principal">
+﻿<div class="container_principal">
     <div class="container_content_geral">
         <!-- Visão Geral -->
         <div class="container_visao_geral">
@@ -117,7 +117,7 @@
             <div class="form-group">
                 <label>Nome do Paciente</label>
                 <input type="text" class="form-input" [class.input-error]="errosPaciente.nomePaciente"
-                    placeholder="Digite o nome completo" [(ngModel)]="novoPaciente.nomePaciente">
+                    placeholder="Digite o nome completo" [(ngModel)]="novoPaciente.nomePaciente" (input)="validarNome($event, 'nomePaciente', novoPaciente)">
                 @if (errosPaciente.nomePaciente) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
 
@@ -211,7 +211,7 @@
                 <div class="form-row">
                     <div class="form-group form-group-large">
                         <label>Nome</label>
-                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoCuidador.userName">
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoCuidador.userName" (input)="validarNome($event, 'userName', novoCuidador)">
                     </div>
                     <div class="form-group form-group-large">
                         <label>Sobrenome</label>
@@ -290,7 +290,7 @@
                 <div class="form-row">
                     <div class="form-group form-group-large">
                         <label>Nome</label>
-                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoMedico.userName">
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoMedico.userName" (input)="validarNome($event, 'userName', novoMedico)">
                     </div>
                     <div class="form-group form-group-large">
                         <label>Sobrenome</label>
@@ -359,7 +359,7 @@
                 <div class="form-row">
                     <div class="form-group form-group-large">
                         <label>Nome</label>
-                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoFamiliar.userName">
+                        <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoFamiliar.userName" (input)="validarNome($event, 'userName', novoFamiliar)">
                     </div>
                     <div class="form-group form-group-large">
                         <label>Sobrenome</label>
@@ -491,11 +491,11 @@
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Nome</label>
-                    <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoUsuario.userName">
+                    <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoUsuario.userName" (input)="validarNome($event, 'userName', novoUsuario)">
                 </div>
                 <div class="form-group form-group-large">
                     <label>Sobrenome</label>
-                    <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoUsuario.sobrenome">
+                    <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoUsuario.sobrenome" (input)="validarNome($event, 'sobrenome', novoUsuario)">
                 </div>
             </div>
 

@@ -46,6 +46,9 @@ export class Menu2Component implements OnInit, OnDestroy {
   medicos: string[] = [];
   familiares: string[] = [];
 
+  // Track which patients have expanded comorbidities
+  comorbidadesExpandidas: Set<number> = new Set();
+
   constructor(
     private pacienteService: PacienteService,
     private usuarioService: UsuarioService
@@ -103,6 +106,18 @@ export class Menu2Component implements OnInit, OnDestroy {
       return [];
     }
     return comorbidades.split(',').map(c => c.trim()).filter(c => c.length > 0);
+  }
+
+  toggleComorbidades(index: number): void {
+    if (this.comorbidadesExpandidas.has(index)) {
+      this.comorbidadesExpandidas.delete(index);
+    } else {
+      this.comorbidadesExpandidas.add(index);
+    }
+  }
+
+  isComorbidadesExpandido(index: number): boolean {
+    return this.comorbidadesExpandidas.has(index);
   }
 
   abrirModalEdicao(paciente: Paciente, index: number): void {

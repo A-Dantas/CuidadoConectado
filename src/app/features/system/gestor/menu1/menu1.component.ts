@@ -156,6 +156,43 @@ export class Menu1Component implements OnInit, OnDestroy {
     return idade >= 0 ? idade : undefined;
   }
 
+  // Validação de nome - não permite números
+  validarNome(event: any, campo: string, objeto: any): void {
+    const valor = event.target.value;
+    const valorSemNumeros = valor.replace(/[0-9]/g, '');
+    objeto[campo] = valorSemNumeros;
+    event.target.value = valorSemNumeros;
+  }
+
+  // Validação de email - verifica se contém @
+  validarEmail(email: string): boolean {
+    return email.includes('@');
+  }
+
+  // Formatação de telefone - (XX) XXXXX-XXXX
+  formatarTelefone(event: any, campo: string, objeto: any): void {
+    let valor = event.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+
+    if (valor.length > 11) {
+      valor = valor.substring(0, 11); // Limita a 11 dígitos
+    }
+
+    let valorFormatado = '';
+
+    if (valor.length > 0) {
+      valorFormatado = '(' + valor.substring(0, 2);
+    }
+    if (valor.length >= 3) {
+      valorFormatado += ') ' + valor.substring(2, 7);
+    }
+    if (valor.length >= 8) {
+      valorFormatado += '-' + valor.substring(7, 11);
+    }
+
+    objeto[campo] = valorFormatado;
+    event.target.value = valorFormatado;
+  }
+
   atualizarIdadePaciente(): void {
     this.novoPaciente.idade = this.calcularIdade(this.novoPaciente.dataNascimento) ?? null;
   }
@@ -233,6 +270,12 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   salvarNovoCuidador(): void {
     if (this.novoCuidador.userName.trim() && this.novoCuidador.email.trim()) {
+      // Validação de email
+      if (!this.validarEmail(this.novoCuidador.email)) {
+        alert('Email inválido. O email deve conter @');
+        return;
+      }
+
       // Validação de data (opcional para cuidador, mas se preenchida deve ser válida)
       if (this.novoCuidador.dataNascimento && !this.validarData(this.novoCuidador.dataNascimento)) {
         alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
@@ -286,6 +329,12 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   salvarNovoMedico(): void {
     if (this.novoMedico.userName.trim() && this.novoMedico.email.trim()) {
+      // Validação de email
+      if (!this.validarEmail(this.novoMedico.email)) {
+        alert('Email inválido. O email deve conter @');
+        return;
+      }
+
       if (this.novoMedico.dataNascimento && !this.validarData(this.novoMedico.dataNascimento)) {
         alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
         return;
@@ -328,6 +377,12 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   salvarNovoFamiliar(): void {
     if (this.novoFamiliar.userName.trim() && this.novoFamiliar.email.trim()) {
+      // Validação de email
+      if (!this.validarEmail(this.novoFamiliar.email)) {
+        alert('Email inválido. O email deve conter @');
+        return;
+      }
+
       if (this.novoFamiliar.dataNascimento && !this.validarData(this.novoFamiliar.dataNascimento)) {
         alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
         return;
@@ -548,6 +603,12 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   adicionarUsuario(): void {
     if (this.novoUsuario.userName.trim() && this.novoUsuario.email.trim()) {
+      // Validação de email
+      if (!this.validarEmail(this.novoUsuario.email)) {
+        alert('Email inválido. O email deve conter @');
+        return;
+      }
+
       if (this.novoUsuario.dataNascimento && !this.validarData(this.novoUsuario.dataNascimento)) {
         alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
         return;

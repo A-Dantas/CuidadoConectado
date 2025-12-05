@@ -1,4 +1,4 @@
-.gerenciamento_pacientes {
+﻿.gerenciamento_pacientes {
     width: 100%;
     max-width: 1650px;
     display: flex;
@@ -18,36 +18,46 @@
 .lista_pacientes {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
-    gap: 40px;
-
+    grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
+    gap: 20px;
 }
 
+/* Card Styles - Matching Reference Image */
 .card {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-    border-right: 2px solid var(--cor_gradient_1);
-    border-bottom: 2px solid var(--cor_gradient_1);
-    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
     position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    max-width: 350px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover .card-header-actions {
+    opacity: 1;
 }
 
 .card-header-actions {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 16px;
+    right: 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .card-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
 .action-icon {
-    background: none;
-    border: none;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
     cursor: pointer;
     padding: 6px;
     border-radius: 6px;
@@ -55,6 +65,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .edit-icon {
@@ -63,6 +74,7 @@
 
 .edit-icon:hover {
     background-color: #eff6ff;
+    border-color: #3b82f6;
 }
 
 .delete-icon {
@@ -71,105 +83,122 @@
 
 .delete-icon:hover {
     background-color: #fef2f2;
+    border-color: #ef4444;
 }
 
-.detalhes_paciente {
+/* Card Content */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-header-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
 }
 
 .info_pessoal {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
+    flex: 1;
 }
 
-.info_pessoal p {
-    font-size: 14px;
-    font-weight: 450;
+.nome_paciente {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.idade_paciente {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6b7280;
+    margin: 0;
 }
 
 .icone_paciente {
-    background-color: rgba(155, 243, 108, 0.631);
-    width: 45px;
-    height: 45px;
+    background-color: #ccfbf1;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    color: #14b8a6;
 }
 
-.info_contato {
+.card-body {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.info_contato p {
-    font-size: 14px;
-}
-
-.condicoes_paciente {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(auto, 1fr));
     gap: 8px;
 }
 
-.tag {
-    font-size: 14px;
-    background-color: rgba(255, 158, 158, 0.79);
-    border-radius: 3px;
-    padding-left: 6px;
-    font-weight: 450;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.endereco_paciente {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.5;
 }
 
-.botao {
-    padding: 12px 20px;
-    background-color: #ffffff;
-    color: #37b7a6;
-    border: 1px solid #37b7a6;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+.card-footer {
     display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.condicoes_paciente {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
+}
+
+.tag_comorbidade {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.tag_mais {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+}
+.tag_clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag_clickable:hover {
+    background-color: #e5e7eb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mensagem_vazia {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 40px;
-    color: #6c757d;
+    padding: 60px 20px;
+    color: #9ca3af;
     font-size: 16px;
-}
-
-.info_responsaveis {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 8px;
-}
-
-.info_medico,
-.info_familiar {
-    font-size: 13px;
-    color: #495057;
-    margin: 0;
-}
-
-.info_medico strong,
-.info_familiar strong {
-    color: #343a40;
-    font-weight: 600;
 }
 
 /* Modal Styles */
@@ -383,6 +412,7 @@
 .btn-ok:hover {
     background-color: #0d9488;
 }
+
 /* Confirmation Modal Styles */
 .modal-confirmacao {
     max-width: 400px;
@@ -503,4 +533,23 @@
     align-items: center;
     justify-content: center;
     line-height: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .lista_pacientes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .lista_pacientes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .lista_pacientes {
+        grid-template-columns: 1fr;
+    }
 }

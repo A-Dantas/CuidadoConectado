@@ -1,4 +1,4 @@
-<main class="gerenciamento_pacientes">
+﻿<main class="gerenciamento_pacientes">
     <header class="cabecalho_controles">
         <h1 class="titulo_pagina">Gestão de Pacientes</h1>
     </header>
@@ -33,43 +33,44 @@
                 </div>
             </div>
 
-            <div class="detalhes_paciente">
-                <div class="info_pessoal">
-                    <h4 class="nome_paciente">{{paciente.nomePaciente}}</h4>
-                    <p class="idade_paciente">Idade: {{paciente.idade || 'N/A'}}</p>
-                </div>
-                <div class="icone_paciente">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path
-                            d="M12 1C15.315 1 18 3.685 18 7C18 10.2397 15.4357 12.8776 12.225 12.9959L12 13C8.685 13 6 10.315 6 7C6 3.76034 8.56434 1.12237 11.775 1.00414L12 1ZM12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3ZM12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.6651 7.44784 14.1355 11.7508 14.0038L12 14ZM17.841 15.659C18.7197 14.7803 20.1443 14.7803 21.023 15.659C21.9017 16.5377 21.9017 17.9623 21.023 18.841L18.0178 21.8462L15.0126 18.841C14.1339 17.9623 14.1339 16.5377 15.0126 15.659C15.8913 14.7803 17.3159 14.7803 18.1946 15.659L17.841 15.659Z">
-                        </path>
-                    </svg>
-                </div>
-            </div>
+            <div class="card-content">
+                <div class="card-header-info">
+                    <div class="info_pessoal">
+                        <h4 class="nome_paciente">{{paciente.nomePaciente}}</h4>
+                        <p class="idade_paciente">Age: {{paciente.idade || 'N/A'}}</p>
+                    </div></div>
 
-            <div class="info_contato">
-                <p>{{paciente.endereco || 'Endereço não informado'}}</p>
-
-                <div class="info_responsaveis">
-                    <p class="info_medico">
-                        <strong>Médico:</strong> {{paciente.medicoAtribuido || 'Não atribuído'}}
-                    </p>
-                    <p class="info_familiar">
-                        <strong>Familiar:</strong> {{paciente.contatoFamiliar || 'Não informado'}}
-                    </p>
+                <div class="card-body">
+                    <p class="endereco_paciente">{{paciente.endereco || 'Endereço não informado'}}</p>
                 </div>
 
-                <div class="condicoes_paciente">
-                    @if (getComorbidadesArray(paciente.comorbidades).length > 0) {
-                    @for (comorbidade of getComorbidadesArray(paciente.comorbidades).slice(0, 2); track comorbidade) {
-                    <span class="tag tag_diabetes">{{comorbidade}}</span>
-                    }
-                    @if (getComorbidadesArray(paciente.comorbidades).length > 2) {
-                    <span class="tag tag_mais">+{{getComorbidadesArray(paciente.comorbidades).length - 2}} mais</span>
-                    }
-                    } @else {
-                    <span class="tag tag_diabetes">Sem comorbidades</span>
-                    }
+                <div class="card-footer">
+                    <div class="condicoes_paciente">
+                        @if (getComorbidadesArray(paciente.comorbidades).length > 0) {
+
+                        @if (isComorbidadesExpandido(i)) {
+                        <!-- Mostrar todas as comorbidades quando expandido -->
+                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades); track comorbidade) {
+                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
+                        }
+                        <span class="tag tag_mais tag_clickable" (click)="toggleComorbidades(i)">show less</span>
+                        } @else {
+                        <!-- Mostrar apenas as primeiras 2 quando recolhido -->
+                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades).slice(0, 2); track comorbidade)
+                        {
+                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
+                        }
+                        @if (getComorbidadesArray(paciente.comorbidades).length > 2) {
+                        <span class="tag tag_mais tag_clickable"
+                            (click)="toggleComorbidades(i)">+{{getComorbidadesArray(paciente.comorbidades).length - 2}}
+                            more</span>
+                        }
+                        }
+
+                        } @else {
+                        <span class="tag tag_comorbidade">Sem comorbidades</span>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,14 +92,16 @@
                 <label>Patient Name</label>
                 <input type="text" class="form-input" placeholder="Enter patient name"
                     [(ngModel)]="pacienteEditando.nomePaciente">
-            </div>            <div class="form-group">
+            </div>
+            <div class="form-group">
                 <label>Age</label>
                 <input type="number" class="form-input" placeholder="Enter age" [(ngModel)]="pacienteEditando.idade">
             </div>
 
             <div class="form-group">
                 <label>Street</label>
-                <input type="text" class="form-input" placeholder="Enter street name" [(ngModel)]="pacienteEditando.rua">
+                <input type="text" class="form-input" placeholder="Enter street name"
+                    [(ngModel)]="pacienteEditando.rua">
             </div>
 
             <div class="form-row">
@@ -108,14 +111,16 @@
                 </div>
                 <div class="form-group form-group-large">
                     <label>Neighborhood</label>
-                    <input type="text" class="form-input" placeholder="Enter neighborhood" [(ngModel)]="pacienteEditando.bairro">
+                    <input type="text" class="form-input" placeholder="Enter neighborhood"
+                        [(ngModel)]="pacienteEditando.bairro">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>City</label>
-                    <input type="text" class="form-input" placeholder="Enter city" [(ngModel)]="pacienteEditando.cidade">
+                    <input type="text" class="form-input" placeholder="Enter city"
+                        [(ngModel)]="pacienteEditando.cidade">
                 </div>
                 <div class="form-group form-group-small">
                     <label>State</label>
@@ -126,12 +131,14 @@
             <div class="form-group">
                 <label>Comorbidities</label>
                 @for (comorbidade of comorbidadesListEdicao; track $index; let i = $index) {
-                    <div class="comorbidade-row">
-                        <input type="text" class="form-input" placeholder="Enter condition" [(ngModel)]="comorbidadesListEdicao[i]">
-                        @if (comorbidadesListEdicao.length > 1) {
-                            <button type="button" class="btn-remove-comorbidade" (click)="removerComorbidadeEdicao(i)">�</button>
-                        }
-                    </div>
+                <div class="comorbidade-row">
+                    <input type="text" class="form-input" placeholder="Enter condition"
+                        [(ngModel)]="comorbidadesListEdicao[i]">
+                    @if (comorbidadesListEdicao.length > 1) {
+                    <button type="button" class="btn-remove-comorbidade"
+                        (click)="removerComorbidadeEdicao(i)">�</button>
+                    }
+                </div>
                 }
                 <button type="button" class="btn-add-comorbidade" (click)="adicionarComorbidadeEdicao()">
                     <span class="plus-icon">+</span>
