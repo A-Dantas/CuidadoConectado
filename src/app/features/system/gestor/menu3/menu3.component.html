@@ -1,10 +1,19 @@
 <div class="user-management-container">
     <header class="header">
         <h1 class="page-title">User Management</h1>
+        <div class="filter-section">
+            <label class="filter-label">Filtro:</label>
+            <select class="filter-select" [(ngModel)]="filtroRole">
+                <option value="Todos">Todos</option>
+                <option value="Caregiver">Cuidador</option>
+                <option value="Doctor">Médico</option>
+                <option value="Family Member">Familiar</option>
+            </select>
+        </div>
     </header>
 
     <div class="users-grid">
-        @for (usuario of usuarios; track usuario.userName) {
+        @for (usuario of usuariosFiltrados; track usuario.userName) {
         <div class="user-card" [class.cursor-pointer]="usuario.role === 'Caregiver'"
             (click)="abrirModalCartao(usuario)">
             <div class="card-header-actions">

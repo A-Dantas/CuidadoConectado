@@ -38,7 +38,8 @@
                     <div class="info_pessoal">
                         <h4 class="nome_paciente">{{paciente.nomePaciente}}</h4>
                         <p class="idade_paciente">Age: {{paciente.idade || 'N/A'}}</p>
-                    </div></div>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     <p class="endereco_paciente">{{paciente.endereco || 'Endereço não informado'}}</p>
@@ -225,7 +226,7 @@
 
         <div class="modal-footer">
             <button class="btn-delete" (click)="confirmarExclusao()">Excluir</button>
-            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancelar</button>
+            <button class="btn-cancel" (click)="fecharModalConfirmacaoExclusao()">Cancelar</button>
         </div>
     </div>
 </div>
@@ -250,7 +251,7 @@
         </div>
 
         <div class="modal-footer">
-            <button class="btn-ok" (click)="fecharModalSucessoEdicao()">OK</button>
+            <button class="btn-ok" (click)="fecharModalSucessoExclusao()">OK</button>
         </div>
     </div>
 </div>

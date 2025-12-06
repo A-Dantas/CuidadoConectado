@@ -18,6 +18,36 @@
     margin: 0;
 }
 
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    color: #111827;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-width: 150px;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
 .users-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));

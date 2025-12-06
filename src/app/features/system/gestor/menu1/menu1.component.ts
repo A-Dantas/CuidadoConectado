@@ -123,6 +123,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
 
   errosPaciente: any = {};
+  errosUsuario: any = {};
 
   experienciaComorbidadesList: string[] = [''];
 
@@ -269,6 +270,15 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoCuidador(): void {
+    this.errosUsuario = {};
+
+    if (!this.novoCuidador.userName?.trim()) this.errosUsuario.userName = true;
+    if (!this.novoCuidador.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
+    if (!this.novoCuidador.telefone?.trim()) this.errosUsuario.telefone = true;
+    if (!this.novoCuidador.email?.trim()) this.errosUsuario.email = true;
+
+    if (Object.keys(this.errosUsuario).length > 0) return;
+
     if (this.novoCuidador.userName.trim() && this.novoCuidador.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoCuidador.email)) {
@@ -298,6 +308,7 @@ export class Menu1Component implements OnInit, OnDestroy {
         .map(c => c.trim())
         .filter(c => c.length > 0);
       this.novoCuidador.experienciaComorbidades = comorbidadesValidas.join(', ');
+      this.novoCuidador.experienciaComorbidadesList = comorbidadesValidas; // Salvar array também
 
       // Adicionar usuário
       this.usuarioService.adicionarUsuario({ ...this.novoCuidador });
@@ -328,6 +339,15 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoMedico(): void {
+    this.errosUsuario = {};
+
+    if (!this.novoMedico.userName?.trim()) this.errosUsuario.userName = true;
+    if (!this.novoMedico.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
+    if (!this.novoMedico.telefone?.trim()) this.errosUsuario.telefone = true;
+    if (!this.novoMedico.email?.trim()) this.errosUsuario.email = true;
+
+    if (Object.keys(this.errosUsuario).length > 0) return;
+
     if (this.novoMedico.userName.trim() && this.novoMedico.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoMedico.email)) {
@@ -335,10 +355,7 @@ export class Menu1Component implements OnInit, OnDestroy {
         return;
       }
 
-      if (this.novoMedico.dataNascimento && !this.validarData(this.novoMedico.dataNascimento)) {
-        alert('Data de nascimento inválida. O ano deve ter 4 dígitos e ser a partir de 1900.');
-        return;
-      }
+
       this.usuarioService.adicionarUsuario({ ...this.novoMedico });
       this.novoPaciente.medicoAtribuido = this.novoMedico.userName;
       this.mostrarCadastroMedico = false;
@@ -352,6 +369,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioMedico(): void {
+    this.errosUsuario = {};
     this.novoMedico = {
       userName: '',
       sobrenome: '',
@@ -376,6 +394,15 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoFamiliar(): void {
+    this.errosUsuario = {};
+
+    if (!this.novoFamiliar.userName?.trim()) this.errosUsuario.userName = true;
+    if (!this.novoFamiliar.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
+    if (!this.novoFamiliar.telefone?.trim()) this.errosUsuario.telefone = true;
+    if (!this.novoFamiliar.email?.trim()) this.errosUsuario.email = true;
+
+    if (Object.keys(this.errosUsuario).length > 0) return;
+
     if (this.novoFamiliar.userName.trim() && this.novoFamiliar.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoFamiliar.email)) {
@@ -411,6 +438,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioFamiliar(): void {
+    this.errosUsuario = {};
     this.novoFamiliar = {
       userName: '',
       sobrenome: '',
@@ -430,6 +458,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioCuidador(): void {
+    this.errosUsuario = {};
     this.novoCuidador = {
       userName: '',
       sobrenome: '',
@@ -484,6 +513,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   resetarFormulario(): void {
     this.errosPaciente = {};
+    this.errosUsuario = {};
     this.novoPaciente = {
       nomePaciente: '',
       dataNascimento: '',
@@ -630,6 +660,7 @@ export class Menu1Component implements OnInit, OnDestroy {
           .map(c => c.trim())
           .filter(c => c.length > 0);
         this.novoUsuario.experienciaComorbidades = comorbidadesValidas.join(', ');
+        this.novoUsuario.experienciaComorbidadesList = comorbidadesValidas; // Salvar array também
       }
 
       // Mapear tipoUsuario para role

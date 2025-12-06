@@ -1,1 +1,76 @@
-<p>menu4 works!</p>
+<div class="schedule-container">
+    <h2 class="page-title">Gerenciamento de Agendamentos</h2>
+
+    <div class="filter-section">
+        <label class="filter-label">Filtrar por Cuidador:</label>
+        <select class="filter-select" [(ngModel)]="filtroCuidador" (ngModelChange)="onCuidadorChange()">
+            <option *ngFor="let cuidador of cuidadores" [value]="cuidador.userName">
+                {{cuidador.userName}} {{cuidador.sobrenome}}
+            </option>
+        </select>
+    </div>
+
+    <div class="calendar-card">
+        <div class="weekdays-row">
+            <div class="weekday" *ngFor="let day of weekDays">{{day}}</div>
+        </div>
+
+        <div class="days-grid">
+            <div class="day-cell" *ngFor="let day of calendarDays">
+                <div class="day-header" *ngIf="day.number">
+                    <div class="day-number">{{day.number}}</div>
+                    <button class="add-btn" (click)="addSelection(day)">+</button>
+                </div>
+
+                <div class="patient-select-wrapper" *ngIf="day.number">
+                    <div *ngFor="let selection of day.selectedPatients; let i = index; trackBy: trackByIndex"
+                        class="select-row">
+                        <select class="patient-select" [(ngModel)]="day.selectedPatients[i]"
+                            (ngModelChange)="onPatientOrShiftChange(day, i)">
+                            <option value="" disabled selected>Selecione o Paciente</option>
+                            <ng-container *ngFor="let paciente of pacientes">
+                                <option *ngIf="!isPatientSelected(day, paciente.nomePaciente, i)"
+                                    [value]="paciente.nomePaciente">
+                                    {{paciente.nomePaciente}}
+                                </option>
+                            </ng-container>
+                        </select>
+
+                        <!-- Shift selector - only shows when patient is selected -->
+                        <select class="shift-select" [(ngModel)]="day.selectedShifts[i]"
+                            (ngModelChange)="onPatientOrShiftChange(day, i)" *ngIf="day.selectedPatients[i]">
+                            <option value="" disabled selected>Selecione o Turno</option>
+                            <option value="MT">MT (7h ~ 19h)</option>
+                            <option value="SN">SN (19h ~ 7h)</option>
+                            <option value="24H_7H">24h (Início 7h)</option>
+                            <option value="24H_19H">24h (Início 19h)</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="events-container">
+                    <div class="event-chip" *ngFor="let event of day.events">
+                        {{event}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Conflict Modal -->
+<div class="modal-overlay" *ngIf="modalConflictOpen" (click)="closeConflictModal()">
+    <div class="conflict-modal" (click)="$event.stopPropagation()">
+        <div class="modal-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+            </svg>
+        </div>
+        <h2 class="modal-title">Conflito de Horário!</h2>
+        <p class="modal-message">{{conflictMessage}}</p>
+        <button class="modal-btn" (click)="closeConflictModal()">OK</button>
+    </div>
+</div>

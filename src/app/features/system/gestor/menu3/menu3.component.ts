@@ -13,7 +13,15 @@ import { Subscription } from 'rxjs';
 })
 export class Menu3Component implements OnInit, OnDestroy {
   usuarios: Usuario[] = [];
+  filtroRole: string = 'Todos';
   private subscription: Subscription = new Subscription();
+
+  get usuariosFiltrados(): Usuario[] {
+    if (this.filtroRole === 'Todos') {
+      return this.usuarios;
+    }
+    return this.usuarios.filter(u => u.role === this.filtroRole);
+  }
 
   // Modal states
   modalEdicaoAberto: boolean = false;
