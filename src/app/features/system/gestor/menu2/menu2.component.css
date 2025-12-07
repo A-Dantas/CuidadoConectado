@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 30px;
     margin: auto;
+    padding-top: 30px;
 }
 
 .cabecalho_controles {
@@ -13,6 +14,14 @@
     justify-content: space-between;
     align-items: center;
     margin: auto;
+    margin-bottom: 20px;
+}
+
+.titulo_pagina {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
 }
 
 .lista_pacientes {
@@ -182,6 +191,7 @@
     color: #4b5563;
     border: 1px solid #e5e7eb;
 }
+
 .tag_clickable {
     cursor: pointer;
     transition: all 0.2s ease;
@@ -194,11 +204,17 @@
 }
 
 .mensagem_vazia {
+    width: 100%;
     grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 20px;
     text-align: center;
-    padding: 60px 20px;
     color: #9ca3af;
-    font-size: 16px;
+    font-size: 18px;
+    margin: 0 auto;
 }
 
 /* Modal Styles */

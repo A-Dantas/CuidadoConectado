@@ -61,13 +61,17 @@
         <div class="container_atividades">
             <div class="section_card">
                 <h3>Mensagens Recentes</h3>
-                <div class="ativar_item">
+
+                <div class="mensagem-vazia" *ngIf="mensagensRecentes.length === 0">
+                    <p>Nenhuma mensagem ainda</p>
+                </div>
+
+                <div class="ativar_item" *ngFor="let mensagem of mensagensRecentes">
                     <div class="icon"></div>
                     <div class="details">
                         <div class="container_txt_msg">
-                            Gestor <br>
-                            Bom dia, equipe! Passando para desejar um ótimo <br>
-                            plantão a todos!
+                            <strong>{{mensagem.autor}}</strong> - {{mensagem.hora}}<br>
+                            {{mensagem.texto}}
                         </div>
                     </div>
                 </div>
@@ -91,14 +95,7 @@
                     </svg>
                     Cadastrar Novo Usuário
                 </button>
-                <button class="botao">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        viewBox="0 0 16 16" style="margin-right: 8px;">
-                        <path
-                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                    </svg>
-                    Gerenciar Agenda
-                </button>
+
             </div>
         </div>
     </div>

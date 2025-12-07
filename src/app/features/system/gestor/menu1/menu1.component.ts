@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PacienteService, Paciente } from '../paciente.service';
 import { UsuarioService, Usuario } from '../usuario.service';
+import { ChatService, MensagemGeral } from '../../shared/services/chat.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,6 +20,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   quantidadePacientes: number = 0;
   quantidadeUsuarios: number = 0;
+  mensagensRecentes: MensagemGeral[] = [];
   private subscription: Subscription = new Subscription();
 
   // Double-click tracking
@@ -134,7 +136,8 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   constructor(
     private pacienteService: PacienteService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private chatService: ChatService
   ) { }
 
   validarData(data: string | undefined): boolean {
@@ -221,6 +224,14 @@ export class Menu1Component implements OnInit, OnDestroy {
       this.usuarioService.getUsuarios().subscribe(usuarios => {
         this.quantidadeUsuarios = usuarios.length;
         this.atualizarListasUsuarios(usuarios);
+      })
+    );
+
+    // Subscribe to chat messages
+    this.subscription.add(
+      this.chatService.mensagensGerais$.subscribe(mensagens => {
+        this.mensagensRecentes = this.chatService.getUltimasMensagens(3);
+        console.log('Mensagens recentes atualizadas no menu1:', this.mensagensRecentes);
       })
     );
   }

@@ -1,19 +1,21 @@
 .user-management-container {
-    padding: 20px;
-    max-width: 1600px;
-    margin: 0 auto;
+    padding-top: 30px;
+    max-width: 1650px;
+    margin: auto;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .page-title {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: #111827;
     margin: 0;
 }
@@ -654,4 +656,18 @@
 
 .close-cartao-btn:hover {
     opacity: 1;
+}
+
+.mensagem_vazia {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 20px;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 18px;
+    margin: 0 auto;
+    width: 100%;
 }

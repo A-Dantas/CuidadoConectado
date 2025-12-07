@@ -16,20 +16,21 @@
         </div>
 
         <div class="days-grid">
-            <div class="day-cell" *ngFor="let day of calendarDays">
+            <div class="day-cell" *ngFor="let day of calendarDays" [class.past-day]="isDayPast(day.number)">
                 <div class="day-header" *ngIf="day.number">
                     <div class="day-number">{{day.number}}</div>
-                    <button class="add-btn" (click)="addSelection(day)">+</button>
+                    <button class="add-btn" (click)="addSelection(day)" *ngIf="!isDayPast(day.number)">+</button>
                 </div>
 
                 <div class="patient-select-wrapper" *ngIf="day.number">
                     <div *ngFor="let selection of day.selectedPatients; let i = index; trackBy: trackByIndex"
                         class="select-row">
                         <select class="patient-select" [(ngModel)]="day.selectedPatients[i]"
-                            (ngModelChange)="onPatientOrShiftChange(day, i)">
+                            (ngModelChange)="onPatientOrShiftChange(day, i)" [disabled]="isDayPast(day.number)">
                             <option value="" disabled selected>Selecione o Paciente</option>
                             <ng-container *ngFor="let paciente of pacientes">
-                                <option *ngIf="!isPatientSelected(day, paciente.nomePaciente, i)"
+                                <option
+                                    *ngIf="!isPatientSelected(day, paciente.nomePaciente, i) || day.selectedPatients[i] === paciente.nomePaciente"
                                     [value]="paciente.nomePaciente">
                                     {{paciente.nomePaciente}}
                                 </option>
@@ -38,7 +39,8 @@
 
                         <!-- Shift selector - only shows when patient is selected -->
                         <select class="shift-select" [(ngModel)]="day.selectedShifts[i]"
-                            (ngModelChange)="onPatientOrShiftChange(day, i)" *ngIf="day.selectedPatients[i]">
+                            (ngModelChange)="onPatientOrShiftChange(day, i)" *ngIf="day.selectedPatients[i]"
+                            [disabled]="isDayPast(day.number)">
                             <option value="" disabled selected>Selecione o Turno</option>
                             <option value="MT">MT (7h ~ 19h)</option>
                             <option value="SN">SN (19h ~ 7h)</option>

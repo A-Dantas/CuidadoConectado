@@ -54,7 +54,7 @@ export class Menu4Component implements OnInit {
 
   loadCalendarsData(): void {
     try {
-      const data = sessionStorage.getItem(this.STORAGE_KEY);
+      const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
         this.calendarsData = JSON.parse(data);
       }
@@ -65,7 +65,7 @@ export class Menu4Component implements OnInit {
 
   saveCalendarsData(): void {
     try {
-      sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.calendarsData));
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.calendarsData));
     } catch (error) {
       console.error('Error saving calendars data:', error);
     }
@@ -265,5 +265,12 @@ export class Menu4Component implements OnInit {
     this.modalConflictOpen = false;
     this.conflictMessage = '';
     this.conflictCuidador = '';
+  }
+
+  isDayPast(dayNumber: number): boolean {
+    if (!dayNumber) return false;
+    const now = new Date();
+    // Assuming the calendar is always for the current month/year as implemented in generateCalendar
+    return dayNumber < now.getDate();
   }
 }

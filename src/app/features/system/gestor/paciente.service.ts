@@ -29,21 +29,21 @@ export class PacienteService {
 
     private carregarPacientes(): Paciente[] {
         try {
-            const data = sessionStorage.getItem(this.STORAGE_KEY);
+            const data = localStorage.getItem(this.STORAGE_KEY);
             if (data) {
                 return JSON.parse(data);
             }
         } catch (error) {
-            console.error('Erro ao carregar pacientes do sessionStorage:', error);
+            console.error('Erro ao carregar pacientes do localStorage:', error);
         }
         return [];
     }
 
     private salvarPacientes(pacientes: Paciente[]): void {
         try {
-            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(pacientes));
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(pacientes));
         } catch (error) {
-            console.error('Erro ao salvar pacientes no sessionStorage:', error);
+            console.error('Erro ao salvar pacientes no localStorage:', error);
         }
     }
 
@@ -91,7 +91,7 @@ export class PacienteService {
     }
 
     limparDados(): void {
-        sessionStorage.removeItem(this.STORAGE_KEY);
+        localStorage.removeItem(this.STORAGE_KEY);
         this.pacientesSubject.next([]);
     }
 }

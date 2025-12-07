@@ -6,7 +6,7 @@
     <section class="lista_pacientes">
         @if (pacientes.length === 0) {
         <div class="mensagem_vazia">
-            <p>Nenhum paciente cadastrado ainda.</p>
+            <p>Nenhum paciente cadastrado.</p>
         </div>
         }
 
@@ -151,7 +151,7 @@
             <div class="form-group">
                 <label>Assigned Caregiver</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.cuidadorAtribuido">
-                    <option value="" disabled>Select Caregiver</option>
+                    <option value="" disabled>Selecione um cuidador</option>
                     <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
                 </select>
             </div>
@@ -159,7 +159,7 @@
             <div class="form-group">
                 <label>Assigned Doctor</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.medicoAtribuido">
-                    <option value="" disabled>Select Doctor</option>
+                    <option value="" disabled>Selecione um médico</option>
                     <option *ngFor="let medico of medicos" [value]="medico">{{medico}}</option>
                 </select>
             </div>
@@ -167,7 +167,7 @@
             <div class="form-group">
                 <label>Family Contact</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.contatoFamiliar">
-                    <option value="" disabled>Select Family Member</option>
+                    <option value="" disabled>Selecione um familiar</option>
                     <option *ngFor="let familiar of familiares" [value]="familiar">{{familiar}}</option>
                 </select>
             </div>

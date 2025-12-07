@@ -1,6 +1,6 @@
 <div class="user-management-container">
     <header class="header">
-        <h1 class="page-title">User Management</h1>
+        <h1 class="page-title">Gestão de Usuários</h1>
         <div class="filter-section">
             <label class="filter-label">Filtro:</label>
             <select class="filter-select" [(ngModel)]="filtroRole">
@@ -13,6 +13,12 @@
     </header>
 
     <div class="users-grid">
+        @if (usuariosFiltrados.length === 0) {
+        <div class="mensagem_vazia">
+            <p>Nenhum usuário cadastrado.</p>
+        </div>
+        }
+
         @for (usuario of usuariosFiltrados; track usuario.userName) {
         <div class="user-card" [class.cursor-pointer]="usuario.role === 'Caregiver'"
             (click)="abrirModalCartao(usuario)">

@@ -37,21 +37,21 @@ export class UsuarioService {
 
     private carregarUsuarios(): Usuario[] {
         try {
-            const data = sessionStorage.getItem(this.STORAGE_KEY);
+            const data = localStorage.getItem(this.STORAGE_KEY);
             if (data) {
                 return JSON.parse(data);
             }
         } catch (error) {
-            console.error('Erro ao carregar usuários do sessionStorage:', error);
+            console.error('Erro ao carregar usuários do localStorage:', error);
         }
         return [];
     }
 
     private salvarUsuarios(usuarios: Usuario[]): void {
         try {
-            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(usuarios));
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(usuarios));
         } catch (error) {
-            console.error('Erro ao salvar usuários no sessionStorage:', error);
+            console.error('Erro ao salvar usuários no localStorage:', error);
         }
     }
 
@@ -90,7 +90,7 @@ export class UsuarioService {
     }
 
     limparDados(): void {
-        sessionStorage.removeItem(this.STORAGE_KEY);
+        localStorage.removeItem(this.STORAGE_KEY);
         this.usuariosSubject.next([]);
     }
 }

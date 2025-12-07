@@ -94,6 +94,15 @@
     display: flex;
     gap: 15px;
     align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.ativar_item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .ativar_item .icon {
@@ -526,9 +535,214 @@ textarea.form-input {
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
+.sucesso-mensagem {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1f2937;
+    margin: 0;
+}
+
+.btn-ok {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background-color: #14b8a6;
+    color: white;
+    width: 100%;
+}
+
+.btn-ok:hover {
+    background-color: #0d9488;
+}
+
+/* Form Row for side-by-side fields */
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-small {
+    flex: 0 0 30%;
+}
+
+.form-group-large {
+    flex: 1;
+}
+
+/* Comorbidade Row */
+.comorbidade-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.comorbidade-row .form-input {
+    flex: 1;
+}
+
+.btn-remove-comorbidade {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    border: 1px solid #ef4444;
+    background-color: white;
+    color: #ef4444;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-remove-comorbidade:hover {
+    background-color: #fef2f2;
+}
+
+.btn-add-comorbidade {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed #14b8a6;
+    background-color: #f0fdfa;
+    color: #14b8a6;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-add-comorbidade:hover {
+    background-color: #ccfbf1;
+    border-color: #0d9488;
+    color: #0d9488;
+}
+
+.plus-icon {
+    font-size: 18px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Cadastro Rápido */
+.cadastro-rapido {
+    padding: 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border: 2px solid;
+}
+
+.cadastro-rapido h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.cadastro-cuidador {
+    background-color: #e0f2fe;
+    border-color: #0ea5e9;
+}
+
+.cadastro-medico {
+    background-color: #dcfce7;
+    border-color: #22c55e;
+}
+
+.cadastro-familiar {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.cadastro-rapido-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-save-quick {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background-color: #14b8a6;
+    color: white;
+}
+
+.btn-save-quick:hover {
+    background-color: #0d9488;
+}
+
+.btn-cancel-quick {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #d1d5db;
+    background-color: white;
+    color: #6b7280;
+}
+
+.btn-cancel-quick:hover {
+    background-color: #f3f4f6;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+/* Validation Styles */
+.input-error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
 .error-msg {
     color: #ef4444;
     font-size: 12px;
     margin-top: 4px;
     display: block;
+}
+
+.mensagem-vazia {
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.mensagem-vazia p {
+    margin: 0;
 }
