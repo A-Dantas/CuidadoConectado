@@ -25,19 +25,21 @@
                 <div class="patient-select-wrapper" *ngIf="day.number">
                     <div *ngFor="let selection of day.selectedPatients; let i = index; trackBy: trackByIndex"
                         class="select-row">
-                        <button class="remove-btn" (click)="removeSelection(day, i)"
-                            *ngIf="!isDayPast(day.number)">-</button>
-                        <select class="patient-select" [(ngModel)]="day.selectedPatients[i]"
-                            (ngModelChange)="onPatientOrShiftChange(day, i)" [disabled]="isDayPast(day.number)">
-                            <option value="" disabled selected>Selecione o Paciente</option>
-                            <ng-container *ngFor="let paciente of pacientes">
-                                <option
-                                    *ngIf="!isPatientSelected(day, paciente.nomePaciente, i) || day.selectedPatients[i] === paciente.nomePaciente"
-                                    [value]="paciente.nomePaciente">
-                                    {{paciente.nomePaciente}}
-                                </option>
-                            </ng-container>
-                        </select>
+                        <div class="input-row">
+                            <select class="patient-select" [(ngModel)]="day.selectedPatients[i]"
+                                (ngModelChange)="onPatientOrShiftChange(day, i)" [disabled]="isDayPast(day.number)">
+                                <option value="" disabled selected>Selecione o Paciente</option>
+                                <ng-container *ngFor="let paciente of pacientes">
+                                    <option
+                                        *ngIf="!isPatientSelected(day, paciente.nomePaciente, i) || day.selectedPatients[i] === paciente.nomePaciente"
+                                        [value]="paciente.nomePaciente">
+                                        {{paciente.nomePaciente}}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <button class="remove-btn" (click)="removeSelection(day, i)"
+                                *ngIf="!isDayPast(day.number)">-</button>
+                        </div>
 
                         <!-- Shift selector - only shows when patient is selected -->
                         <select class="shift-select" [(ngModel)]="day.selectedShifts[i]"

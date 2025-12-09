@@ -46,8 +46,23 @@ export class Menu2Component implements OnInit, OnDestroy {
   medicos: string[] = [];
   familiares: string[] = [];
 
+  // Store full objects for name lookup
+  allCuidadores: Usuario[] = [];
+
   // Track which patients have expanded comorbidities
   comorbidadesExpandidas: Set<number> = new Set();
+
+  // Store calendar data
+  private calendarsData: { [cuidadorName: string]: any[] } = {};
+  private readonly STORAGE_KEY = 'calendars_data';
+
+  // Map shift codes to readable labels
+  private shiftLabels: { [key: string]: string } = {
+    'MT': 'MT (7h ~ 19h)',
+    'SN': 'SN (19h ~ 7h)',
+    '24H_7H': '24h (Início 7h)',
+    '24H_19H': '24h (Início 19h)'
+  };
 
   constructor(
     private pacienteService: PacienteService,
@@ -66,6 +81,19 @@ export class Menu2Component implements OnInit, OnDestroy {
         this.atualizarListasUsuarios(usuarios);
       })
     );
+
+    this.loadCalendarsData();
+  }
+
+  loadCalendarsData(): void {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEY);
+      if (data) {
+        this.calendarsData = JSON.parse(data);
+      }
+    } catch (error) {
+      console.error('Error loading calendars data:', error);
+    }
   }
 
   ngOnDestroy(): void {
@@ -73,9 +101,9 @@ export class Menu2Component implements OnInit, OnDestroy {
   }
 
   atualizarListasUsuarios(usuarios: Usuario[]): void {
-    this.cuidadores = usuarios
-      .filter(u => u.role === 'Caregiver')
-      .map(u => u.userName);
+    this.allCuidadores = usuarios.filter(u => u.role === 'Caregiver');
+
+    this.cuidadores = this.allCuidadores.map(u => u.userName);
 
     this.medicos = usuarios
       .filter(u => u.role === 'Doctor')
@@ -131,21 +159,38 @@ export class Menu2Component implements OnInit, OnDestroy {
 
   // Retorna os plantões do dia para um paciente
   getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string }> {
-    // TODO: Integrar com o serviço de plantões quando estiver disponível
-    // Por enquanto, retorna dados mockados baseados no cuidador atribuído
+    const today = new Date().getDate();
+    const result: Array<{ cuidador: string, horario: string }> = [];
 
-    if (!paciente.cuidadorAtribuido) {
-      return [];
+    // Iterate through all caregivers in the calendar data
+    for (const cuidadorName in this.calendarsData) {
+      const calendar = this.calendarsData[cuidadorName];
+      // Find today's entry
+      const dayData = calendar.find((d: any) => d.number === today);
+
+      if (dayData && dayData.selectedPatients) {
+        // Iterate through selections for this day
+        dayData.selectedPatients.forEach((selectedPatientName: string, index: number) => {
+          if (selectedPatientName === paciente.nomePaciente) {
+            const shiftCode = dayData.selectedShifts[index];
+            const shiftLabel = this.shiftLabels[shiftCode] || shiftCode || 'Turno não definido';
+
+            // Look up full name
+            const cuidadorObj = this.allCuidadores.find(u => u.userName === cuidadorName);
+            const displayName = cuidadorObj
+              ? `${cuidadorObj.userName} ${cuidadorObj.sobrenome || ''}`.trim()
+              : cuidadorName;
+
+            result.push({
+              cuidador: displayName,
+              horario: shiftLabel
+            });
+          }
+        });
+      }
     }
 
-    // Exemplo: retorna o cuidador atribuído com horário padrão
-    // Isso deve ser substituído pela lógica real de plantões
-    return [
-      {
-        cuidador: paciente.cuidadorAtribuido,
-        horario: '08:00 - 16:00'
-      }
-    ];
+    return result;
   }
 
   abrirModalEdicao(paciente: Paciente, index: number): void {
