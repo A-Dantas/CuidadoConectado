@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../features/system/gestor/usuario.service';
 
 export interface DadosGestor {
   nome: string;
@@ -17,6 +18,8 @@ export class AuthService {
   private _perfil = signal<string | null>(null);
   perfil = this._perfil.asReadonly();
 
+  private usuarioAtualLogin: string | null = null;
+
   private senhaGestor = '123456'; // Senha padrão inicial
 
   private dadosGestor: DadosGestor = {
@@ -25,10 +28,13 @@ export class AuthService {
     telefone: '(11) 99999-9999'
   };
 
+  private usuarioService = inject(UsuarioService);
+
   constructor(private router: Router) {
     if (sessionStorage.getItem('estaLogado') === 'true') {
       this._estaLogado.set(true);
       this._perfil.set(sessionStorage.getItem('perfil'));
+      this.usuarioAtualLogin = sessionStorage.getItem('usuarioAtualLogin');
     }
 
     // Carrega senha personalizada se existir
@@ -46,34 +52,72 @@ export class AuthService {
 
 
   entrar(usuario: string, senha: string): boolean {
+    // Login Gestor
     if (usuario === 'gestor' && senha === this.senhaGestor) {
-      this._estaLogado.set(true);
-      this._perfil.set('gestor');
-
-      sessionStorage.setItem('estaLogado', 'true');
-      sessionStorage.setItem('perfil', 'gestor');
-
-      this.router.navigate(['/gestor']);
+      this.realizarLogin('gestor', 'gestor', '/gestor');
       return true;
     }
 
-    this._estaLogado.set(false);
-    this._perfil.set(null);
-    sessionStorage.removeItem('estaLogado');
-    sessionStorage.removeItem('perfil');
+    // Login Usuários
+    const usuarios = this.usuarioService.getUsuariosAtuais();
+    const user = usuarios.find(u => u.login === usuario && u.password === senha);
+
+    if (user) {
+      let rota = '/home';
+      if (user.role === 'Caregiver') rota = '/cuidador';
+      else if (user.role === 'Doctor') rota = '/medico';
+      else if (user.role === 'Family Member') rota = '/familiar';
+
+      this.realizarLogin(user.login!, user.role, rota);
+      return true;
+    }
+
+    this.logoutClean();
     return false;
   }
 
-  sair(): void {
+  private realizarLogin(login: string, role: string, rota: string) {
+    this._estaLogado.set(true);
+    this._perfil.set(role);
+    this.usuarioAtualLogin = login;
+
+    sessionStorage.setItem('estaLogado', 'true');
+    sessionStorage.setItem('perfil', role);
+    sessionStorage.setItem('usuarioAtualLogin', login);
+
+    this.router.navigate([rota]);
+  }
+
+  private logoutClean() {
     this._estaLogado.set(false);
     this._perfil.set(null);
-
-    // Remove apenas as chaves de autenticação, mantendo os dados da sessão (pacientes, chat, etc)
-    // até que a aba seja fechada.
+    this.usuarioAtualLogin = null;
     sessionStorage.removeItem('estaLogado');
     sessionStorage.removeItem('perfil');
+    sessionStorage.removeItem('usuarioAtualLogin');
+  }
 
+  sair(): void {
+    this.logoutClean();
     this.router.navigate(['/login']);
+  }
+
+  precisaTrocarSenha(): boolean {
+    if (this.usuarioAtualLogin === 'gestor') {
+      // Se quiser forçar pro gestor também se a senha for 123456
+      return false; // Gestor update logic is separate currently
+    }
+
+    const usuarios = this.usuarioService.getUsuariosAtuais();
+    const user = usuarios.find(u => u.login === this.usuarioAtualLogin);
+    return user?.password === '123456';
+  }
+
+  atualizarSenhaUsuario(novaSenha: string): boolean {
+    if (this.usuarioAtualLogin && this.usuarioAtualLogin !== 'gestor') {
+      return this.usuarioService.atualizarSenha(this.usuarioAtualLogin, novaSenha);
+    }
+    return false;
   }
 
   atualizarSenhaGestor(novaSenha: string): void {

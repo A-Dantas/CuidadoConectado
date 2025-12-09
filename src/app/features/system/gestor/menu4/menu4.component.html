@@ -25,6 +25,8 @@
                 <div class="patient-select-wrapper" *ngIf="day.number">
                     <div *ngFor="let selection of day.selectedPatients; let i = index; trackBy: trackByIndex"
                         class="select-row">
+                        <button class="remove-btn" (click)="removeSelection(day, i)"
+                            *ngIf="!isDayPast(day.number)">-</button>
                         <select class="patient-select" [(ngModel)]="day.selectedPatients[i]"
                             (ngModelChange)="onPatientOrShiftChange(day, i)" [disabled]="isDayPast(day.number)">
                             <option value="" disabled selected>Selecione o Paciente</option>

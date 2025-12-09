@@ -143,6 +143,16 @@ export class Menu4Component implements OnInit {
     }
   }
 
+  removeSelection(day: any, index: number) {
+    day.selectedPatients.splice(index, 1);
+    day.selectedShifts.splice(index, 1);
+
+    if (this.filtroCuidador) {
+      this.calendarsData[this.filtroCuidador] = [...this.calendarDays];
+      this.saveCalendarsData();
+    }
+  }
+
   trackByIndex(index: number, obj: any): any {
     return index;
   }

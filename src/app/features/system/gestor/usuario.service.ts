@@ -23,6 +23,8 @@ export interface Usuario {
     experienciaComorbidades?: string;
     tipoUsuario?: string; // Tipo de usuário: cuidador, medico, familiar
     experienciaComorbidadesList?: string[]; // Lista de comorbidades
+    login?: string;
+    password?: string;
 }
 
 @Injectable({
@@ -59,18 +61,66 @@ export class UsuarioService {
         return this.usuarios$;
     }
 
+    getUsuariosAtuais(): Usuario[] {
+        return this.usuariosSubject.value;
+    }
+
     adicionarUsuario(usuario: Usuario): void {
         const usuariosAtuais = this.usuariosSubject.value;
+
+        // Gerar login e senha padrão
+        // Usuário: primeironome em minusculo + 4 últimos número do telefone
+        // Senha: A primeira senha será 123456
+
+        let login = '';
+        if (usuario.userName) {
+            const primeiroNome = usuario.userName.trim().split(' ')[0].toLowerCase();
+            const telefoneNumeros = usuario.telefone ? usuario.telefone.replace(/\D/g, '') : '';
+            const ultimosQuatro = telefoneNumeros.slice(-4);
+
+            // Se não tiver telefone suficiente, usa '0000' como fallback, mas ideal é ter telefone
+            const sufixo = ultimosQuatro.length === 4 ? ultimosQuatro : '0000';
+
+            login = `${primeiroNome}${sufixo}`;
+        }
+
+        usuario.login = login;
+        usuario.password = '123456';
+
         const novosUsuarios = [...usuariosAtuais, usuario];
         this.usuariosSubject.next(novosUsuarios);
         this.salvarUsuarios(novosUsuarios);
+    }
+
+    atualizarSenha(login: string, novaSenha: string): boolean {
+        const usuariosAtuais = this.usuariosSubject.value;
+        const index = usuariosAtuais.findIndex(u => u.login === login);
+
+        if (index !== -1) {
+            const usuario = { ...usuariosAtuais[index] };
+            usuario.password = novaSenha;
+
+            const novosUsuarios = [...usuariosAtuais];
+            novosUsuarios[index] = usuario;
+
+            this.usuariosSubject.next(novosUsuarios);
+            this.salvarUsuarios(novosUsuarios);
+            return true;
+        }
+        return false;
     }
 
     atualizarUsuario(index: number, usuarioAtualizado: Usuario): void {
         const usuariosAtuais = this.usuariosSubject.value;
         if (index >= 0 && index < usuariosAtuais.length) {
             const novosUsuarios = [...usuariosAtuais];
-            novosUsuarios[index] = usuarioAtualizado;
+            // Preservar login e senha se não vierem no atualizado (embora aqui devêssemos atualizar tudo, cuidado para não perder credenciais)
+            const credenciaisAntigas = {
+                login: usuariosAtuais[index].login,
+                password: usuariosAtuais[index].password
+            };
+
+            novosUsuarios[index] = { ...credenciaisAntigas, ...usuarioAtualizado };
             this.usuariosSubject.next(novosUsuarios);
             this.salvarUsuarios(novosUsuarios);
         }
