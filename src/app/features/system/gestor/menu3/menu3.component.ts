@@ -191,6 +191,16 @@ export class Menu3Component implements OnInit, OnDestroy {
     this.usuarioEditando.idade = this.calcularIdade(this.usuarioEditando.dataNascimento);
   }
 
+  // Método para traduzir role
+  traduzirRole(role: string): string {
+    const traducoes: { [key: string]: string } = {
+      'Caregiver': 'Cuidador',
+      'Doctor': 'Médico',
+      'Family Member': 'Familiar'
+    };
+    return traducoes[role] || role;
+  }
+
   // Métodos para comorbidades (Cuidador)
   adicionarExperienciaComorbidadeUsuario(): void {
     if (!this.usuarioEditando.experienciaComorbidadesList) {

@@ -167,7 +167,8 @@
                 <div class="form-group form-group-small">
                     <label>Estado</label>
                     <input type="text" class="form-input" [class.input-error]="errosPaciente.estado" placeholder="UF"
-                        [(ngModel)]="novoPaciente.estado">
+                        [(ngModel)]="novoPaciente.estado" (input)="validarNome($event, 'estado', novoPaciente)"
+                        maxlength="2">
                     @if (errosPaciente.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
@@ -233,13 +234,15 @@
                     <div class="form-group form-group-large">
                         <label>Telefone</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.telefone"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.telefone">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.telefone"
+                            (input)="formatarTelefone($event, 'telefone', novoCuidador)">
                         @if (errosUsuario.telefone) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.whatsapp">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.whatsapp"
+                            (input)="formatarTelefone($event, 'whatsapp', novoCuidador)">
                         @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
@@ -315,13 +318,15 @@
                     <div class="form-group form-group-large">
                         <label>Telefone</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.telefone"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoMedico.telefone">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoMedico.telefone"
+                            (input)="formatarTelefone($event, 'telefone', novoMedico)">
                         @if (errosUsuario.telefone) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoMedico.whatsapp">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoMedico.whatsapp"
+                            (input)="formatarTelefone($event, 'whatsapp', novoMedico)">
                         @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
@@ -393,13 +398,15 @@
                     <div class="form-group form-group-large">
                         <label>Telefone</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.telefone"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoFamiliar.telefone">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoFamiliar.telefone"
+                            (input)="formatarTelefone($event, 'telefone', novoFamiliar)">
                         @if (errosUsuario.telefone) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
                         <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
-                            placeholder="(00) 00000-0000" [(ngModel)]="novoFamiliar.whatsapp">
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoFamiliar.whatsapp"
+                            (input)="formatarTelefone($event, 'whatsapp', novoFamiliar)">
                         @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
@@ -443,7 +450,8 @@
                     <div class="form-group form-group-small">
                         <label>Estado</label>
                         <input type="text" class="form-input" [class.input-error]="errosUsuario.estado" placeholder="UF"
-                            [(ngModel)]="novoFamiliar.estado">
+                            [(ngModel)]="novoFamiliar.estado" (input)="validarNome($event, 'estado', novoFamiliar)"
+                            maxlength="2">
                         @if (errosUsuario.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
@@ -544,14 +552,16 @@
                 <div class="form-group form-group-large">
                     <label>Telefone</label>
                     <input type="tel" class="form-input" [class.input-error]="errosUsuario.telefone"
-                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.telefone">
+                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.telefone"
+                        (input)="formatarTelefone($event, 'telefone', novoUsuario)">
                     @if (errosUsuario.telefone) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 }
                 <div class="form-group form-group-large">
                     <label>Whatsapp</label>
                     <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
-                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.whatsapp">
+                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.whatsapp"
+                        (input)="formatarTelefone($event, 'whatsapp', novoUsuario)">
                     @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
@@ -596,7 +606,8 @@
                 <div class="form-group form-group-small">
                     <label>Estado</label>
                     <input type="text" class="form-input" [class.input-error]="errosUsuario.estado" placeholder="UF"
-                        [(ngModel)]="novoUsuario.estado">
+                        [(ngModel)]="novoUsuario.estado" (input)="validarNome($event, 'estado', novoUsuario)"
+                        maxlength="2">
                     @if (errosUsuario.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>

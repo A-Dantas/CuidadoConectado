@@ -37,12 +37,23 @@
                 <div class="card-header-info">
                     <div class="info_pessoal">
                         <h4 class="nome_paciente">{{paciente.nomePaciente}}</h4>
-                        <p class="idade_paciente">Age: {{paciente.idade || 'N/A'}}</p>
+                        <p class="idade_paciente">Idade: {{paciente.idade || 'N/A'}}</p>
                     </div>
                 </div>
 
                 <div class="card-body">
                     <p class="endereco_paciente">{{paciente.endereco || 'Endereço não informado'}}</p>
+
+                    <div class="responsaveis_info">
+                        <div class="responsavel_item">
+                            <span class="responsavel_label">Médico:</span>
+                            <span class="responsavel_nome">{{paciente.medicoAtribuido || 'Não atribuído'}}</span>
+                        </div>
+                        <div class="responsavel_item">
+                            <span class="responsavel_label">Familiar:</span>
+                            <span class="responsavel_nome">{{paciente.contatoFamiliar || 'Não atribuído'}}</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-footer">
@@ -54,7 +65,7 @@
                         @for (comorbidade of getComorbidadesArray(paciente.comorbidades); track comorbidade) {
                         <span class="tag tag_comorbidade">{{comorbidade}}</span>
                         }
-                        <span class="tag tag_mais tag_clickable" (click)="toggleComorbidades(i)">show less</span>
+                        <span class="tag tag_mais tag_clickable" (click)="toggleComorbidades(i)">mostrar menos</span>
                         } @else {
                         <!-- Mostrar apenas as primeiras 2 quando recolhido -->
                         @for (comorbidade of getComorbidadesArray(paciente.comorbidades).slice(0, 2); track comorbidade)
@@ -64,7 +75,7 @@
                         @if (getComorbidadesArray(paciente.comorbidades).length > 2) {
                         <span class="tag tag_mais tag_clickable"
                             (click)="toggleComorbidades(i)">+{{getComorbidadesArray(paciente.comorbidades).length - 2}}
-                            more</span>
+                            mais</span>
                         }
                         }
 
@@ -125,7 +136,8 @@
                 </div>
                 <div class="form-group form-group-small">
                     <label>State</label>
-                    <input type="text" class="form-input" placeholder="State" [(ngModel)]="pacienteEditando.estado">
+                    <input type="text" class="form-input" placeholder="State" [(ngModel)]="pacienteEditando.estado"
+                        (input)="validarNome($event, 'estado', pacienteEditando)" maxlength="2">
                 </div>
             </div>
 

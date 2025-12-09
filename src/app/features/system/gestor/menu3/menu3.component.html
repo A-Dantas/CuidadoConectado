@@ -52,7 +52,7 @@
             </div>
             <div class="user-details">
                 <h3 class="user-name">{{ usuario.userName }} {{ usuario.sobrenome }}</h3>
-                <p class="user-role">{{ usuario.role }}</p>
+                <p class="user-role">{{ traduzirRole(usuario.role) }}</p>
                 <p class="user-email">{{ usuario.email }}</p>
             </div>
         </div>
@@ -73,9 +73,9 @@
             <div class="form-group">
                 <label>Função</label>
                 <select class="form-select" [(ngModel)]="usuarioEditando.role">
-                    <option value="Caregiver">Caregiver</option>
-                    <option value="Doctor">Doctor</option>
-                    <option value="Family Member">Family Member</option>
+                    <option value="Caregiver">Cuidador</option>
+                    <option value="Doctor">Médico</option>
+                    <option value="Family Member">Familiar</option>
                 </select>
             </div>
 
@@ -154,7 +154,8 @@
                 </div>
                 <div class="form-group form-group-small">
                     <label>Estado</label>
-                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="usuarioEditando.estado">
+                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="usuarioEditando.estado"
+                        (input)="validarNome($event, 'estado', usuarioEditando)" maxlength="2">
                 </div>
             </div>
             }

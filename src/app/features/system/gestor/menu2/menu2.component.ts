@@ -165,6 +165,32 @@ export class Menu2Component implements OnInit, OnDestroy {
     }
   }
 
+  validarNome(event: any, campo: string, objeto: any): void {
+    const valor = event.target.value;
+    const valorSemNumeros = valor.replace(/[0-9]/g, '');
+    objeto[campo] = valorSemNumeros;
+    event.target.value = valorSemNumeros;
+  }
+
+  formatarTelefone(event: any, campo: string, objeto: any): void {
+    let valor = event.target.value.replace(/\D/g, '');
+    if (valor.length > 11) {
+      valor = valor.substring(0, 11);
+    }
+    let valorFormatado = '';
+    if (valor.length > 0) {
+      valorFormatado = '(' + valor.substring(0, 2);
+    }
+    if (valor.length >= 3) {
+      valorFormatado += ') ' + valor.substring(2, 7);
+    }
+    if (valor.length >= 8) {
+      valorFormatado += '-' + valor.substring(7, 11);
+    }
+    objeto[campo] = valorFormatado;
+    event.target.value = valorFormatado;
+  }
+
   salvarEdicao(): void {
     if (this.pacienteEditando.nomePaciente.trim() && this.indiceEditando >= 0) {
       // Gerar endereço completo
