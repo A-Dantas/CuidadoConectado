@@ -249,6 +249,24 @@ export class Menu4Component implements OnInit {
     const patient = day.selectedPatients[index];
     const shift = day.selectedShifts[index];
 
+    // Check if the caregiver already has an overlapping shift on this day
+    if (shift) {
+      for (let i = 0; i < day.selectedShifts.length; i++) {
+        if (i === index) continue; // Skip current row
+        const otherShift = day.selectedShifts[i];
+
+        if (otherShift && this.shiftsOverlap(shift, otherShift)) {
+          this.conflictMessage = `O cuidador já possui um agendamento neste horário no dia ${day.number}.`;
+          this.modalConflictOpen = true;
+
+          // Clear the invalid shift but keep the patient if selected
+          day.selectedShifts[index] = '';
+          this.onSelectionChange();
+          return;
+        }
+      }
+    }
+
     // Only validate if both patient and shift are selected
     if (patient && shift) {
       if (!this.validateSelection(day.number, patient, shift)) {

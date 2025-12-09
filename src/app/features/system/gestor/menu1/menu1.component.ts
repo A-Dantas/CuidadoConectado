@@ -287,6 +287,8 @@ export class Menu1Component implements OnInit, OnDestroy {
     if (!this.novoCuidador.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
     if (!this.novoCuidador.telefone?.trim()) this.errosUsuario.telefone = true;
     if (!this.novoCuidador.email?.trim()) this.errosUsuario.email = true;
+    if (!this.novoCuidador.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
+    if (!this.novoCuidador.tempoExperiencia?.trim()) this.errosUsuario.tempoExperiencia = true;
 
     if (Object.keys(this.errosUsuario).length > 0) return;
 
@@ -355,6 +357,7 @@ export class Menu1Component implements OnInit, OnDestroy {
     if (!this.novoMedico.userName?.trim()) this.errosUsuario.userName = true;
     if (!this.novoMedico.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
     if (!this.novoMedico.telefone?.trim()) this.errosUsuario.telefone = true;
+    if (!this.novoMedico.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
     if (!this.novoMedico.email?.trim()) this.errosUsuario.email = true;
 
     if (Object.keys(this.errosUsuario).length > 0) return;
@@ -409,8 +412,15 @@ export class Menu1Component implements OnInit, OnDestroy {
 
     if (!this.novoFamiliar.userName?.trim()) this.errosUsuario.userName = true;
     if (!this.novoFamiliar.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
+    if (!this.novoFamiliar.dataNascimento) this.errosUsuario.dataNascimento = true;
     if (!this.novoFamiliar.telefone?.trim()) this.errosUsuario.telefone = true;
+    if (!this.novoFamiliar.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
     if (!this.novoFamiliar.email?.trim()) this.errosUsuario.email = true;
+    if (!this.novoFamiliar.rua?.trim()) this.errosUsuario.rua = true;
+    if (!this.novoFamiliar.numero?.trim()) this.errosUsuario.numero = true;
+    if (!this.novoFamiliar.bairro?.trim()) this.errosUsuario.bairro = true;
+    if (!this.novoFamiliar.cidade?.trim()) this.errosUsuario.cidade = true;
+    if (!this.novoFamiliar.estado?.trim()) this.errosUsuario.estado = true;
 
     if (Object.keys(this.errosUsuario).length > 0) return;
 

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.css'
 })
+
 export class FormsComponent {
 
 }

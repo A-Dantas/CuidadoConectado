@@ -238,15 +238,17 @@
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
-                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
-                            [(ngModel)]="novoCuidador.whatsapp">
+                        <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoCuidador.whatsapp">
+                        @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Tempo de Experiência</label>
-                    <input type="text" class="form-input" placeholder="Ex: 5 anos"
-                        [(ngModel)]="novoCuidador.tempoExperiencia">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.tempoExperiencia"
+                        placeholder="Ex: 5 anos" [(ngModel)]="novoCuidador.tempoExperiencia">
+                    @if (errosUsuario.tempoExperiencia) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
 
                 <div class="form-group">
@@ -318,8 +320,9 @@
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
-                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
-                            [(ngModel)]="novoMedico.whatsapp">
+                        <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoMedico.whatsapp">
+                        @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
 
@@ -374,8 +377,10 @@
                 <div class="form-row">
                     <div class="form-group form-group-large">
                         <label>Data de Nascimento</label>
-                        <input type="date" class="form-input" [(ngModel)]="novoFamiliar.dataNascimento" min="1900-01-01"
-                            max="9999-12-31" (change)="atualizarIdadeFamiliar()">
+                        <input type="date" class="form-input" [class.input-error]="errosUsuario.dataNascimento"
+                            [(ngModel)]="novoFamiliar.dataNascimento" min="1900-01-01" max="9999-12-31"
+                            (change)="atualizarIdadeFamiliar()">
+                        @if (errosUsuario.dataNascimento) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-small">
                         <label>Idade</label>
@@ -393,8 +398,9 @@
                     </div>
                     <div class="form-group form-group-large">
                         <label>Whatsapp</label>
-                        <input type="tel" class="form-input" placeholder="(00) 00000-0000"
-                            [(ngModel)]="novoFamiliar.whatsapp">
+                        <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
+                            placeholder="(00) 00000-0000" [(ngModel)]="novoFamiliar.whatsapp">
+                        @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
 
@@ -407,31 +413,38 @@
 
                 <div class="form-group">
                     <label>Rua</label>
-                    <input type="text" class="form-input" placeholder="Digite o nome da rua"
-                        [(ngModel)]="novoFamiliar.rua">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.rua"
+                        placeholder="Digite o nome da rua" [(ngModel)]="novoFamiliar.rua">
+                    @if (errosUsuario.rua) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
 
                 <div class="form-row">
                     <div class="form-group form-group-small">
                         <label>Número</label>
-                        <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoFamiliar.numero">
+                        <input type="text" class="form-input" [class.input-error]="errosUsuario.numero" placeholder="Nº"
+                            [(ngModel)]="novoFamiliar.numero">
+                        @if (errosUsuario.numero) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-large">
                         <label>Bairro</label>
-                        <input type="text" class="form-input" placeholder="Digite o bairro"
-                            [(ngModel)]="novoFamiliar.bairro">
+                        <input type="text" class="form-input" [class.input-error]="errosUsuario.bairro"
+                            placeholder="Digite o bairro" [(ngModel)]="novoFamiliar.bairro">
+                        @if (errosUsuario.bairro) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group form-group-large">
                         <label>Cidade</label>
-                        <input type="text" class="form-input" placeholder="Digite a cidade"
-                            [(ngModel)]="novoFamiliar.cidade">
+                        <input type="text" class="form-input" [class.input-error]="errosUsuario.cidade"
+                            placeholder="Digite a cidade" [(ngModel)]="novoFamiliar.cidade">
+                        @if (errosUsuario.cidade) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                     <div class="form-group form-group-small">
                         <label>Estado</label>
-                        <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoFamiliar.estado">
+                        <input type="text" class="form-input" [class.input-error]="errosUsuario.estado" placeholder="UF"
+                            [(ngModel)]="novoFamiliar.estado">
+                        @if (errosUsuario.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                     </div>
                 </div>
 
