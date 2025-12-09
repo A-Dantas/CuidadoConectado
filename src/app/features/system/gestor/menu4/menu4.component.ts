@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PacienteService, Paciente } from '../paciente.service';
 import { UsuarioService, Usuario } from '../usuario.service';
+import { INITIAL_SCHEDULES } from '../../../../core/data/seed-data';
 
 @Component({
   selector: 'app-menu4',
@@ -57,10 +58,62 @@ export class Menu4Component implements OnInit {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
         this.calendarsData = JSON.parse(data);
+      } else {
+        // Apply seed data
+        INITIAL_SCHEDULES.forEach((schedule: any) => {
+          // Ensure calendar exists for this caregiver
+          if (!this.calendarsData[schedule.cuidador]) {
+            // We need to generate a calendar strictly for this user to store it
+            // Reuse the generateCalendar logic but just take the result
+            const tempCalendar = this.createCalendarStructure();
+            this.calendarsData[schedule.cuidador] = tempCalendar;
+          }
+
+          const calendar = this.calendarsData[schedule.cuidador];
+          const dayObj = calendar.find((d: any) => d.number === schedule.day);
+
+          if (dayObj) {
+            // Check if slot is empty or add new
+            if (dayObj.selectedPatients[0] === '') {
+              dayObj.selectedPatients[0] = schedule.patient;
+              dayObj.selectedShifts[0] = schedule.shift;
+            } else {
+              dayObj.selectedPatients.push(schedule.patient);
+              dayObj.selectedShifts.push(schedule.shift);
+            }
+          }
+        });
+
+        // Save the seeded data
+        this.saveCalendarsData();
       }
     } catch (error) {
       console.error('Error loading calendars data:', error);
     }
+  }
+
+  // Helper to create structure without affecting current state
+  createCalendarStructure(): any[] {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const offset = (firstDayIndex + 6) % 7;
+
+    const calendarDays = [];
+    for (let i = 0; i < offset; i++) {
+      calendarDays.push({ number: null, events: [] });
+    }
+    for (let i = 1; i <= daysInMonth; i++) {
+      calendarDays.push({
+        number: i,
+        events: [],
+        selectedPatients: [''],
+        selectedShifts: ['']
+      });
+    }
+    return calendarDays;
   }
 
   saveCalendarsData(): void {

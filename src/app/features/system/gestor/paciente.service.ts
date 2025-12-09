@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { INITIAL_PACIENTES } from '../../../core/data/seed-data';
 
 export interface Paciente {
     nomePaciente: string;
@@ -32,11 +33,16 @@ export class PacienteService {
             const data = localStorage.getItem(this.STORAGE_KEY);
             if (data) {
                 return JSON.parse(data);
+            } else {
+                // Se não houver dados, carregar seed data e salvar
+                const seedData = INITIAL_PACIENTES;
+                this.salvarPacientes(seedData);
+                return seedData;
             }
         } catch (error) {
             console.error('Erro ao carregar pacientes do localStorage:', error);
+            return [];
         }
-        return [];
     }
 
     private salvarPacientes(pacientes: Paciente[]): void {

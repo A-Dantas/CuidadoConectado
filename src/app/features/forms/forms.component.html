@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main id="inicio_forms">
     <div class="container_forms">
-        <form class="forms">
+        <form class="forms" (ngSubmit)="onSubmit()">
             <header class="forms_header">
                 <h2>
                     Cuidado Conectado
@@ -12,46 +12,74 @@
             </header>
 
             <div class="options_container">
-                <div  class="options">
-                    <label for="">Nome da Instituição</label>
-                    <input placeholder="Digite seu nome" type="text" name="nome_empresa" required>
-                </div>
-
-                <div  class="options">
-                    <label for="">CNPJ</label>
-                    <input placeholder="Digite seu nome" type="number" name="cnpj_empresa" required>
-                </div>
-
-                <div  class="options">
-                    <label for="">Nome do Responsável</label>
-                    <input placeholder="Digite seu nome" type="text" name="nome_responsavel" required>
+                <div class="options">
+                    <label>Nome da Instituição</label>
+                    <input type="text" name="nomeEmpresa" placeholder="Digite o nome da instituição"
+                        [(ngModel)]="formData.nomeEmpresa" (blur)="validarCampo('nomeEmpresa')"
+                        [class.input-error]="errors.nomeEmpresa">
+                    @if (errors.nomeEmpresa) {
+                    <span class="error-message">{{ errors.nomeEmpresa }}</span>
+                    }
                 </div>
 
                 <div class="options">
-                    <label for="">Email</label>
-                    <input placeholder="Digite seu email" type="email" name="email_cliente" required>
+                    <label>CNPJ</label>
+                    <input type="text" name="cnpj" placeholder="00.000.000/0000-00" [(ngModel)]="formData.cnpj"
+                        (blur)="validarCampo('cnpj')" [class.input-error]="errors.cnpj" maxlength="18">
+                    @if (errors.cnpj) {
+                    <span class="error-message">{{ errors.cnpj }}</span>
+                    }
                 </div>
 
                 <div class="options">
-                    <label for="">Telefone</label>
-                    <input placeholder="Digite seu telefone" type="tel" name="telefone_cliente" required>
+                    <label>Nome do Responsável</label>
+                    <input type="text" name="nomeResponsavel" placeholder="Digite seu nome"
+                        [(ngModel)]="formData.nomeResponsavel" (blur)="validarCampo('nomeResponsavel')"
+                        [class.input-error]="errors.nomeResponsavel">
+                    @if (errors.nomeResponsavel) {
+                    <span class="error-message">{{ errors.nomeResponsavel }}</span>
+                    }
                 </div>
 
                 <div class="options">
-                    <label for="">Como nos conheceu?</label>
-                    <select type="text">
-                        <option selected disabled hidden required value=""> Selecione uma opção</option>
-                        <option value="">Google</option>
-                        <option value="">Redes Sociais</option>
-                        <option value="">Anúncios</option>
-                        <option value="">Amigos e familiares</option>
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Digite seu email" [(ngModel)]="formData.email"
+                        (blur)="validarCampo('email')" [class.input-error]="errors.email">
+                    @if (errors.email) {
+                    <span class="error-message">{{ errors.email }}</span>
+                    }
+                </div>
+
+                <div class="options">
+                    <label>Telefone</label>
+                    <input type="text" name="telefone" placeholder="(00) 00000-0000" [(ngModel)]="formData.telefone"
+                        (blur)="validarCampo('telefone')" [class.input-error]="errors.telefone" maxlength="15">
+                    @if (errors.telefone) {
+                    <span class="error-message">{{ errors.telefone }}</span>
+                    }
+                </div>
+
+                <div class="options">
+                    <label>Como nos conheceu?</label>
+                    <select name="comoConheceu" [(ngModel)]="formData.comoConheceu"
+                        (blur)="validarCampo('comoConheceu')" [class.input-error]="errors.comoConheceu">
+                        <option value="" disabled selected hidden>Selecione uma opção</option>
+                        <option value="Google">Google</option>
+                        <option value="Redes Sociais">Redes Sociais</option>
+                        <option value="Anúncios">Anúncios</option>
+                        <option value="Amigos e familiares">Amigos e familiares</option>
                     </select>
+                    @if (errors.comoConheceu) {
+                    <span class="error-message">{{ errors.comoConheceu }}</span>
+                    }
                 </div>
 
                 <div class="options" id="mais_informacoes">
-                    <label for="">Mensagem/Detalhes Adicionais</label>
-                    <textarea placeholder="Digite aqui sua Mensagem" type="text"></textarea>
+                    <label>Mensagem/Detalhes Adicionais</label>
+                    <textarea name="mensagem" placeholder="Digite aqui sua Mensagem"
+                        [(ngModel)]="formData.mensagem"></textarea>
                 </div>
+
                 <div class="options" id="botao_enviar">
                     <button type="submit">
                         Enviar

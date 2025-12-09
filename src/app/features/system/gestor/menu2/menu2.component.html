@@ -50,6 +50,31 @@
                 <div class="card-body">
                     <p class="endereco_paciente">{{paciente.endereco || 'Endereço não informado'}}</p>
 
+                    <div class="condicoes_paciente">
+                        @if (getComorbidadesArray(paciente.comorbidades).length > 0) {
+                        @if (isComorbidadesExpandido(i)) {
+                        <!-- Mostrar todas as comorbidades quando expandido -->
+                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades); track comorbidade) {
+                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
+                        }
+                        <span class="tag tag_mais tag_clickable" (click)="toggleComorbidades(i)">mostrar menos</span>
+                        } @else {
+                        <!-- Mostrar apenas as primeiras 2 quando recolhido -->
+                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades).slice(0, 2); track comorbidade)
+                        {
+                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
+                        }
+                        @if (getComorbidadesArray(paciente.comorbidades).length > 2) {
+                        <span class="tag tag_mais tag_clickable"
+                            (click)="toggleComorbidades(i)">+{{getComorbidadesArray(paciente.comorbidades).length - 2}}
+                            mais</span>
+                        }
+                        }
+                        } @else {
+                        <span class="tag tag_comorbidade">Sem comorbidades</span>
+                        }
+                    </div>
+
                     <div class="responsaveis_info">
                         <div class="responsavel_item">
                             <span class="responsavel_label">Médico:</span>
@@ -77,7 +102,20 @@
                             @for (plantao of getPlantoesDoDia(paciente); track plantao.cuidador) {
                             <div class="plantao_item">
                                 <span class="plantao_cuidador">{{plantao.cuidador}}</span>
-                                <span class="plantao_horario">{{plantao.horario}}</span>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                                    <span class="plantao_horario">{{plantao.horario}}</span>
+
+                                    @if (getStatusPlantao(plantao.code) === 'ANDAMENTO') {
+                                    <span class="status_andamento">Em andamento</span>
+                                    }
+                                    @if (getStatusPlantao(plantao.code) === 'FINALIZADO') {
+                                    <span class="status_finalizado">Finalizado</span>
+                                    }
+
+                                    @if (getTerminoPrevisto(plantao.code)) {
+                                    <span class="info_termino">{{ getTerminoPrevisto(plantao.code) }}</span>
+                                    }
+                                </div>
                             </div>
                             }
                             } @else {
@@ -86,35 +124,6 @@
                             </div>
                             }
                         </div>
-                    </div>
-                </div>
-
-                <div class="card-footer">
-                    <div class="condicoes_paciente">
-                        @if (getComorbidadesArray(paciente.comorbidades).length > 0) {
-
-                        @if (isComorbidadesExpandido(i)) {
-                        <!-- Mostrar todas as comorbidades quando expandido -->
-                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades); track comorbidade) {
-                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
-                        }
-                        <span class="tag tag_mais tag_clickable" (click)="toggleComorbidades(i)">mostrar menos</span>
-                        } @else {
-                        <!-- Mostrar apenas as primeiras 2 quando recolhido -->
-                        @for (comorbidade of getComorbidadesArray(paciente.comorbidades).slice(0, 2); track comorbidade)
-                        {
-                        <span class="tag tag_comorbidade">{{comorbidade}}</span>
-                        }
-                        @if (getComorbidadesArray(paciente.comorbidades).length > 2) {
-                        <span class="tag tag_mais tag_clickable"
-                            (click)="toggleComorbidades(i)">+{{getComorbidadesArray(paciente.comorbidades).length - 2}}
-                            mais</span>
-                        }
-                        }
-
-                        } @else {
-                        <span class="tag tag_comorbidade">Sem comorbidades</span>
-                        }
                     </div>
                 </div>
             </div>
@@ -197,7 +206,7 @@
             <div class="form-group">
                 <label>Cuidador Atribuído</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.cuidadorAtribuido">
-                    <option value="" disabled>Selecione um cuidador</option>
+                    <option value="">Não atribuído</option>
                     <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
                 </select>
             </div>
@@ -205,7 +214,7 @@
             <div class="form-group">
                 <label>Médico Atribuído</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.medicoAtribuido">
-                    <option value="" disabled>Selecione um médico</option>
+                    <option value="">Não atribuído</option>
                     <option *ngFor="let medico of medicos" [value]="medico">{{medico}}</option>
                 </select>
             </div>

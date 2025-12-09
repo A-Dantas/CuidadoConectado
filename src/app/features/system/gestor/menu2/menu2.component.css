@@ -275,6 +275,33 @@
     border-radius: 4px;
 }
 
+.status_andamento {
+    display: block;
+    font-size: 11px;
+    color: #f97316;
+    font-weight: 600;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.status_finalizado {
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 600;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.info_termino {
+    display: block;
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 2px;
+    font-style: italic;
+    text-align: right;
+}
+
 .plantao_vazio {
     padding: 8px 10px;
     background-color: #f9fafb;
@@ -299,6 +326,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    margin-top: 12px;
 }
 
 .tag {

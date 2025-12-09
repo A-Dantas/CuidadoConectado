@@ -8,17 +8,18 @@
                 </h1>
                 <p>
                     <span> Tecnologia que aproxima quem cuida</span>.
-                    Unimos familiares, médicos e cuidadores em uma rede de apoio digital, garantindo um cuidado excepcional e humanizado para quem você ama.
+                    Unimos familiares, médicos e cuidadores em uma rede de apoio digital, garantindo um cuidado
+                    excepcional e humanizado para quem você ama.
                 </p>
             </div>
-            <div class="container_carrosel">
+            <div class="container_carrosel" (mouseenter)="pauseAutoSlide()" (mouseleave)="startAutoSlide()">
 
                 <button class="nav_btn left" (click)="moveLeft()">‹</button>
-              
+
                 <img [src]="currentImage" id="carrosel" />
-              
+
                 <button class="nav_btn right" (click)="moveRight()">›</button>
-              
+
             </div>
         </div>
     </section>
@@ -44,12 +45,13 @@
                         Monitoramento da Saúde em Tempo Real
                     </h3>
                     <p>
-                        Acompanhe os sinais vitais, medicamentos e métricas de saúde com alertas instantâneos para cuidadores e profissionais de saúde.
+                        Acompanhe os sinais vitais, medicamentos e métricas de saúde com alertas instantâneos para
+                        cuidadores e profissionais de saúde.
                     </p>
                 </div>
             </div>
             <div class="card">
-                <div class="icon" >
+                <div class="icon">
                     <img id="user" src="icons/beneficios/icon_user.png" alt="Icone de usuario">
                 </div>
                 <div class="card_texto">
@@ -57,12 +59,13 @@
                         Coordenação Unificada de Cuidados
                     </h3>
                     <p>
-                        Colaboração integrada entre familiares, cuidadores e médicos por meio da nossa plataforma integrada.
+                        Colaboração integrada entre familiares, cuidadores e médicos por meio da nossa plataforma
+                        integrada.
                     </p>
                 </div>
             </div>
             <div class="card">
-                <div class="icon" >
+                <div class="icon">
                     <img id="protect" src="icons/beneficios/icon_protect.png" alt="Icone de proteção">
                 </div>
                 <div class="card_texto">
@@ -70,7 +73,8 @@
                         Segurança e Conformidade
                     </h3>
                     <p>
-                        Proteção Legal (LGPD) e Confidencialidade. Mantenha os dados de saúde sensíveis com a máxima segurança e em total conformidade com a legislação brasileira.
+                        Proteção Legal (LGPD) e Confidencialidade. Mantenha os dados de saúde sensíveis com a máxima
+                        segurança e em total conformidade com a legislação brasileira.
                     </p>
                 </div>
             </div>
@@ -107,7 +111,8 @@
                             Acompanhamento de Medicamentos
                         </h3>
                         <p>
-                            Monitore os cronogramas de medicação, dosagens e recargas com sistemas inteligentes de lembretes.
+                            Monitore os cronogramas de medicação, dosagens e recargas com sistemas inteligentes de
+                            lembretes.
                         </p>
                     </div>
                 </div>
@@ -118,7 +123,8 @@
                             Registros de Saúde
                         </h3>
                         <p>
-                            Registros digitais centralizados de saúde acessíveis aos membros da equipe de atendimento autorizados a qualquer momento.
+                            Registros digitais centralizados de saúde acessíveis aos membros da equipe de atendimento
+                            autorizados a qualquer momento.
                         </p>
                     </div>
                 </div>
@@ -140,7 +146,8 @@
                             Análise de Progresso
                         </h3>
                         <p>
-                            Relatórios e insights abrangentes que acompanham tendências de saúde e resultados de cuidados.
+                            Relatórios e insights abrangentes que acompanham tendências de saúde e resultados de
+                            cuidados.
                         </p>
                     </div>
                 </div>
@@ -151,7 +158,7 @@
                             Alertas de Emergência
                         </h3>
                         <p>
-                           Notificações imediatas para situações críticas com protocolos automáticos de emergência.
+                            Notificações imediatas para situações críticas com protocolos automáticos de emergência.
                         </p>
                     </div>
                 </div>
@@ -167,7 +174,8 @@
                     Pronto para transformar sua experiência de cuidado?
                 </h2>
                 <p>
-                    Junte-se a milhares de famílias e profissionais de cuidados que confiam na <strong>Cuidado Conectado</strong>
+                    Junte-se a milhares de famílias e profissionais de cuidados que confiam na <strong>Cuidado
+                        Conectado</strong>
                 </p>
             </div>
             <div class="container_contato_botao">
@@ -179,4 +187,3 @@
     </section>
 </main>
 <app-footer></app-footer>
-

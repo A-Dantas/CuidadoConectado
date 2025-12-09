@@ -158,9 +158,9 @@ export class Menu2Component implements OnInit, OnDestroy {
   }
 
   // Retorna os plantões do dia para um paciente
-  getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string }> {
+  getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string, code: string }> {
     const today = new Date().getDate();
-    const result: Array<{ cuidador: string, horario: string }> = [];
+    const result: Array<{ cuidador: string, horario: string, code: string }> = [];
 
     // Iterate through all caregivers in the calendar data
     for (const cuidadorName in this.calendarsData) {
@@ -183,7 +183,8 @@ export class Menu2Component implements OnInit, OnDestroy {
 
             result.push({
               cuidador: displayName,
-              horario: shiftLabel
+              horario: shiftLabel,
+              code: shiftCode
             });
           }
         });
@@ -191,6 +192,45 @@ export class Menu2Component implements OnInit, OnDestroy {
     }
 
     return result;
+  }
+
+  getStatusPlantao(shiftCode: string): 'ANDAMENTO' | 'FINALIZADO' | null {
+    const now = new Date();
+    const hour = now.getHours();
+
+    switch (shiftCode) {
+      case 'MT': // 07:00 - 19:00
+        if (hour >= 7 && hour < 19) return 'ANDAMENTO';
+        if (hour >= 19) return 'FINALIZADO';
+        break;
+      case 'SN': // 19:00 - 07:00 (next day)
+        // Se já passou das 19h no dia de início, está em andamento. 
+        // Se for antes das 7h (madrugada), tecnicamente é o dia seguinte, mas se o card
+        // estiver sendo visto na data de início, seria futuro? 
+        // Assumindo visualização do dia corrente (HOJE):
+        if (hour >= 19 || hour < 7) return 'ANDAMENTO';
+        break;
+      case '24H_7H': // 07:00 - 07:00 (+1)
+        if (hour >= 7) return 'ANDAMENTO';
+        break;
+      case '24H_19H': // 19:00 - 19:00 (+1)
+        if (hour >= 19) return 'ANDAMENTO';
+        break;
+    }
+    return null;
+  }
+
+  getTerminoPrevisto(shiftCode: string): string {
+    switch (shiftCode) {
+      case '24H_7H':
+        return 'Termina amanhã às 07h';
+      case '24H_19H':
+        return 'Termina amanhã às 19h';
+      case 'SN':
+        return 'Termina amanhã às 07h';
+      default:
+        return '';
+    }
   }
 
   abrirModalEdicao(paciente: Paciente, index: number): void {
