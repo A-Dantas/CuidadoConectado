@@ -628,6 +628,7 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioUsuario(): void {
+    this.errosUsuario = {};
     this.novoUsuario = {
       userName: '',
       sobrenome: '',
@@ -653,6 +654,39 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   adicionarUsuario(): void {
+    this.errosUsuario = {};
+
+    // Validações Comuns
+    if (!this.novoUsuario.userName?.trim()) this.errosUsuario.userName = true;
+    if (!this.novoUsuario.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
+    if (!this.novoUsuario.email?.trim()) this.errosUsuario.email = true;
+
+    if (this.novoUsuario.tipoUsuario === 'cuidador') {
+      if (!this.novoUsuario.dataNascimento) this.errosUsuario.dataNascimento = true;
+      if (!this.novoUsuario.telefone?.trim()) this.errosUsuario.telefone = true;
+      if (!this.novoUsuario.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
+      if (!this.novoUsuario.rua?.trim()) this.errosUsuario.rua = true;
+      if (!this.novoUsuario.numero?.trim()) this.errosUsuario.numero = true;
+      if (!this.novoUsuario.bairro?.trim()) this.errosUsuario.bairro = true;
+      if (!this.novoUsuario.cidade?.trim()) this.errosUsuario.cidade = true;
+      if (!this.novoUsuario.estado?.trim()) this.errosUsuario.estado = true;
+      if (!this.novoUsuario.chavePix?.trim()) this.errosUsuario.chavePix = true;
+      if (!this.novoUsuario.tempoExperiencia?.trim()) this.errosUsuario.tempoExperiencia = true;
+    } else if (this.novoUsuario.tipoUsuario === 'medico') {
+      if (!this.novoUsuario.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
+    } else if (this.novoUsuario.tipoUsuario === 'familiar') {
+      if (!this.novoUsuario.dataNascimento) this.errosUsuario.dataNascimento = true;
+      if (!this.novoUsuario.telefone?.trim()) this.errosUsuario.telefone = true;
+      if (!this.novoUsuario.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
+      if (!this.novoUsuario.rua?.trim()) this.errosUsuario.rua = true;
+      if (!this.novoUsuario.numero?.trim()) this.errosUsuario.numero = true;
+      if (!this.novoUsuario.bairro?.trim()) this.errosUsuario.bairro = true;
+      if (!this.novoUsuario.cidade?.trim()) this.errosUsuario.cidade = true;
+      if (!this.novoUsuario.estado?.trim()) this.errosUsuario.estado = true;
+    }
+
+    if (Object.keys(this.errosUsuario).length > 0) return;
+
     if (this.novoUsuario.userName.trim() && this.novoUsuario.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoUsuario.email)) {

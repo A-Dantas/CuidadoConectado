@@ -509,21 +509,27 @@
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Nome</label>
-                    <input type="text" class="form-input" placeholder="Nome" [(ngModel)]="novoUsuario.userName"
-                        (input)="validarNome($event, 'userName', novoUsuario)">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.userName" placeholder="Nome"
+                        [(ngModel)]="novoUsuario.userName" (input)="validarNome($event, 'userName', novoUsuario)">
+                    @if (errosUsuario.userName) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-large">
                     <label>Sobrenome</label>
-                    <input type="text" class="form-input" placeholder="Sobrenome" [(ngModel)]="novoUsuario.sobrenome"
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.sobrenome"
+                        placeholder="Sobrenome" [(ngModel)]="novoUsuario.sobrenome"
                         (input)="validarNome($event, 'sobrenome', novoUsuario)">
+                    @if (errosUsuario.sobrenome) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
+            @if (novoUsuario.tipoUsuario !== 'medico') {
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Data de Nascimento</label>
-                    <input type="date" class="form-input" [(ngModel)]="novoUsuario.dataNascimento" min="1900-01-01"
-                        max="9999-12-31" (change)="atualizarIdadeUsuario()">
+                    <input type="date" class="form-input" [class.input-error]="errosUsuario.dataNascimento"
+                        [(ngModel)]="novoUsuario.dataNascimento" min="1900-01-01" max="9999-12-31"
+                        (change)="atualizarIdadeUsuario()">
+                    @if (errosUsuario.dataNascimento) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-small">
                     <label>Idade</label>
@@ -531,52 +537,67 @@
                         readonly>
                 </div>
             </div>
+            }
 
             <div class="form-row">
+                @if (novoUsuario.tipoUsuario !== 'medico') {
                 <div class="form-group form-group-large">
                     <label>Telefone</label>
-                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
-                        [(ngModel)]="novoUsuario.telefone">
+                    <input type="tel" class="form-input" [class.input-error]="errosUsuario.telefone"
+                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.telefone">
+                    @if (errosUsuario.telefone) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
+                }
                 <div class="form-group form-group-large">
                     <label>Whatsapp</label>
-                    <input type="tel" class="form-input" placeholder="(00) 00000-0000"
-                        [(ngModel)]="novoUsuario.whatsapp">
+                    <input type="tel" class="form-input" [class.input-error]="errosUsuario.whatsapp"
+                        placeholder="(00) 00000-0000" [(ngModel)]="novoUsuario.whatsapp">
+                    @if (errosUsuario.whatsapp) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-input" placeholder="email@exemplo.com" [(ngModel)]="novoUsuario.email">
+                <input type="email" class="form-input" [class.input-error]="errosUsuario.email"
+                    placeholder="email@exemplo.com" [(ngModel)]="novoUsuario.email">
+                @if (errosUsuario.email) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
 
             @if (novoUsuario.tipoUsuario !== 'medico') {
             <div class="form-group">
                 <label>Rua</label>
-                <input type="text" class="form-input" placeholder="Digite o nome da rua" [(ngModel)]="novoUsuario.rua">
+                <input type="text" class="form-input" [class.input-error]="errosUsuario.rua"
+                    placeholder="Digite o nome da rua" [(ngModel)]="novoUsuario.rua">
+                @if (errosUsuario.rua) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-small">
                     <label>Número</label>
-                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="novoUsuario.numero">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.numero" placeholder="Nº"
+                        [(ngModel)]="novoUsuario.numero">
+                    @if (errosUsuario.numero) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-large">
                     <label>Bairro</label>
-                    <input type="text" class="form-input" placeholder="Digite o bairro"
-                        [(ngModel)]="novoUsuario.bairro">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.bairro"
+                        placeholder="Digite o bairro" [(ngModel)]="novoUsuario.bairro">
+                    @if (errosUsuario.bairro) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
                     <label>Cidade</label>
-                    <input type="text" class="form-input" placeholder="Digite a cidade"
-                        [(ngModel)]="novoUsuario.cidade">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.cidade"
+                        placeholder="Digite a cidade" [(ngModel)]="novoUsuario.cidade">
+                    @if (errosUsuario.cidade) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
                 <div class="form-group form-group-small">
                     <label>Estado</label>
-                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="novoUsuario.estado">
+                    <input type="text" class="form-input" [class.input-error]="errosUsuario.estado" placeholder="UF"
+                        [(ngModel)]="novoUsuario.estado">
+                    @if (errosUsuario.estado) { <span class="error-msg">Este campo é obrigatório</span> }
                 </div>
             </div>
             }
@@ -584,16 +605,18 @@
             @if (novoUsuario.tipoUsuario === 'cuidador') {
             <div class="form-group">
                 <label>Tempo de Experiência</label>
-                <input type="text" class="form-input" placeholder="Ex: 5 anos"
-                    [(ngModel)]="novoUsuario.tempoExperiencia">
+                <input type="text" class="form-input" [class.input-error]="errosUsuario.tempoExperiencia"
+                    placeholder="Ex: 5 anos" [(ngModel)]="novoUsuario.tempoExperiencia">
+                @if (errosUsuario.tempoExperiencia) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
             }
 
             @if (novoUsuario.tipoUsuario !== 'familiar' && novoUsuario.tipoUsuario !== 'medico') {
             <div class="form-group">
                 <label>Chave Pix</label>
-                <input type="text" class="form-input" placeholder="CPF, Email, Telefone ou Chave Aleatória"
-                    [(ngModel)]="novoUsuario.chavePix">
+                <input type="text" class="form-input" [class.input-error]="errosUsuario.chavePix"
+                    placeholder="CPF, Email, Telefone ou Chave Aleatória" [(ngModel)]="novoUsuario.chavePix">
+                @if (errosUsuario.chavePix) { <span class="error-msg">Este campo é obrigatório</span> }
             </div>
             }
 
