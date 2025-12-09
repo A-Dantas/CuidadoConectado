@@ -5,8 +5,14 @@
 
     <section class="lista_pacientes">
         @if (pacientes.length === 0) {
-        <div class="mensagem_vazia">
-            <p>Nenhum paciente cadastrado.</p>
+        <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
+                <path
+                    d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z">
+                </path>
+            </svg>
+            <h3>Nenhum paciente cadastrado</h3>
+            <p>Não há pacientes cadastrados no sistema. Cadastre um novo paciente para começar.</p>
         </div>
         }
 
@@ -52,6 +58,33 @@
                         <div class="responsavel_item">
                             <span class="responsavel_label">Familiar:</span>
                             <span class="responsavel_nome">{{paciente.contatoFamiliar || 'Não atribuído'}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Plantão do Dia -->
+                    <div class="plantao_dia_info">
+                        <div class="plantao_header">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
+                                fill="currentColor">
+                                <path
+                                    d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z">
+                                </path>
+                            </svg>
+                            <span class="plantao_data">Plantão de Hoje - {{getDataHoje()}}</span>
+                        </div>
+                        <div class="plantao_cuidadores">
+                            @if (getPlantoesDoDia(paciente).length > 0) {
+                            @for (plantao of getPlantoesDoDia(paciente); track plantao.cuidador) {
+                            <div class="plantao_item">
+                                <span class="plantao_cuidador">{{plantao.cuidador}}</span>
+                                <span class="plantao_horario">{{plantao.horario}}</span>
+                            </div>
+                            }
+                            } @else {
+                            <div class="plantao_vazio">
+                                <span>Nenhum plantão agendado para hoje</span>
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -101,51 +134,52 @@
 
         <div class="modal-body">
             <div class="form-group">
-                <label>Patient Name</label>
-                <input type="text" class="form-input" placeholder="Enter patient name"
+                <label>Nome do Paciente</label>
+                <input type="text" class="form-input" placeholder="Digite o nome do paciente"
                     [(ngModel)]="pacienteEditando.nomePaciente">
             </div>
             <div class="form-group">
-                <label>Age</label>
-                <input type="number" class="form-input" placeholder="Enter age" [(ngModel)]="pacienteEditando.idade">
+                <label>Idade</label>
+                <input type="number" class="form-input" placeholder="Digite a idade"
+                    [(ngModel)]="pacienteEditando.idade">
             </div>
 
             <div class="form-group">
-                <label>Street</label>
-                <input type="text" class="form-input" placeholder="Enter street name"
+                <label>Rua</label>
+                <input type="text" class="form-input" placeholder="Digite o nome da rua"
                     [(ngModel)]="pacienteEditando.rua">
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-small">
-                    <label>Number</label>
-                    <input type="text" class="form-input" placeholder="No." [(ngModel)]="pacienteEditando.numero">
+                    <label>Número</label>
+                    <input type="text" class="form-input" placeholder="Nº" [(ngModel)]="pacienteEditando.numero">
                 </div>
                 <div class="form-group form-group-large">
-                    <label>Neighborhood</label>
-                    <input type="text" class="form-input" placeholder="Enter neighborhood"
+                    <label>Bairro</label>
+                    <input type="text" class="form-input" placeholder="Digite o bairro"
                         [(ngModel)]="pacienteEditando.bairro">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group form-group-large">
-                    <label>City</label>
-                    <input type="text" class="form-input" placeholder="Enter city"
+                    <label>Cidade</label>
+                    <input type="text" class="form-input" placeholder="Digite a cidade"
                         [(ngModel)]="pacienteEditando.cidade">
                 </div>
                 <div class="form-group form-group-small">
-                    <label>State</label>
-                    <input type="text" class="form-input" placeholder="State" [(ngModel)]="pacienteEditando.estado"
+                    <label>Estado</label>
+                    <input type="text" class="form-input" placeholder="UF" [(ngModel)]="pacienteEditando.estado"
                         (input)="validarNome($event, 'estado', pacienteEditando)" maxlength="2">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Comorbidities</label>
+                <label>Comorbidades</label>
                 @for (comorbidade of comorbidadesListEdicao; track $index; let i = $index) {
                 <div class="comorbidade-row">
-                    <input type="text" class="form-input" placeholder="Enter condition"
+                    <input type="text" class="form-input" placeholder="Descreva a comorbidade"
                         [(ngModel)]="comorbidadesListEdicao[i]">
                     @if (comorbidadesListEdicao.length > 1) {
                     <button type="button" class="btn-remove-comorbidade"
@@ -155,13 +189,13 @@
                 }
                 <button type="button" class="btn-add-comorbidade" (click)="adicionarComorbidadeEdicao()">
                     <span class="plus-icon">+</span>
-                    Add Comorbidity
+                    Adicionar Comorbidade
                 </button>
             </div>
 
 
             <div class="form-group">
-                <label>Assigned Caregiver</label>
+                <label>Cuidador Atribuído</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.cuidadorAtribuido">
                     <option value="" disabled>Selecione um cuidador</option>
                     <option *ngFor="let cuidador of cuidadores" [value]="cuidador">{{cuidador}}</option>
@@ -169,7 +203,7 @@
             </div>
 
             <div class="form-group">
-                <label>Assigned Doctor</label>
+                <label>Médico Atribuído</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.medicoAtribuido">
                     <option value="" disabled>Selecione um médico</option>
                     <option *ngFor="let medico of medicos" [value]="medico">{{medico}}</option>
@@ -177,7 +211,7 @@
             </div>
 
             <div class="form-group">
-                <label>Family Contact</label>
+                <label>Contato Familiar</label>
                 <select class="form-select" [(ngModel)]="pacienteEditando.contatoFamiliar">
                     <option value="" disabled>Selecione um familiar</option>
                     <option *ngFor="let familiar of familiares" [value]="familiar">{{familiar}}</option>
@@ -187,7 +221,7 @@
 
         <div class="modal-footer">
             <button class="btn-add" (click)="salvarEdicao()">Salvar</button>
-            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancel</button>
+            <button class="btn-cancel" (click)="fecharModalEdicao()">Cancelar</button>
         </div>
     </div>
 </div>

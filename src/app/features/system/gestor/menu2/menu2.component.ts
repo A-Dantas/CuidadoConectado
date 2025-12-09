@@ -120,6 +120,34 @@ export class Menu2Component implements OnInit, OnDestroy {
     return this.comorbidadesExpandidas.has(index);
   }
 
+  // Retorna a data de hoje formatada
+  getDataHoje(): string {
+    const hoje = new Date();
+    const dia = hoje.getDate().toString().padStart(2, '0');
+    const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+    const ano = hoje.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  // Retorna os plantões do dia para um paciente
+  getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string }> {
+    // TODO: Integrar com o serviço de plantões quando estiver disponível
+    // Por enquanto, retorna dados mockados baseados no cuidador atribuído
+
+    if (!paciente.cuidadorAtribuido) {
+      return [];
+    }
+
+    // Exemplo: retorna o cuidador atribuído com horário padrão
+    // Isso deve ser substituído pela lógica real de plantões
+    return [
+      {
+        cuidador: paciente.cuidadorAtribuido,
+        horario: '08:00 - 16:00'
+      }
+    ];
+  }
+
   abrirModalEdicao(paciente: Paciente, index: number): void {
     this.pacienteEditando = { ...paciente };
     this.indiceEditando = index;

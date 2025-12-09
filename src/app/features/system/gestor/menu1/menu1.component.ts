@@ -126,6 +126,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   errosPaciente: any = {};
   errosUsuario: any = {};
+  emailInvalidoUsuario: boolean = false;
 
   experienciaComorbidadesList: string[] = [''];
 
@@ -171,6 +172,24 @@ export class Menu1Component implements OnInit, OnDestroy {
   // Validação de email - verifica se contém @
   validarEmail(email: string): boolean {
     return email.includes('@');
+  }
+
+  // Validação de email em tempo real para o formulário de usuário
+  validarEmailUsuario(): void {
+    console.log('validarEmailUsuario chamado', this.novoUsuario?.email);
+
+    if (!this.novoUsuario || !this.novoUsuario.email) {
+      this.emailInvalidoUsuario = false;
+      return;
+    }
+
+    const email = this.novoUsuario.email.trim();
+    if (email.length > 0) {
+      this.emailInvalidoUsuario = !email.includes('@');
+      console.log('Email validado:', email, 'Inválido:', this.emailInvalidoUsuario);
+    } else {
+      this.emailInvalidoUsuario = false;
+    }
   }
 
   // Formatação de telefone - (XX) XXXXX-XXXX
@@ -514,12 +533,15 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   // Métodos para comorbidades do modal de usuário principal
   adicionarExperienciaComorbidadeUsuario(): void {
-    this.experienciaComorbidadesUsuarioList.push('');
+    if (!this.novoUsuario.experienciaComorbidadesList) {
+      this.novoUsuario.experienciaComorbidadesList = [''];
+    }
+    this.novoUsuario.experienciaComorbidadesList.push('');
   }
 
   removerExperienciaComorbidadeUsuario(index: number): void {
-    if (this.experienciaComorbidadesUsuarioList.length > 1) {
-      this.experienciaComorbidadesUsuarioList.splice(index, 1);
+    if (this.novoUsuario.experienciaComorbidadesList && this.novoUsuario.experienciaComorbidadesList.length > 1) {
+      this.novoUsuario.experienciaComorbidadesList.splice(index, 1);
     }
   }
 
@@ -629,6 +651,7 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   resetarFormularioUsuario(): void {
     this.errosUsuario = {};
+    this.emailInvalidoUsuario = false;
     this.novoUsuario = {
       userName: '',
       sobrenome: '',
@@ -690,7 +713,7 @@ export class Menu1Component implements OnInit, OnDestroy {
     if (this.novoUsuario.userName.trim() && this.novoUsuario.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoUsuario.email)) {
-        alert('Email inválido. O email deve conter @');
+        this.emailInvalidoUsuario = true;
         return;
       }
 

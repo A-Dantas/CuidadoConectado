@@ -568,9 +568,12 @@
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-input" [class.input-error]="errosUsuario.email"
-                    placeholder="email@exemplo.com" [(ngModel)]="novoUsuario.email">
+                <input type="email" class="form-input" [class.input-error]="errosUsuario.email || emailInvalidoUsuario"
+                    placeholder="email@exemplo.com" [(ngModel)]="novoUsuario.email" (blur)="validarEmailUsuario()"
+                    (input)="validarEmailUsuario()">
                 @if (errosUsuario.email) { <span class="error-msg">Este campo é obrigatório</span> }
+                @if (emailInvalidoUsuario && !errosUsuario.email) { <span class="error-msg">Email inválido. Deve conter
+                    &#64;</span> }
             </div>
 
             @if (novoUsuario.tipoUsuario !== 'medico') {
