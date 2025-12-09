@@ -158,57 +158,89 @@ export class Menu2Component implements OnInit, OnDestroy {
   }
 
   // Retorna os plantões do dia para um paciente
-  getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string, code: string }> {
-    const today = new Date().getDate();
-    const result: Array<{ cuidador: string, horario: string, code: string }> = [];
+  getPlantoesDoDia(paciente: Paciente): Array<{ cuidador: string, horario: string, code: string, origin: 'today' | 'yesterday' }> {
+    const todayDate = new Date();
+    const today = todayDate.getDate();
 
-    // Iterate through all caregivers in the calendar data
-    for (const cuidadorName in this.calendarsData) {
-      const calendar = this.calendarsData[cuidadorName];
-      // Find today's entry
-      const dayData = calendar.find((d: any) => d.number === today);
+    // Calculate yesterday
+    const yesterdayDate = new Date(todayDate);
+    yesterdayDate.setDate(today - 1);
+    const yesterday = yesterdayDate.getDate();
 
-      if (dayData && dayData.selectedPatients) {
-        // Iterate through selections for this day
-        dayData.selectedPatients.forEach((selectedPatientName: string, index: number) => {
-          if (selectedPatientName === paciente.nomePaciente) {
-            const shiftCode = dayData.selectedShifts[index];
-            const shiftLabel = this.shiftLabels[shiftCode] || shiftCode || 'Turno não definido';
+    const result: Array<{ cuidador: string, horario: string, code: string, origin: 'today' | 'yesterday' }> = [];
 
-            // Look up full name
-            const cuidadorObj = this.allCuidadores.find(u => u.userName === cuidadorName);
-            const displayName = cuidadorObj
-              ? `${cuidadorObj.userName} ${cuidadorObj.sobrenome || ''}`.trim()
-              : cuidadorName;
+    // Helper to process a specific day
+    const processDay = (dayNumber: number, origin: 'today' | 'yesterday') => {
+      for (const cuidadorName in this.calendarsData) {
+        const calendar = this.calendarsData[cuidadorName];
+        const dayData = calendar.find((d: any) => d.number === dayNumber);
 
-            result.push({
-              cuidador: displayName,
-              horario: shiftLabel,
-              code: shiftCode
-            });
-          }
-        });
+        if (dayData && dayData.selectedPatients) {
+          dayData.selectedPatients.forEach((selectedPatientName: string, index: number) => {
+            if (selectedPatientName === paciente.nomePaciente) {
+              const shiftCode = dayData.selectedShifts[index];
+              const shiftLabel = this.shiftLabels[shiftCode] || shiftCode || 'Turno não definido';
+
+              // If looking at yesterday, only include shifts that span into today
+              if (origin === 'yesterday') {
+                if (!['24H_7H', '24H_19H', 'SN'].includes(shiftCode)) {
+                  return;
+                }
+              }
+
+              // Look up full name
+              const cuidadorObj = this.allCuidadores.find(u => u.userName === cuidadorName);
+              const displayName = cuidadorObj
+                ? `${cuidadorObj.userName} ${cuidadorObj.sobrenome || ''}`.trim()
+                : cuidadorName;
+
+              result.push({
+                cuidador: displayName,
+                horario: shiftLabel,
+                code: shiftCode,
+                origin: origin
+              });
+            }
+          });
+        }
       }
-    }
+    };
+
+    // Process Today (priority)
+    processDay(today, 'today');
+
+    // Process Yesterday (for lingering shifts)
+    processDay(yesterday, 'yesterday');
 
     return result;
   }
 
-  getStatusPlantao(shiftCode: string): 'ANDAMENTO' | 'FINALIZADO' | null {
+  getStatusPlantao(shiftCode: string, origin: 'today' | 'yesterday' = 'today'): 'ANDAMENTO' | 'FINALIZADO' | null {
     const now = new Date();
     const hour = now.getHours();
 
+    if (origin === 'yesterday') {
+      // Logic for shifts started yesterday
+      switch (shiftCode) {
+        case '24H_7H': // Started yest 7am, ends today 7am
+          return hour < 7 ? 'ANDAMENTO' : 'FINALIZADO';
+        case '24H_19H': // Started yest 19h, ends today 19h
+          return hour < 19 ? 'ANDAMENTO' : 'FINALIZADO';
+        case 'SN': // Started yest 19h, ends today 07h
+          return hour < 7 ? 'ANDAMENTO' : 'FINALIZADO';
+        default:
+          return 'FINALIZADO';
+      }
+    }
+
+    // Logic for shifts starting today
     switch (shiftCode) {
       case 'MT': // 07:00 - 19:00
         if (hour >= 7 && hour < 19) return 'ANDAMENTO';
         if (hour >= 19) return 'FINALIZADO';
         break;
       case 'SN': // 19:00 - 07:00 (next day)
-        // Se já passou das 19h no dia de início, está em andamento. 
-        // Se for antes das 7h (madrugada), tecnicamente é o dia seguinte, mas se o card
-        // estiver sendo visto na data de início, seria futuro? 
-        // Assumindo visualização do dia corrente (HOJE):
-        if (hour >= 19 || hour < 7) return 'ANDAMENTO';
+        if (hour >= 19) return 'ANDAMENTO';
         break;
       case '24H_7H': // 07:00 - 07:00 (+1)
         if (hour >= 7) return 'ANDAMENTO';
@@ -220,7 +252,23 @@ export class Menu2Component implements OnInit, OnDestroy {
     return null;
   }
 
-  getTerminoPrevisto(shiftCode: string): string {
+  getTerminoPrevisto(shiftCode: string, origin: 'today' | 'yesterday' = 'today'): string {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (origin === 'yesterday') {
+      switch (shiftCode) {
+        case '24H_7H':
+          return hour < 7 ? 'Plantão iniciado ontem, termina hoje às 07h' : 'Plantão iniciado ontem, terminou hoje às 07h';
+        case '24H_19H':
+          return hour < 19 ? 'Plantão iniciado ontem, termina hoje às 19h' : 'Plantão iniciado ontem, terminou hoje às 19h';
+        case 'SN':
+          return hour < 7 ? 'Plantão iniciado ontem, termina hoje às 07h' : 'Plantão iniciado ontem, terminou hoje às 07h';
+        default:
+          return '';
+      }
+    }
+
     switch (shiftCode) {
       case '24H_7H':
         return 'Termina amanhã às 07h';

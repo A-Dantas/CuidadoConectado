@@ -307,13 +307,55 @@ export class Menu4Component implements OnInit {
     return true;
   }
 
+  // Validate consecutive days conflicts
+  validateConsecutiveShifts(currentDay: any, shift: string): boolean {
+    const dayIndex = this.calendarDays.indexOf(currentDay);
+    if (dayIndex === -1) return true;
+
+    // 1. Check Previous Day (Backward Look)
+    // If yesterday had a shift ending at 19h today (24H_19H), we cannot start at 07h today (MT or 24H_7H)
+    if (dayIndex > 0) {
+      const prevDay = this.calendarDays[dayIndex - 1];
+      if (prevDay && prevDay.number) {
+        // Check if previous day has any overlapping shift
+        const hasLateShift = prevDay.selectedShifts.some((s: string) => s === '24H_19H');
+
+        if (hasLateShift && (shift === 'MT' || shift === '24H_7H')) {
+          this.conflictMessage = `Conflito com o dia anterior! O plantão de ontem (24H Início 19h) termina hoje às 19h.`;
+          this.modalConflictOpen = true;
+          return false;
+        }
+      }
+    }
+
+    // 2. Check Next Day (Forward Look)
+    // If we are selecting a shift ending at 19h tomorrow (24H_19H), 
+    // we cannot conflict with tomorrow starting at 07h (MT or 24H_7H)
+    if (dayIndex < this.calendarDays.length - 1) {
+      const nextDay = this.calendarDays[dayIndex + 1];
+      if (nextDay && nextDay.number) {
+        if (shift === '24H_19H') {
+          const hasEarlyShift = nextDay.selectedShifts.some((s: string) => s === 'MT' || s === '24H_7H');
+          if (hasEarlyShift) {
+            this.conflictMessage = `Conflito com o dia seguinte! Este plantão termina amanhã às 19h, mas já existe um plantão iniciando às 07h.`;
+            this.modalConflictOpen = true;
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
   // Called when patient or shift changes
   onPatientOrShiftChange(day: any, index: number): void {
     const patient = day.selectedPatients[index];
     const shift = day.selectedShifts[index];
 
-    // Check if the caregiver already has an overlapping shift on this day
+    // Check if the caregiver already has an overlapping shift on this day (Intra-day check)
     if (shift) {
+      // 1. Check internal overlap
       for (let i = 0; i < day.selectedShifts.length; i++) {
         if (i === index) continue; // Skip current row
         const otherShift = day.selectedShifts[i];
@@ -328,9 +370,16 @@ export class Menu4Component implements OnInit {
           return;
         }
       }
+
+      // 2. Check consecutive days overlap (Inter-day check)
+      if (!this.validateConsecutiveShifts(day, shift)) {
+        day.selectedShifts[index] = '';
+        this.onSelectionChange();
+        return;
+      }
     }
 
-    // Only validate if both patient and shift are selected
+    // Only validate against other caregivers if both patient and shift are selected
     if (patient && shift) {
       if (!this.validateSelection(day.number, patient, shift)) {
         // Clear the conflicting selection
@@ -347,6 +396,8 @@ export class Menu4Component implements OnInit {
     this.conflictMessage = '';
     this.conflictCuidador = '';
   }
+
+
 
   isDayPast(dayNumber: number): boolean {
     if (!dayNumber) return false;

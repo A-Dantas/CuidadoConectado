@@ -105,15 +105,16 @@
                                 <div style="display: flex; flex-direction: column; align-items: flex-end;">
                                     <span class="plantao_horario">{{plantao.horario}}</span>
 
-                                    @if (getStatusPlantao(plantao.code) === 'ANDAMENTO') {
+                                    @if (getStatusPlantao(plantao.code, plantao.origin) === 'ANDAMENTO') {
                                     <span class="status_andamento">Em andamento</span>
                                     }
-                                    @if (getStatusPlantao(plantao.code) === 'FINALIZADO') {
+                                    @if (getStatusPlantao(plantao.code, plantao.origin) === 'FINALIZADO') {
                                     <span class="status_finalizado">Finalizado</span>
                                     }
 
-                                    @if (getTerminoPrevisto(plantao.code)) {
-                                    <span class="info_termino">{{ getTerminoPrevisto(plantao.code) }}</span>
+                                    @if (getTerminoPrevisto(plantao.code, plantao.origin)) {
+                                    <span class="info_termino">{{ getTerminoPrevisto(plantao.code, plantao.origin)
+                                        }}</span>
                                     }
                                 </div>
                             </div>
