@@ -17,10 +17,15 @@ export class Menu3Component implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   get usuariosFiltrados(): Usuario[] {
+    const usuariosSemGestor = this.usuarios.filter(u => {
+      const role = u.role.toLowerCase();
+      return role !== 'manager' && role !== 'gestor';
+    });
+
     if (this.filtroRole === 'Todos') {
-      return this.usuarios;
+      return usuariosSemGestor;
     }
-    return this.usuarios.filter(u => u.role === this.filtroRole);
+    return usuariosSemGestor.filter(u => u.role === this.filtroRole);
   }
 
   // Modal states
