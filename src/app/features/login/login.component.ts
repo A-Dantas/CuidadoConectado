@@ -13,9 +13,16 @@ import { AuthService } from '../../core/auth/auth.service';
 export class LoginComponent {
   username = '';
   password = '';
+  showPassword = false;
+  privacyPolicyAccepted = false;
+
   errorMessage: string | null = null;
 
   private authService = inject(AuthService);
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit(): void {
     this.errorMessage = null;

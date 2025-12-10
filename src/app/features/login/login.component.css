@@ -26,9 +26,7 @@ main {
     gap: 40px;
 }
 
-.forms_header {
-
-}
+.forms_header {}
 
 .forms_header h2 {
     font-size: 2.6rem;
@@ -77,7 +75,8 @@ select {
     display: flex;
 }
 
-.options input, select {
+.options input,
+select {
     border: 1px solid var(--cor_gradient_1);
     height: 35px;
     border-radius: 4px;
@@ -95,11 +94,12 @@ select {
     flex-direction: column;
     align-items: center;
 }
+
 .container_texto_botao p {
     font-size: 0.75rem;
 }
 
-.container_texto_botao p > a {
+.container_texto_botao p>a {
     text-decoration: none;
     font-weight: 500;
 }
@@ -107,10 +107,10 @@ select {
 #mais_informacoes textarea {
     height: 150px;
     text-align: start;
-    padding-top: 5px; 
+    padding-top: 5px;
     padding-left: 5px;
     box-sizing: border-box;
-    line-height: 1.2; 
+    line-height: 1.2;
     vertical-align: top;
     height: 150px;
     top: 8px;
@@ -158,6 +158,18 @@ button:hover {
     box-shadow: inset 0 -100px 0 0 var(--cor_gradient_3);
 }
 
-button:active {
-    transform: scale(0.9);
+
+button:disabled {
+    background: #9ca3af;
+    border-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    box-shadow: none;
+    color: inherit;
+}
+
+button:disabled:active {
+    transform: none;
 }

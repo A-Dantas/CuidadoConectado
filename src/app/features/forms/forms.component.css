@@ -169,3 +169,7 @@ button:disabled:hover {
     box-shadow: none;
     color: inherit;
 }
+
+button:disabled:active {
+    transform: none;
+}

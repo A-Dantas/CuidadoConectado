@@ -81,15 +81,21 @@
                 </div>
 
                 <div class="options" id="botao_enviar">
-                    <button type="submit">
+                    <div class="container_texto_botao">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" name="privacyPolicyAccepted" [(ngModel)]="privacyPolicyAccepted">
+                            <p style="margin: 0;">
+                                Ao enviar, você concorda com nossa
+                                <a [routerLink]="['/about']" fragment="lgpd" target="_blank">política de
+                                    privacidade</a>.
+                            </p>
+                        </label>
+                    </div>
+                    <button type="submit" [disabled]="!privacyPolicyAccepted"
+                        [style.opacity]="!privacyPolicyAccepted ? '0.5' : '1'"
+                        [style.cursor]="!privacyPolicyAccepted ? 'not-allowed' : 'pointer'">
                         Enviar
                     </button>
-                    <div class="container_texto_botao">
-                        <p>
-                            Ao enviar, você concorda com nossa
-                            <a [routerLink]="['/about']" fragment="lgpd" target="_blank">política de privacidade</a>.
-                        </p>
-                    </div>
                 </div>
             </div>
         </form>

@@ -33,6 +33,8 @@ export class FormsComponent {
   };
 
   formSubmitted = false;
+  privacyPolicyAccepted = false;
+
 
   validarCampo(campo: string): void {
     switch (campo) {
