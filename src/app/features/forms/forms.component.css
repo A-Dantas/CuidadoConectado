@@ -1,37 +1,41 @@
 main {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    margin: 3rem 0 1.5rem 0;
+    margin: 0;
+    padding: 1rem;
 }
 
 .container_forms {
-    width: 50%;
+    width: 100%;
     max-width: 650px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 50px 50px 10px 50px;
+    padding: 1.5rem 1rem;
     border: 2px solid var(--cor_gradient_1);
     border-radius: 6px;
     scroll-padding-top: 200px;
-    margin: 6rem 0;
+    margin: 5rem 0 2rem 0;
 }
 
 .forms {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 1.5rem;
 }
 
 .forms_header h2 {
-    font-size: 2.3rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
 }
 
 .forms_header p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 .forms_header span {
@@ -42,7 +46,7 @@ main {
 .options_container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1rem;
 }
 
 .options {
@@ -85,7 +89,8 @@ select {
 }
 
 .container_texto_botao p {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
 }
 
 .container_texto_botao p>a {
@@ -94,18 +99,18 @@ select {
 }
 
 #mais_informacoes textarea {
-    height: 150px;
+    height: 120px;
     text-align: start;
     padding-top: 5px;
     padding-left: 5px;
     box-sizing: border-box;
     line-height: 1.2;
     vertical-align: top;
-    height: 150px;
     top: 8px;
     resize: none;
     border: 1px solid var(--cor_gradient_1);
     border-radius: 6px;
+    font-family: inherit;
 }
 
 #mais_informacoes input::placeholder {
@@ -118,16 +123,17 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
 }
 
 button {
-    width: 68%;
+    width: 100%;
+    max-width: 280px;
     display: flex;
     justify-content: center;
     position: relative;
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
+    margin: 10px 0;
+    padding: 12px 20px;
     text-align: center;
     font-size: 14px;
     letter-spacing: 1px;
@@ -172,4 +178,98 @@ button:disabled:hover {
 
 button:disabled:active {
     transform: none;
+}
+
+/* Tablet - 768px and up */
+@media (min-width: 768px) {
+    main {
+        padding: 2rem;
+        margin: 2rem 0;
+    }
+
+    .container_forms {
+        padding: 2.5rem 2rem;
+        margin: 6rem 0 3rem 0;
+    }
+
+    .forms {
+        gap: 2rem;
+    }
+
+    .forms_header h2 {
+        font-size: 2rem;
+    }
+
+    .forms_header p {
+        font-size: 0.88rem;
+    }
+
+    .options_container {
+        gap: 1.2rem;
+    }
+
+    #mais_informacoes textarea {
+        height: 140px;
+    }
+
+    .container_texto_botao p {
+        font-size: 0.73rem;
+    }
+
+    button {
+        width: 80%;
+        max-width: 320px;
+    }
+}
+
+/* Desktop - 1024px and up */
+@media (min-width: 1024px) {
+    main {
+        margin: 3rem 0 1.5rem 0;
+    }
+
+    .container_forms {
+        width: 50%;
+        padding: 50px 50px 10px 50px;
+        margin: 6rem 0;
+    }
+
+    .forms {
+        gap: 40px;
+    }
+
+    .forms_header h2 {
+        font-size: 2.3rem;
+    }
+
+    .forms_header p {
+        font-size: 0.9rem;
+    }
+
+    .options_container {
+        gap: 20px;
+    }
+
+    #mais_informacoes textarea {
+        height: 150px;
+    }
+
+    .container_texto_botao p {
+        font-size: 0.75rem;
+    }
+
+    button {
+        width: 68%;
+    }
+}
+
+/* Large Desktop - 1440px and up */
+@media (min-width: 1440px) {
+    .forms_header h2 {
+        font-size: 2.5rem;
+    }
+
+    .forms_header p {
+        font-size: 0.95rem;
+    }
 }

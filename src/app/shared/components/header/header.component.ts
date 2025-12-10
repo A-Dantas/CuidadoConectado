@@ -14,6 +14,7 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
   menuBranco = false;
   isHome = false;
+  mobileMenuOpen = false;
 
   constructor(private router: Router) {
     // Check initial route
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.checkRoute();
+      this.mobileMenuOpen = false; // Close mobile menu on route change
     });
   }
 
@@ -33,6 +35,14 @@ export class HeaderComponent implements OnInit {
 
   private checkRoute() {
     this.isHome = this.router.url === '/' || this.router.url === '/home' || this.router.url.startsWith('/home#');
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.mobileMenuOpen = false;
   }
 
   @HostListener('window:scroll', [])
