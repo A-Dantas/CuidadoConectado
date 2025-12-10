@@ -126,7 +126,13 @@ export class Menu1Component implements OnInit, OnDestroy {
 
   errosPaciente: any = {};
   errosUsuario: any = {};
+  errosCuidador: any = {};
+  errosMedico: any = {};
+  errosFamiliar: any = {};
   emailInvalidoUsuario: boolean = false;
+  emailInvalidoMedico: boolean = false;
+  emailInvalidoCuidador: boolean = false;
+  emailInvalidoFamiliar: boolean = false;
 
   experienciaComorbidadesList: string[] = [''];
 
@@ -175,20 +181,71 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   // Validação de email em tempo real para o formulário de usuário
-  validarEmailUsuario(): void {
-    console.log('validarEmailUsuario chamado', this.novoUsuario?.email);
+  validarEmailUsuario(valor?: string): void {
+    const emailToCheck = valor !== undefined ? valor : this.novoUsuario?.email;
 
-    if (!this.novoUsuario || !this.novoUsuario.email) {
+    if (!this.novoUsuario || !emailToCheck) {
       this.emailInvalidoUsuario = false;
       return;
     }
 
-    const email = this.novoUsuario.email.trim();
+    const email = emailToCheck.trim();
     if (email.length > 0) {
       this.emailInvalidoUsuario = !email.includes('@');
-      console.log('Email validado:', email, 'Inválido:', this.emailInvalidoUsuario);
+      this.errosUsuario.email = false; // Limpa erro de obrigatório
     } else {
       this.emailInvalidoUsuario = false;
+    }
+  }
+
+  validarEmailMedico(valor?: string): void {
+    const emailToCheck = valor !== undefined ? valor : this.novoMedico?.email;
+
+    if (!this.novoMedico || !emailToCheck) {
+      this.emailInvalidoMedico = false;
+      return;
+    }
+
+    const email = emailToCheck.trim();
+    if (email.length > 0) {
+      this.emailInvalidoMedico = !email.includes('@');
+      this.errosMedico.email = false; // Limpa erro de obrigatório
+    } else {
+      this.emailInvalidoMedico = false;
+    }
+  }
+
+  validarEmailCuidador(valor?: string): void {
+    const emailToCheck = valor !== undefined ? valor : this.novoCuidador?.email;
+
+    if (!this.novoCuidador || !emailToCheck) {
+      this.emailInvalidoCuidador = false;
+      return;
+    }
+
+    const email = emailToCheck.trim();
+    if (email.length > 0) {
+      this.emailInvalidoCuidador = !email.includes('@');
+      this.errosCuidador.email = false; // Limpa erro de obrigatório
+    } else {
+      this.emailInvalidoCuidador = false;
+    }
+  }
+
+  validarEmailFamiliar(valor?: string): void {
+    const emailToCheck = valor !== undefined ? valor : this.novoFamiliar?.email;
+
+    if (!this.novoFamiliar || !emailToCheck) {
+      this.emailInvalidoFamiliar = false;
+      return;
+    }
+
+    const email = emailToCheck.trim();
+    if (email.length > 0) {
+      this.emailInvalidoFamiliar = !email.includes('@');
+      this.errosFamiliar.email = false; // Limpa erro de obrigatório
+    } else {
+      this.emailInvalidoFamiliar = false;
     }
   }
 
@@ -300,21 +357,21 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoCuidador(): void {
-    this.errosUsuario = {};
+    this.errosCuidador = {};
 
-    if (!this.novoCuidador.userName?.trim()) this.errosUsuario.userName = true;
-    if (!this.novoCuidador.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
-    if (!this.novoCuidador.telefone?.trim()) this.errosUsuario.telefone = true;
-    if (!this.novoCuidador.email?.trim()) this.errosUsuario.email = true;
-    if (!this.novoCuidador.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
-    if (!this.novoCuidador.tempoExperiencia?.trim()) this.errosUsuario.tempoExperiencia = true;
+    if (!this.novoCuidador.userName?.trim()) this.errosCuidador.userName = true;
+    if (!this.novoCuidador.sobrenome?.trim()) this.errosCuidador.sobrenome = true;
+    if (!this.novoCuidador.telefone?.trim()) this.errosCuidador.telefone = true;
+    if (!this.novoCuidador.email?.trim()) this.errosCuidador.email = true;
+    if (!this.novoCuidador.whatsapp?.trim()) this.errosCuidador.whatsapp = true;
+    if (!this.novoCuidador.tempoExperiencia?.trim()) this.errosCuidador.tempoExperiencia = true;
 
-    if (Object.keys(this.errosUsuario).length > 0) return;
+    if (Object.keys(this.errosCuidador).length > 0) return;
 
     if (this.novoCuidador.userName.trim() && this.novoCuidador.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoCuidador.email)) {
-        alert('Email inválido. O email deve conter @');
+        this.emailInvalidoCuidador = true;
         return;
       }
 
@@ -371,23 +428,22 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoMedico(): void {
-    this.errosUsuario = {};
+    this.errosMedico = {};
 
-    if (!this.novoMedico.userName?.trim()) this.errosUsuario.userName = true;
-    if (!this.novoMedico.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
-    if (!this.novoMedico.telefone?.trim()) this.errosUsuario.telefone = true;
-    if (!this.novoMedico.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
-    if (!this.novoMedico.email?.trim()) this.errosUsuario.email = true;
+    if (!this.novoMedico.userName?.trim()) this.errosMedico.userName = true;
+    if (!this.novoMedico.sobrenome?.trim()) this.errosMedico.sobrenome = true;
+    if (!this.novoMedico.telefone?.trim()) this.errosMedico.telefone = true;
+    if (!this.novoMedico.whatsapp?.trim()) this.errosMedico.whatsapp = true;
+    if (!this.novoMedico.email?.trim()) this.errosMedico.email = true;
 
-    if (Object.keys(this.errosUsuario).length > 0) return;
+    if (Object.keys(this.errosMedico).length > 0) return;
 
     if (this.novoMedico.userName.trim() && this.novoMedico.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoMedico.email)) {
-        alert('Email inválido. O email deve conter @');
+        this.emailInvalidoMedico = true;
         return;
       }
-
 
       this.usuarioService.adicionarUsuario({ ...this.novoMedico });
       this.novoPaciente.medicoAtribuido = this.novoMedico.userName;
@@ -402,7 +458,8 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioMedico(): void {
-    this.errosUsuario = {};
+    this.errosMedico = {};
+    this.emailInvalidoMedico = false;
     this.novoMedico = {
       userName: '',
       sobrenome: '',
@@ -427,26 +484,26 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   salvarNovoFamiliar(): void {
-    this.errosUsuario = {};
+    this.errosFamiliar = {};
 
-    if (!this.novoFamiliar.userName?.trim()) this.errosUsuario.userName = true;
-    if (!this.novoFamiliar.sobrenome?.trim()) this.errosUsuario.sobrenome = true;
-    if (!this.novoFamiliar.dataNascimento) this.errosUsuario.dataNascimento = true;
-    if (!this.novoFamiliar.telefone?.trim()) this.errosUsuario.telefone = true;
-    if (!this.novoFamiliar.whatsapp?.trim()) this.errosUsuario.whatsapp = true;
-    if (!this.novoFamiliar.email?.trim()) this.errosUsuario.email = true;
-    if (!this.novoFamiliar.rua?.trim()) this.errosUsuario.rua = true;
-    if (!this.novoFamiliar.numero?.trim()) this.errosUsuario.numero = true;
-    if (!this.novoFamiliar.bairro?.trim()) this.errosUsuario.bairro = true;
-    if (!this.novoFamiliar.cidade?.trim()) this.errosUsuario.cidade = true;
-    if (!this.novoFamiliar.estado?.trim()) this.errosUsuario.estado = true;
+    if (!this.novoFamiliar.userName?.trim()) this.errosFamiliar.userName = true;
+    if (!this.novoFamiliar.sobrenome?.trim()) this.errosFamiliar.sobrenome = true;
+    if (!this.novoFamiliar.dataNascimento) this.errosFamiliar.dataNascimento = true;
+    if (!this.novoFamiliar.telefone?.trim()) this.errosFamiliar.telefone = true;
+    if (!this.novoFamiliar.whatsapp?.trim()) this.errosFamiliar.whatsapp = true;
+    if (!this.novoFamiliar.email?.trim()) this.errosFamiliar.email = true;
+    if (!this.novoFamiliar.rua?.trim()) this.errosFamiliar.rua = true;
+    if (!this.novoFamiliar.numero?.trim()) this.errosFamiliar.numero = true;
+    if (!this.novoFamiliar.bairro?.trim()) this.errosFamiliar.bairro = true;
+    if (!this.novoFamiliar.cidade?.trim()) this.errosFamiliar.cidade = true;
+    if (!this.novoFamiliar.estado?.trim()) this.errosFamiliar.estado = true;
 
-    if (Object.keys(this.errosUsuario).length > 0) return;
+    if (Object.keys(this.errosFamiliar).length > 0) return;
 
     if (this.novoFamiliar.userName.trim() && this.novoFamiliar.email.trim()) {
       // Validação de email
       if (!this.validarEmail(this.novoFamiliar.email)) {
-        alert('Email inválido. O email deve conter @');
+        this.emailInvalidoFamiliar = true;
         return;
       }
 
@@ -478,7 +535,8 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioFamiliar(): void {
-    this.errosUsuario = {};
+    this.errosFamiliar = {};
+    this.emailInvalidoFamiliar = false;
     this.novoFamiliar = {
       userName: '',
       sobrenome: '',
@@ -498,7 +556,8 @@ export class Menu1Component implements OnInit, OnDestroy {
   }
 
   resetarFormularioCuidador(): void {
-    this.errosUsuario = {};
+    this.errosCuidador = {};
+    this.emailInvalidoCuidador = false;
     this.novoCuidador = {
       userName: '',
       sobrenome: '',

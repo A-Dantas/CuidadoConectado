@@ -361,20 +361,25 @@ export class Menu4Component implements OnInit {
         const otherShift = day.selectedShifts[i];
 
         if (otherShift && this.shiftsOverlap(shift, otherShift)) {
-          this.conflictMessage = `O cuidador já possui um agendamento neste horário no dia ${day.number}.`;
+          const conflictingPatient = day.selectedPatients[i] ? ` com o paciente "${day.selectedPatients[i]}"` : '';
+          this.conflictMessage = `Conflito de horário! O cuidador já possui um agendamento${conflictingPatient} neste período (${otherShift}) no dia ${day.number}.`;
           this.modalConflictOpen = true;
 
           // Clear the invalid shift but keep the patient if selected
-          day.selectedShifts[index] = '';
-          this.onSelectionChange();
+          setTimeout(() => {
+            day.selectedShifts[index] = '';
+            this.onSelectionChange();
+          });
           return;
         }
       }
 
       // 2. Check consecutive days overlap (Inter-day check)
       if (!this.validateConsecutiveShifts(day, shift)) {
-        day.selectedShifts[index] = '';
-        this.onSelectionChange();
+        setTimeout(() => {
+          day.selectedShifts[index] = '';
+          this.onSelectionChange();
+        });
         return;
       }
     }
@@ -383,8 +388,12 @@ export class Menu4Component implements OnInit {
     if (patient && shift) {
       if (!this.validateSelection(day.number, patient, shift)) {
         // Clear the conflicting selection
-        day.selectedPatients[index] = '';
-        day.selectedShifts[index] = '';
+        setTimeout(() => {
+          day.selectedPatients[index] = '';
+          day.selectedShifts[index] = '';
+          this.onSelectionChange();
+        });
+        return;
       }
     }
 
